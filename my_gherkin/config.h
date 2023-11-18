@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #pragma once
-#define AUTO_SHIFT_TIMEOUT 120
+#define AUTO_SHIFT_TIMEOUT 140
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.
