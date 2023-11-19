@@ -40,11 +40,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	 *
 	 * Move layer (L2)
      * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┐
-     * │Tab│Hom│ up│Top│PgU│   │Hom│ up│Top│PgU│
+     * │Esc│Hom│ up│Top│PgU│   │Hom│ up│Top│PgU│
      * ├───┼───┼───┼───┼───┼───┼───┼───┼───┼───┤
      * │WdL│lft│dwn│rgt│WdR│WdL│lft│dwn│rgt│WdR│
      * ├───┼───┼───┼───┼───┼───┼───┼───┼───┼───┤
-     * │Shf│End│   │Btm│xxx│xxx│End│   │Btm│PgD│
+     * │Shf│End│PgD│Btm│xxx│xxx│End│PgD│Btm│PgD│
      * └───┴───┴───┴───┴───┴───┴───┴───┴───┴───┘
 	 *
 	 * Numeric layer (L3)
@@ -64,12 +64,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[1] = LAYOUT_ortho_3x10(
 		KC_EXLM, KC_AT, KC_HASH, KC_DLR, KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN,
 		KC_MINS, LSFT(KC_MINS), KC_EQL, LSFT(KC_EQL), LSFT(KC_GRV), LSFT(KC_LBRC), KC_LBRC, KC_RBRC, LSFT(KC_RBRC), KC_DEL,
-        KC_QUOT, LSFT(KC_QUOT), KC_GRV, KC_BSLS, LSFT(KC_BSLS), KC_SLSH, LSFT(KC_SLSH), KC_SCLN, LSFT(KC_SCLN), KC_ENT
+        KC_QUOT, LSFT(KC_QUOT), KC_GRV, KC_NO, KC_BSLS, LSFT(KC_BSLS), KC_SLSH, LSFT(KC_SLSH), KC_SCLN, LSFT(KC_SCLN)
 	),
 	[2] = LAYOUT_ortho_3x10(
-		KC_TAB, KC_HOME, KC_UP, LCTL(KC_HOME), KC_PGUP, KC_NO, KC_HOME, KC_UP, LCTL(KC_HOME), KC_PGUP,
+		KC_ESC, KC_HOME, KC_UP, LCTL(KC_HOME), KC_PGUP, KC_NO, KC_HOME, KC_UP, LCTL(KC_HOME), KC_PGUP,
 		LCTL(KC_LEFT), KC_LEFT, KC_DOWN, KC_RIGHT, LCTL(KC_RIGHT), LCTL(KC_LEFT), KC_LEFT, KC_DOWN, KC_RIGHT, LCTL(KC_RIGHT),
-		KC_LSFT, KC_END, KC_NO, LCTL(KC_END), KC_PGDN, KC_NO, KC_END, KC_NO, LCTL(KC_END), KC_PGDN
+		KC_LSFT, KC_END, KC_PGDN, LCTL(KC_END), KC_NO, KC_NO, KC_END, KC_PGDN, LCTL(KC_END), KC_PGDN
 	),
 	[3] = LAYOUT_ortho_3x10(
 		KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0,
