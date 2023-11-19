@@ -35,7 +35,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * ├───┼───┼───┼───┼───┼───┼───┼───┼───┼───┤
      * │ - │ _ │ = │ + │ ~ │ { │ [ │ ] │ } │Del│
      * ├───┼───┼───┼───┼───┼───┼───┼───┼───┼───┤
-     * │ ' │ " │ ` │ \ │ | │ / │ ? │ ; │ : │Ent│
+     * │ ' │ " │ ` │xxx│ \ │ | │ / │ ? │ ; │ : │
      * └───┴───┴───┴───┴───┴───┴───┴───┴───┴───┘
 	 *
 	 * Move layer (L2)
@@ -44,7 +44,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * ├───┼───┼───┼───┼───┼───┼───┼───┼───┼───┤
      * │WdL│lft│dwn│rgt│WdR│WdL│lft│dwn│rgt│WdR│
      * ├───┼───┼───┼───┼───┼───┼───┼───┼───┼───┤
-     * │Shf│End│   │Btm│PgD│   │End│   │Btm│PgD│
+     * │Shf│End│   │Btm│xxx│xxx│End│   │Btm│PgD│
      * └───┴───┴───┴───┴───┴───┴───┴───┴───┴───┘
 	 *
 	 * Numeric layer (L3)
@@ -53,7 +53,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * ├───┼───┼───┼───┼───┼───┼───┼───┼───┼───┤
      * │ F1│ F2│ F3│ F4│ F5│ F6│   │   │   │Del│
      * ├───┼───┼───┼───┼───┼───┼───┼───┼───┼───┤
-     * │ F7│ F8│ F9│F10│F11│F12│   │   │   │Ent│
+     * │ F7│ F8│ F9│F10│F11│F12│xxx│   │   │Ent│
      * └───┴───┴───┴───┴───┴───┴───┴───┴───┴───┘
      */
     [0] = LAYOUT_ortho_3x10(
