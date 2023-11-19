@@ -2,7 +2,10 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #pragma once
-#define AUTO_SHIFT_TIMEOUT 140
+#define AUTO_SHIFT_TIMEOUT 180
+#define RETRO_SHIFT 360
+#define PERMISSIVE_HOLD
+#define TAPPING_TERM 180
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.
