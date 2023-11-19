@@ -28,3 +28,7 @@ Enter the bootloader in 3 ways:
 
 ## Flashing
 qmk flash --keyboard my_gherkin --keymap default
+
+## todos
+- [ ] fix autoshift on layer modifiers vbnm
+- [ ] fix umlaut/szlig combos
