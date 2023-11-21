@@ -28,3 +28,10 @@ Enter the bootloader in 3 ways:
 
 ## Flashing
 qmk flash --keyboard my_gherkin --keymap default
+
+## Todos
+- [x] remove autoshift
+- [ ] move all brackets in one column
+- [x] remove unnecessary configs in rules.mk
+- [ ] fix dead keys: tilde, doublequote
+- [ ] 

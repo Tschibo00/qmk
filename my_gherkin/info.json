@@ -4,11 +4,11 @@
     "maintainer": "tschibo00",
     "diode_direction": "COL2ROW",
     "features": {
-        "bootmagic": true,
+        "bootmagic": false,
         "command": false,
         "console": false,
-        "extrakey": true,
-        "mousekey": true,
+        "extrakey": false,
+        "mousekey": false,
         "nkro": true
     },
     "matrix_pins": {
