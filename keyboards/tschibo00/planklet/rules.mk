@@ -1,0 +1,12 @@
+COMBO_ENABLE = yes
+#AUTO_SHIFT_ENABLE = yes
+#UNICODE_ENABLE = yes
+KEY_OVERRIDE_ENABLE = yes
+BOARD = GENERIC_RP_RP2040
+I2C_DRIVER_REQUIRED = yes
+#LED_MATRIX_ENABLE = yes
+
+#COMMON_VPATH += $(DRIVER_PATH)/issi
+
+SRC +=  drivers/led/issi/is31fl3731-simple.c
+QUANTUM_LIB_SRC += i2c_master.c

@@ -1,0 +1,174 @@
+[
+  {
+    "backcolor": "#726969",
+    "notes": "äöü and ß are chorded on as op ui sd\ngreen gaming layer is toggled with Fn+Ente\ncenter mod is hold\nrgb layer indicator",
+    "switchMount": "cherry",
+    "switchBrand": "kailh",
+    "switchType": "PG151101D64/D10",
+    "pcb": true
+  },
+  [
+    {
+      "t": "#000000\n\n#1b74c4\n#1bc48c\n\n\n\n\n\n#271bc4"
+    },
+    "Esc\n~\n\nEsc\n\n\n`\n\n\nFn",
+    {
+      "t": "#000000\n\n\n#37c495\n\n\n#c4377c"
+    },
+    "q\n!\n\n1\n\n\n1\n\nQ",
+    {
+      "t": "#000000\n\n\n#34c192\n\n\n#c73987"
+    },
+    "w\n@\n\n2\n\n\n2\n\nW",
+    {
+      "t": "#000000\n\n\n#33c595\n\n\n#c5337a"
+    },
+    "e\n#\n\n3\n\n\n3\n\nE",
+    {
+      "t": "#000000\n\n\n#31c393\n\n\n#c33178"
+    },
+    "r\n$\n\n4\n\n\n4\n\nR",
+    {
+      "t": "#000000\n\n\n#2ac08e\n\n\n#c02a73"
+    },
+    "t\n%\n\n5\n\n\n5\n\nT",
+    {
+      "t": "#000000\n\n#2f24bf\n#24bfab\n\n\n#bf2470",
+      "w": 2
+    },
+    "BkSp\nDel\nDel\nDel\n\n\nDel\n\nDelLine\nAlt",
+    {
+      "t": "#000000\n\n\n\n\n\n#c02a73"
+    },
+    "z\n^\n\n\n\n\n6\n\nZ",
+    {
+      "t": "#000000\n\n#1b74c4\n\n\n\n#c41b63"
+    },
+    "u\n&\nHm\n\n\n\n7\n\nU",
+    {
+      "t": "#000000\n\n#1b74c4\n\n\n\n#c61b64"
+    },
+    "i\n*\nUp\n\n\n\n8\n\nI",
+    {
+      "t": "#000000\n\n#1b5487\n\n\n\n#871b58"
+    },
+    "o\n(\nPU\n\n\n\n9\n\nO",
+    {
+      "t": "#000000\n\n\n\n\n\n#9d1f5f"
+    },
+    "p\n)\n\n\n\n\n0\n\nP",
+    {
+      "t": "#000000\n\n#0e5ca0\n\n\n\n\n\n\n#1161a8"
+    },
+    "-\n\n\n\n\n\n\n\n_\nFn"
+  ],
+  [
+    {
+      "t": "#000000\n\n\n\n\n\n#c72b8a\n\n\n#bf2081"
+    },
+    "Tab\n\n\n\n\n\n\n\n\nRaise",
+    {
+      "t": "#000000\n\n\n\n\n\n#a02161"
+    },
+    "a\n\n\n\n\n\nF1\n\nA",
+    "s\n\n\n\n\n\nF2\n\nS",
+    {
+      "t": "#000000\n\n\n#35b78b\n\n\n#b73577"
+    },
+    "d\n\n\nW\n\n\nF3\n\nD",
+    {
+      "t": "#000000\n\n\n#26c08c\n\n\n#c02674",
+      "n": true
+    },
+    "f\n\n\nE\n\n\nF4\n\nF",
+    {
+      "t": "#000000\n\n\n#24bf8b\n\n\n#bf2472"
+    },
+    "g\n\n\nR\n\n\nF5\n\nG",
+    {
+      "t": "#000000\n\n#242bbf",
+      "w": 2
+    },
+    "Enter\n\nToglGame\n\n\n\n\n\n\nCtrl",
+    {
+      "t": "#000000\n\n\n\n\n\n#bf2472"
+    },
+    "h\n\n\n\n\n\nF6\n\nH",
+    {
+      "t": "#000000\n\n#205687\n\n\n\n#872067",
+      "n": true
+    },
+    "j\n\nLf\n\n\n\nF7\n\nJ",
+    {
+      "t": "#000000\n\n#2867a0\n\n\n\n#a02873"
+    },
+    "k\n\nDn\n\n\n\nF8\n\nK",
+    {
+      "t": "#000000\n\n#2968a0\n\n\n\n#a0295e"
+    },
+    "l\n[\nRg\n\n\n\nF9\n\nL",
+    {
+      "t": "#000000\n\n\n\n\n\n#a0295e"
+    },
+    ";\n]\n\n\n\n\nF10\n\n:",
+    {
+      "t": "#000000\n\n\n\n\n\n#c9288a\n\n\n#c9289d"
+    },
+    "=\n\n\n\n\n\n\n\n+\nRaise"
+  ],
+  [
+    {
+      "t": "#000000\n\n\n#1fc48d"
+    },
+    "'\n\n\nShift\n\n\n\n\n\"\nLower",
+    {
+      "t": "#000000\n\n\n#20bc88\n\n\n#bc205c"
+    },
+    "y\n\n\nCtrl\n\n\nF11\n\nY",
+    {
+      "t": "#000000\n\n\n#37be90\n\n\n#be3763"
+    },
+    "x\n\n\nA\n\n\nF12\n\nX",
+    {
+      "t": "#000000\n\n\n#36bc8e\n\n\n#bc3662"
+    },
+    "c\n\n\nS\n\n\nF13\n\nC",
+    {
+      "t": "#000000\n\n\n#33bf90\n\n\n#bf3361"
+    },
+    "v\n\n\nD\n\n\nF14\n\nV",
+    {
+      "t": "#000000\n\n\n\n\n\n#bf3361"
+    },
+    "b\n\n\n\n\n\nF15\n\nB",
+    {
+      "t": "#000000\n\n\n#24bf8b",
+      "w": 2
+    },
+    "Space\n\n\nSpace\n\n\n\n\n_\nShift",
+    {
+      "t": "#000000\n\n\n\n\n\n#bf3361"
+    },
+    "n\n\n\n\n\n\nF16\n\nN",
+    {
+      "t": "#000000\n\n#2968a0\n\n\n\n#a0297b"
+    },
+    "m\n\nEd\n\n\n\nF17\n\nM",
+    {
+      "t": "#000000\n\n\n\n\n\n#a02973"
+    },
+    ",\n\n\n\n\n\nF18\n\n<",
+    {
+      "t": "#000000\n\n#0d5ba0\n\n\n\n#d32185"
+    },
+    ".\n{\nPD\n\n\n\nF19\n\n>",
+    {
+      "t": "#000000\n\n\n\n\n\n#d32182"
+    },
+    "/\n}\n\n\n\n\nF20\n\n?",
+    {
+      "t": "#000000"
+    },
+    "\\\n\n\n\n\n\n\n\n|\nLower"
+  ]
+]
