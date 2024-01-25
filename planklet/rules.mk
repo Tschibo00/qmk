@@ -1,0 +1,8 @@
+COMBO_ENABLE = yes
+KEY_OVERRIDE_ENABLE = yes
+BOARD = GENERIC_RP_RP2040
+I2C_DRIVER_REQUIRED = yes
+WPM_ENABLE = yes
+
+QUANTUM_LIB_SRC += i2c_master.c
+SRC += hp_display.c
