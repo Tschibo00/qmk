@@ -24,4 +24,5 @@ qmk flash -kb tschibo00/planklet -km default
 ## have a look
 ![beauty shot](misc/beautyshot.jpg)
 
+more or less up-to-date
 ![keyboard layout](misc/layout.png)
