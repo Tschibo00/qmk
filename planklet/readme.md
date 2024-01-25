@@ -20,3 +20,8 @@ qmk flash -kb tschibo00/planklet -km default
 - [ ] add more animation effects in game mode
 
 ~~- [ ] set pwm of all segments in init~~
+
+## have a look
+![beauty shot](misc/beautyshot.jpg)
+
+![keyboard layout](misc/layout.png)
