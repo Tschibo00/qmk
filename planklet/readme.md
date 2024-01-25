@@ -1,5 +1,6 @@
 # tschibo00/planklet
 Ortho 3x13 layout with 2u in the middle column. Tailored to my very specific needs like having a bit more space and a super-special gaming layer which fits my hand positioning.
+
 Added one backlight/sidelight WS2812 and a 5-digit 7-segment display from and old HP calculator for funsies.
 
 ## Flashing
