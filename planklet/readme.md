@@ -17,5 +17,6 @@ qmk flash -kb tschibo00/planklet -km default
 - [ ] find better solution for RGB light to store settings for both layers
 - [x] add win left/right
 - [x] fix buggy/flaky display update
-~~- [ ] set pwm of all segments in init~~
 - [ ] add more animation effects in game mode
+
+~~- [ ] set pwm of all segments in init~~
