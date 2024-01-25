@@ -19,6 +19,7 @@ qmk flash -kb tschibo00/planklet -km default
 - [x] add win left/right
 - [x] fix buggy/flaky display update
 - [ ] add more animation effects in game mode
+- [ ] add more fancy macros
 
 ~~- [ ] set pwm of all segments in init~~
 
