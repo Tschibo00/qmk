@@ -69,33 +69,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     )
 };
 
-
-void matrix_scan_user(void) {
-	uint8_t wpm;
-	uint16_t now = timer_read();
-	if(currentState!=_GAME){
-		if(TIMER_DIFF_16(now, lastUpdate)>500){
-			lastUpdate=now;
-			wpm=get_current_wpm();
-			if (wpm>=10){
-				hpDrawNumber(wpm);
-				alreadyShowingLogo=false;
-			}else{
-				if(!alreadyShowingLogo){
-					hpDrawHackScreen();
-					alreadyShowingLogo=true;
-				}
-			}
-		}
-	}else{
-		if(TIMER_DIFF_16(now, lastUpdate)>100){
-			lastUpdate=now;
-			hpDrawGameScreen();
-		}
-	}
-}
-
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 	static uint16_t space_hold_timer;
 	static uint16_t quot_hold_timer;
@@ -191,9 +164,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 		case MC_QUOT_CTRL:
 			if (record->event.pressed) {
 				quot_hold_timer=timer_read();
-				add_mods(MOD_MASK_CTRL);
+				register_mods(MOD_BIT(KC_LCTL));
 			} else {
-				del_mods(MOD_MASK_CTRL);
 				unregister_mods(MOD_BIT(KC_LCTL));
 				if (timer_elapsed(quot_hold_timer)<TAPPING_TERM){
 					SEND_STRING(SS_TAP(X_QUOT) SS_TAP(X_SPC));
@@ -203,6 +175,31 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 	}
     return true;
 };
+
+void matrix_scan_user(void) {
+	uint8_t wpm;
+	uint16_t now = timer_read();
+	if(currentState!=_GAME){
+		if(TIMER_DIFF_16(now, lastUpdate)>500){
+			lastUpdate=now;
+			wpm=get_current_wpm();
+			if (wpm>=10){
+				hpDrawNumber(wpm);
+				alreadyShowingLogo=false;
+			}else{
+				if(!alreadyShowingLogo){
+					hpDrawHackScreen();
+					alreadyShowingLogo=true;
+				}
+			}
+		}
+	}else{
+		if(TIMER_DIFF_16(now, lastUpdate)>100){
+			lastUpdate=now;
+			hpDrawGameScreen();
+		}
+	}
+}
 
 layer_state_t layer_state_set_user(layer_state_t state) {
 	currentState=get_highest_layer(state);
