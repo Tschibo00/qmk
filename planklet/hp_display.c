@@ -14,7 +14,10 @@
 #define ISSI_COMMANDREGISTER 0xFD
 #define ISSI_BANK_FUNCTIONREG 0x0B
 
-uint8_t bitmaps[2][4] = {
+static uint8_t outPattern[18];
+static uint8_t bitmap[4];
+
+static uint8_t bitmaps[2][4] = {
 	{
 		0b01101110,
 		0b11101110,
@@ -29,7 +32,7 @@ uint8_t bitmaps[2][4] = {
 	}
 };
 
-uint8_t digits[2][10] = {
+static uint8_t digits[2][10] = {
 	{
 		0b00000000,0b01100000,0b11011010,0b11110010,0b01100110,0b10110110,0b00111110,0b11100100,0b11111110,0b11100110
 	},
@@ -38,8 +41,8 @@ uint8_t digits[2][10] = {
 	}
 };
 
-uint8_t animPointer=0;
-uint8_t anim[14][4]={
+static uint8_t animPointer=0;
+static uint8_t anim[14][4]={
 	{0b10000000,0b00000000,0b00000000,0b00000000},
 	{0b00000000,0b10000000,0b00000000,0b00000000},
 	{0b00000000,0b00000000,0b10000000,0b00000000},
@@ -89,7 +92,6 @@ void hpDrawGameScreen(void){
 // displays a number 00-99 on digit 1+3 due to inaccessible segments (i.e. this looks at least acceptable in a way)
 void hpDrawNumber(uint8_t i){
 	if(i>99)i=99;
-	uint8_t bitmap[4];
 	bitmap[0]=digits[0][i/10];
 	bitmap[2]=digits[1][i%10];
 	bitmap[1]=0;
@@ -99,7 +101,6 @@ void hpDrawNumber(uint8_t i){
 
 // ----------- internal functions ------------
 void showBitmap(uint8_t *pattern){
-	uint8_t outPattern[18];
 	mapDisplay(pattern, outPattern);
 	writeBulkRegister(0, 0, outPattern);
 }
