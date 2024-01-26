@@ -37,9 +37,12 @@ combo_t key_combos[5]={
      COMBO(cmb_euro, LALT(LCTL(KC_5)))
 };
 
-uint16_t lastUpdate=0;
-uint8_t currentState;
-bool alreadyShowingLogo=false;
+static uint16_t lastUpdate=0;
+static uint8_t currentState;
+static bool alreadyShowingLogo=false;
+static uint16_t space_hold_timer;
+static uint16_t quot_hold_timer;
+static uint16_t del_hold_timer;
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_QWERTY] = LAYOUT_ortho_3x13(				// layer -
@@ -70,9 +73,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-	static uint16_t space_hold_timer;
-	static uint16_t quot_hold_timer;
-	static uint16_t del_hold_timer;
     const uint8_t mods = get_mods();
     switch (keycode) {
 		case MC_GRV:
