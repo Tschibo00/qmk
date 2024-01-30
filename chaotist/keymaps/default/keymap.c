@@ -1,12 +1,10 @@
 #include QMK_KEYBOARD_H
-#include "hp_display.h"
 
 enum layers {
   _QWERTY = 0,
   _LOWER,
   _RAISE,
-  _FUNCTION,
-  _GAME
+  _FUNCTION
 };
 
 enum custom_keycodes {
@@ -45,7 +43,7 @@ static uint16_t quot_hold_timer;
 static uint16_t del_hold_timer;
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [_QWERTY] = LAYOUT_ortho_3x13(				// layer -
+/*    [_QWERTY] = LAYOUT(				// layer -
         LALT_T(KC_ESC), KC_Q,   KC_W, KC_E, KC_R, KC_T, MC_DEL,            MC_Z_Y, KC_U, KC_I,     KC_O,   KC_P,    LALT_T(KC_MINUS),
         LSFT_T(KC_TAB), KC_A,   KC_S, KC_D, KC_F, KC_G, LT(_LOWER,KC_ENT), KC_H,   KC_J, KC_K,     KC_L,   KC_SCLN, LSFT_T(KC_PLUS),
         MC_QUOT_CTRL,   MC_Y_Z, KC_X, KC_C, KC_V, KC_B, MC_SPACE_UNDER,    KC_N,   KC_M, KC_COMMA, KC_DOT, KC_SLSH, LCTL_T(KC_BSLS)
@@ -69,7 +67,27 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		KC_ESC,  KC_1,    KC_2,  KC_3, KC_4, KC_5,  KC_DEL, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_LALT, 
 		KC_NO,   KC_NO,   KC_A,  KC_W, KC_E, KC_R,  TG(_GAME),            KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_LSFT, 
 		KC_LSFT, KC_LCTL, KC_NO, KC_S, KC_D, KC_NO, MC_SPACE_UNDER,       KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_LCTL
-    )
+    )*/
+[_QWERTY] = LAYOUT(
+	KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,
+	KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,
+	KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,
+	KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO),
+[_LOWER] = LAYOUT(
+	KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,
+	KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,
+	KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,
+	KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO),
+[_RAISE] = LAYOUT(
+	KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,
+	KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,
+	KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,
+	KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO),
+[_FUNCTION] = LAYOUT(
+	KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,
+	KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,
+	KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,
+	KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO)
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -175,60 +193,3 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 	}
     return true;
 };
-
-void matrix_scan_user(void) {
-	uint8_t wpm;
-	uint16_t now = timer_read();
-	if(currentState!=_GAME){
-		if(TIMER_DIFF_16(now, lastUpdate)>500){
-			lastUpdate=now;
-			wpm=get_current_wpm();
-			if (wpm>=10){
-				hpDrawNumber(wpm);
-				alreadyShowingLogo=false;
-			}else{
-				if(!alreadyShowingLogo){
-					hpDrawHackScreen();
-					alreadyShowingLogo=true;
-				}
-			}
-		}
-	}else{
-		if(TIMER_DIFF_16(now, lastUpdate)>100){
-			lastUpdate=now;
-			hpDrawGameScreen();
-		}
-	}
-}
-
-layer_state_t layer_state_set_user(layer_state_t state) {
-	currentState=get_highest_layer(state);
-	switch (currentState) {
-        case _GAME:
-			rgblight_enable_noeeprom();
-			rgblight_sethsv_noeeprom(HSV_RED);
-			rgblight_mode_noeeprom(RGBLIGHT_MODE_BREATHING);
-			hpDrawGameScreen();
-            break;
-        default:
-			rgblight_enable_noeeprom();
-			rgblight_sethsv_noeeprom(0,0,100);
-			rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
-			hpDrawHackScreen();
-            break;
-    }	
-	return state;
-}
-
-void keyboard_pre_init_kb(void){
-	hpInitDisplay();
-}
-
-void suspend_power_down_user(void) {
-	hpClearDisplay();
-}
-
-void suspend_wakeup_init_user(void) {
-	layer_move(_QWERTY);
-	hpDrawHackScreen();
-}
