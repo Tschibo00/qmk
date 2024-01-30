@@ -35,9 +35,6 @@ combo_t key_combos[5]={
      COMBO(cmb_euro, LALT(LCTL(KC_5)))
 };
 
-static uint16_t lastUpdate=0;
-static uint8_t currentState;
-static bool alreadyShowingLogo=false;
 static uint16_t space_hold_timer;
 static uint16_t quot_hold_timer;
 static uint16_t del_hold_timer;
