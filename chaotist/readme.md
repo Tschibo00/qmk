@@ -1,7 +1,9 @@
 # tschibo00/chaotist
 
-## hardware
+## Hardware
 - RPi2040 Pico
+- Custom ergoish layout to use all those beautiful keycaps that are lying around uselessly when you have only ortho 40s
+- supports two options for the upper edge keys plus two options for bottom row
 
 ## Flashing
 Enter the bootloader in 3 ways:
