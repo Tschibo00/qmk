@@ -16,7 +16,6 @@ qmk flash -kb tschibo00/chaotist -km default
 - [ ] correct keyboard matrix in info.json
 
 ## have a look
-![beauty shot](misc/beautyshot.jpg)
 
 more or less up-to-date layout:
 
