@@ -9,11 +9,13 @@
     {
       "x": 0.25,
       "c": "#9bab80",
+      "t": "#000000\n#ff0000",
       "a": 4,
       "h2": 2.75
     },
-    "Esc\n\n\nLock",
+    "Esc\nShift\n\nLock",
     {
+      "t": "#000000",
       "h2": 1.75
     },
     "Tab",
@@ -61,7 +63,7 @@
     {
       "h2": 2.75
     },
-    "BkSp",
+    "BkSp\n\n\nBoot",
     {
       "x": 0.25,
       "c": "#777777",
@@ -110,7 +112,7 @@
       "a": 4,
       "n": true
     },
-    "F\n\nF3\n\n\n\n\n;",
+    "F\n\nF3",
     {
       "x": 2,
       "c": "#b9a7c4",
@@ -137,11 +139,11 @@
       "x": 3,
       "c": "#c7adad"
     },
-    "G\n\nF4\n\n\n\n\n`",
+    "G\n\nF4\n\n\n\n\n;",
     {
       "c": "#b9a7c4"
     },
-    "H\nwdLf\nF5\n\n\n\n\n-",
+    "H\nwdLf\nF5\n\n\n\n\n`",
     {
       "x": 3,
       "c": "#8db38d"
@@ -185,7 +187,7 @@
       "c": "#c7adad",
       "h2": 1.28
     },
-    "V\n\nF9\n\n\n\n\n:",
+    "V\n\nF9",
     {
       "x": 2,
       "c": "#b9a7c4",
@@ -201,17 +203,17 @@
       "t": "#000000\n#fe0a0a",
       "w": 2
     },
-    "A\nShift",
+    "A\nCtrl",
     {
       "x": 3,
       "c": "#c7adad",
       "t": "#000000"
     },
-    "B\n\nF10\n\n\n\n\n~",
+    "B\n\nF10\n\n\n\n\n:",
     {
       "c": "#b9a7c4"
     },
-    "N\nSelWdL\nF11\n\n\n\n\n_",
+    "N\nSelWdL\nF11\n\n\n\n\n~",
     {
       "x": 3,
       "c": "#8db38d",
@@ -226,18 +228,18 @@
       "t": "#000000\n#ff0202",
       "w": 1.5
     },
-    "Y\nCtrl",
+    "Y\nAlt",
     {
       "c": "#9d9e6d",
       "t": "#000000\n#ff0000"
     },
-    "`\nAlt\n\n\n\n\n\n\n~",
+    "-\n\n\n\n\n\n\n\n_",
     {
       "c": "#cccccc",
       "t": "#000000\n#ff0000\n\n#ff0202\n\n\n\n\n\n\n#fc0000",
       "w": 7
     },
-    "Space\nLower\nReturn\nRaise\n\n\n\n\n\n\nMove",
+    "Space\nLower\nReturn\nRaise\n\n\n\n\n\n\nFunction",
     {
       "c": "#86abb0",
       "t": "#000000\n\n\n#ff0000"
