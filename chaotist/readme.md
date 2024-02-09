@@ -1,9 +1,7 @@
 # tschibo00/chaotist
 
-## Hardware
+## hardware
 - RPi2040 Pico
-- Custom ergoish layout to use all those beautiful keycaps that are lying around uselessly when you have only ortho 40s
-- supports two options for the upper edge keys plus two options for bottom row
 
 ## Flashing
 Enter the bootloader in 3 ways:
@@ -15,9 +13,11 @@ Enter the bootloader in 3 ways:
 qmk flash -kb tschibo00/chaotist -km default
 
 ## Todos
-- [ ] correct keyboard matrix in info.json
+- [x] correct keyboard matrix in info.json
+- [ ] use correct del line macro
 
 ## have a look
+![beauty shot](misc/beautyshot.jpg)
 
 more or less up-to-date layout:
 
