@@ -35,8 +35,6 @@ combo_t key_combos[5]={
      COMBO(cmb_euro, LALT(LCTL(KC_5)))
 };
 
-static uint16_t yz_hold_timer;
-
 /*
  * Regular layout
  * ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┐
@@ -47,10 +45,10 @@ static uint16_t yz_hold_timer;
  * │     ├─────┤     │     │     ├─────┼─────┤     │     │     ├─────┤     │
  * │     │     │     ├─────┤     │     │     │     ├─────┤     │     │     │
  * │     │     ├─────┤     ├─────┤     │     ├─────┤     ├─────┤     │     │
- * ├─────┼─────┤     │     │     ├─────┼─────┤     │     │     ├─────┼─────┤
- * │     │     │     │     │     │     │     │     │     │     │     │     │
- * │     │     │     │     │     │     │     │     │     │     │     │     │
- * ├─────┴──┬──┴──┬──┴─────┴─────┴─────┴─────┴─────┴─────┴──┬──┴──┬──┴─────┤
+ * ├─────┴─────┤     │     │     ├─────┼─────┤     │     │     ├─────┴─────┤
+ * │           │     │     │     │     │     │     │     │     │           │
+ * │           │     │     │     │     │     │     │     │     │           │
+ * ├────────┬──┴──┬──┴─────┴─────┴─────┴─────┴─────┴─────┴──┬──┴──┬────────┤
  * │        │     │                                         │     │        │
  * │        │     │                                         │     │        │
  * └────────┴─────┴─────────────────────────────────────────┴─────┴────────┘
@@ -68,10 +66,10 @@ static uint16_t yz_hold_timer;
  * │     ├─────┤     │     │     ├─────┼─────┤     │     │     ├─────┤     │
  * │     │     │     ├─────┤     │     │     │     ├─────┤     │     │     │
  * │     │     ├─────┤     ├─────┤     │     ├─────┤     ├─────┤     │     │
- * ├─────┼─────┤     │     │     ├─────┼─────┤     │     │     ├─────┼─────┤
- * │     │     │     │     │     │     │     │     │     │     │     │     │
- * │     │     │     │     │     │     │     │     │     │     │     │     │
- * ├─────┴──┬──┴──┬──┴──┬──┴─────┴──┬──┴──┬──┴─────┴──┬──┴──┬──┴──┬──┴─────┤
+ * ├─────┴─────┤     │     │     ├─────┼─────┤     │     │     ├─────┴─────┤
+ * │           │     │     │     │     │     │     │     │     │           │
+ * │           │     │     │     │     │     │     │     │     │           │
+ * ├────────┬──┴──┬──┴──┬──┴─────┴──┬──┴──┬──┴─────┴──┬──┴──┬──┴──┬────────┤
  * │        │     │     │           │     │           │     │     │        │
  * │        │     │     │           │     │           │     │     │        │
  * └────────┴─────┴─────┴───────────┴─────┴───────────┴─────┴─────┴────────┘
@@ -81,27 +79,94 @@ static uint16_t yz_hold_timer;
  * x.xxxxxxxx.x
  * x.xxxx.xxx.x
 */
+
+/*
+ * base
+ * ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┐
+ * │Esc  │q    │w    │e    │r    │t    │z    │u    │i    │o    │p    │BkSp │
+ * │     │     │     │     │     │     │     │     │     │     │     │     │
+ * │     │     │     ├─────┤     │     │     │     ├─────┤     │     │     │
+ * │     │     ├─────┤d    ├─────┤     │     ├─────┤k    ├─────┤     │     │
+ * │     ├─────┤s    │     │f    ├─────┼─────┤j    │     │l    ├─────┤     │
+ * │     │a    │     ├─────┤     │g    │h    │     ├─────┤     │; :  │     │
+ * │Shift│     ├─────┤c    ├─────┤     │     ├─────┤, <  ├─────┤     │     │
+ * ├─────┴─────┤x    │     │v    ├─────┼─────┤m    │     │. >  ├─────┴─────┤
+ * │      y    │     │     │     │b    │n    │     │     │     │' "        │
+ * │           │     │     │     │     │     │     │     │     │           │
+ * ├────────┬──┴──┬──┴─────┴─────┴─────┴─────┴─────┴─────┴──┬──┴──┬────────┤
+ * │Tab     │- _  │space                              return│\ |  │/ ?     │
+ * │Ctrl    │Alt  │lower            function           raise│     │        │
+ * └────────┴─────┴─────────────────────────────────────────┴─────┴────────┘
+ * lower
+ * ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┐
+ * │Esc  │1    │2    │3    │4    │5    │6    │7    │8    │9    │0    │Del  │
+ * │     │     │     │     │     │     │     │     │     │     │     │     │
+ * │     │     │     ├─────┤     │     │     │     ├─────┤     │     │     │
+ * │     │     ├─────┤F3   ├─────┤     │     ├─────┤     ├─────┤     │     │
+ * │     ├─────┤F2   │     │F4   ├─────┼─────┤     │     │     ├─────┤     │
+ * │     │F1   │     ├─────┤     │F5   │F6   │     ├─────┤     │     │     │
+ * │Shift│     ├─────┤F9   ├─────┤     │     ├─────┤     ├─────┤     │     │
+ * ├─────┴─────┤F8   │     │F10  ├─────┼─────┤     │     │     ├─────┴─────┤
+ * │      F7   │     │     │     │F11  │F12  │     │     │     │           │
+ * │           │     │     │     │     │     │     │     │     │           │
+ * ├────────┬──┴──┬──┴─────┴─────┴─────┴─────┴─────┴─────┴──┬──┴──┬────────┤
+ * │        │     │space                              return│     │        │
+ * │Ctrl    │Alt  │lower            function           raise│     │        │
+ * └────────┴─────┴─────────────────────────────────────────┴─────┴────────┘
+ * raise
+ * ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┐
+ * │Esc  │!    │@    │#    │$    │%    │^    │&    │*    │(    │)    │Del  │
+ * │     │     │     │     │     │     │     │     │     │     │     │     │
+ * │     │     │     ├─────┤     │     │     │     ├─────┤     │     │     │
+ * │     │     ├─────┤     ├─────┤     │     ├─────┤+    ├─────┤     │     │
+ * │     ├─────┤     │     │     ├─────┼─────┤-    │     │[    ├─────┤     │
+ * │     │     │     ├─────┤     │;    │`    │     ├─────┤     │]    │     │
+ * │     │     ├─────┤     ├─────┤     │     ├─────┤=    ├─────┤     │     │
+ * ├─────┴─────┤     │     │     ├─────┼─────┤_    │     │{    ├─────┴─────┤
+ * │           │     │     │     │:    │~    │     │     │     │}          │
+ * │           │     │     │     │     │     │     │     │     │           │
+ * ├────────┬──┴──┬──┴─────┴─────┴─────┴─────┴─────┴─────┴──┬──┴──┬────────┤
+ * │        │     │space                              return│     │        │
+ * │Ctrl    │Alt  │lower            function           raise│     │        │
+ * └────────┴─────┴─────────────────────────────────────────┴─────┴────────┘
+ * function
+ * ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┐
+ * │Lock │     │     │     │     │     │Home │Top  │↑    │PgUp │End  │Boot │
+ * │     │     │     │     │     │     │     │     │     │     │     │     │
+ * │     │     │     ├─────┤     │     │     │     ├─────┤     │     │     │
+ * │     │     ├─────┤     ├─────┤     │     ├─────┤↓    ├─────┤     │     │
+ * │     ├─────┤PrtSc│     │     ├─────┼─────┤←    │     │→    ├─────┤     │
+ * │     │     │     ├─────┤     │     │WrdLf│     ├─────┤     │WrdRg│     │
+ * │     │     ├─────┤     ├─────┤     │     ├─────┤     ├─────┤     │     │
+ * ├─────┴─────┤     │     │     ├─────┼─────┤Bottm│     │PgDwn├─────┴─────┤
+ * │           │     │     │     │     │SelWL│     │     │     │SelWR      │
+ * │           │     │     │     │     │     │     │     │     │           │
+ * ├────────┬──┴──┬──┴─────┴─────┴─────┴─────┴─────┴─────┴──┬──┴──┬────────┤
+ * │WinLf   │     │space                              return│     │WinRg   │
+ * │        │     │lower            function           raise│     │        │
+ * └────────┴─────┴─────────────────────────────────────────┴─────┴────────┘
+ */
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_QWERTY] = LAYOUT(
-	LSFT_T(KC_ESC),KC_TAB,KC_W,KC_E,KC_R,KC_T,KC_Z,KC_U,KC_I,KC_O,MC_QUOT,MC_DEL,
-	KC_NO, KC_Q,KC_S,KC_D,KC_F,KC_G,KC_H,KC_J,KC_K,KC_L,KC_P,  KC_NO,
-	LCTL_T(KC_A),KC_NO,KC_X,KC_C,KC_V,KC_B,KC_N,KC_M,KC_COMMA, KC_DOT,KC_NO,KC_SCLN,
-	LALT_T(KC_Y),KC_NO,KC_MINUS,LT(_LOWER,KC_SPACE),KC_NO,KC_NO,KC_NO,KC_NO,LT(_RAISE,KC_ENT),KC_BSLS,KC_NO,KC_SLSH),
+	LSFT_T(KC_ESC),KC_Q,KC_W,KC_E,KC_R,KC_T,MC_Z_Y,KC_U,KC_I,KC_O,KC_P,MC_DEL,
+	KC_NO, KC_A,KC_S,KC_D,KC_F,KC_G,KC_H,KC_J,KC_K,KC_L,KC_SCLN,  KC_NO,
+	MC_Y_Z,KC_NO,KC_X,KC_C,KC_V,KC_B,KC_N,KC_M,KC_COMMA, KC_DOT,KC_NO,MC_QUOT,
+	LCTL_T(KC_TAB),KC_NO,LALT_T(KC_MINUS),LT(_LOWER,KC_SPACE),KC_NO,KC_NO,KC_NO,KC_NO,LT(_RAISE,KC_ENT),KC_BSLS,KC_NO,KC_SLSH),
 [_LOWER] = LAYOUT(
-	KC_NO,KC_NO,KC_2,KC_3,KC_4,KC_5,KC_6,KC_7,KC_8,KC_9,KC_NO,KC_DEL,
-	KC_NO,KC_1,KC_F1,KC_F2,KC_F3,KC_F4,KC_F5,KC_F6,KC_NO,KC_NO,KC_0,KC_NO,
-	KC_NO,KC_NO,KC_F7,KC_F8,KC_F9,KC_F10,KC_F11,KC_F12,KC_NO,KC_NO,KC_NO,KC_NO,
-	KC_NO,KC_NO,KC_NO,LT(_LOWER,KC_SPACE),KC_NO,KC_NO,KC_NO,KC_NO,LT(_RAISE,KC_ENT),KC_NO,KC_NO,KC_NO),
+	LSFT_T(KC_ESC),KC_1,KC_2,KC_3,KC_4,KC_5,KC_6,KC_7,KC_8,KC_9,KC_NO,KC_DEL,
+	KC_NO,KC_F1,KC_F2,KC_F3,KC_F4,KC_F5,KC_F6,KC_NO,KC_NO,KC_NO,KC_0,KC_NO,
+	KC_F7,KC_NO,KC_F8,KC_F9,KC_F10,KC_F11,KC_F12,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,
+	KC_LCTL,KC_NO,KC_LALT,LT(_LOWER,KC_SPACE),KC_NO,KC_NO,KC_NO,KC_NO,LT(_RAISE,KC_ENT),KC_NO,KC_NO,KC_NO),
 [_RAISE] = LAYOUT(
-	KC_NO,KC_NO,KC_AT,KC_HASH,KC_DLR,KC_PERC,KC_AMPR,KC_ASTR,KC_LPRN,KC_RPRN,KC_NO,KC_DEL,
-	KC_NO,KC_EXLM,KC_NO,KC_NO,KC_NO,KC_SCLN,MC_GRV,KC_PLUS,KC_LBRC,KC_RBRC,MC_CARET,KC_NO,
-	KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_COLON,MC_TILD,KC_EQL,KC_LCBR,KC_RCBR,KC_NO,KC_NO,
-	KC_NO,KC_NO,KC_NO,LT(_LOWER,KC_SPACE),KC_NO,KC_NO,KC_NO,KC_NO,LT(_RAISE,KC_ENT),KC_NO,KC_NO,KC_NO),
+	LSFT_T(KC_ESC),KC_EXLM,KC_AT,KC_HASH,KC_DLR,KC_PERC,MC_CARET,KC_AMPR,KC_ASTR,KC_LPRN,KC_RPRN,KC_DEL,
+	KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_SCLN,MC_GRV,KC_MINS,KC_PLUS,KC_LBRC,KC_RBRC,KC_NO,
+	KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_COLON,MC_TILD,KC_UNDS,KC_EQL,KC_LCBR,KC_NO,KC_RCBR,
+	KC_LCTL,KC_NO,KC_LALT,LT(_LOWER,KC_SPACE),KC_NO,KC_NO,KC_NO,KC_NO,LT(_RAISE,KC_ENT),KC_NO,KC_NO,KC_NO),
 [_FUNCTION] = LAYOUT(
-	COM_LOCK,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_HOME,KC_UP,KC_PGUP,KC_NO,QK_BOOT,
+	COM_LOCK,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_HOME,LCTL(KC_HOME),KC_UP,KC_PGUP,KC_END,QK_BOOT,
 	KC_NO,KC_NO,KC_PSCR,KC_NO,KC_NO,KC_NO,LCTL(KC_LEFT),KC_LEFT,KC_DOWN,KC_RIGHT,LCTL(KC_RIGHT),KC_NO,
-	KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,LSFT(LCTL(KC_LEFT)),KC_END,KC_NO,KC_PGDN,KC_NO,LSFT(LCTL(KC_RIGHT)),
-	KC_NO,KC_NO,KC_NO,LT(_LOWER,KC_SPACE),KC_NO,KC_NO,KC_NO,KC_NO,LT(_RAISE,KC_ENT),KC_NO,KC_NO,KC_NO)
+	KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,LSFT(LCTL(KC_LEFT)),LCTL(KC_END),KC_NO,KC_PGDN,KC_NO,LSFT(LCTL(KC_RIGHT)),
+	LSFT(LGUI(KC_LEFT)),KC_NO,KC_NO,LT(_LOWER,KC_SPACE),KC_NO,KC_NO,KC_NO,KC_NO,LT(_RAISE,KC_ENT),KC_NO,KC_NO,LSFT(LGUI(KC_RIGHT)))
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -160,16 +225,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 			break;
 		case MC_Y_Z:
 			if (record->event.pressed) {
-				yz_hold_timer=timer_read();
-				register_mods(MOD_BIT(KC_LALT));
-			} else {
-				unregister_mods(MOD_BIT(KC_LALT));
-				if (timer_elapsed(yz_hold_timer)<TAPPING_TERM){
-					if (mods & MOD_MASK_CTRL) {
-						SEND_STRING("z");
-					} else {
-						SEND_STRING("y");
-					}
+				if (mods & MOD_MASK_CTRL) {
+					SEND_STRING("z");
+				} else {
+					SEND_STRING("y");
 				}
 			}
 			break;
