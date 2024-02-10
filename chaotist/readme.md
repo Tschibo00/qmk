@@ -2,7 +2,7 @@
 
 ## hardware
 - RPi2040 Pico
-The current keymap is designed as a QWERTZ layout used with US International to have äöüß€ available for combos.
+- The current keymap is designed as a QWERTZ layout used with US International to have äöüß€ available for combos.
 
 ## Flashing
 Enter the bootloader in 3 ways:
