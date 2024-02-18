@@ -28,6 +28,6 @@ qmk flash -kb tschibo00/chaotist -km default
 ## have a look
 ![beauty shot](misc/beautyshot.jpg)
 
-more or less up-to-date layout:
+more or less up-to-date layout (please check comments in keymap to see the up-to-date layout):
 
 ![keyboard layout](misc/layout.png)
