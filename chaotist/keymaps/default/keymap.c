@@ -37,9 +37,7 @@ enum custom_keycodes {
 	MC_SCREAM,
 	MC_MACHETE,
 	MC_PLUSONE,
-	MC_Y_Z,
-	MC_Z_Y,
-	MC_F7
+	MC_ARROW
 };
 
 const uint16_t PROGMEM cmb_auml[]={KC_A, KC_S,COMBO_END}; 
@@ -54,10 +52,6 @@ combo_t key_combos[5]={
      COMBO(cmb_szlig, RALT(KC_S)),
      COMBO(cmb_euro, LALT(LCTL(KC_5)))
 };
-
-static uint16_t f7_hold_timer;
-static uint16_t yz_hold_timer;
-static bool yz_activated;
 
 /*
  * Regular layout
@@ -177,7 +171,7 @@ static bool yz_activated;
  * │     │     ├─────┤Emoji├─────┤     │     ├─────┤     ├─────┤     │     │
  * │     ├─────┤PrtSc│:D   │Emoji├─────┼─────┤Emoji│     │[]   ├─────┤     │
  * │     │"avai│     ├─────┤:)   │Emoji│Emoji│screm├─────┤     │´´   │     │
- * │     │labi"├─────┤Calc ├─────┤:(   │Homer├─────┤     ├─────┤     │     │
+ * │     │labi"├─────┤Calc ├─────┤:(   │Homer├─────┤ =>  ├─────┤     │     │
  * ├─────┴─────┤Cmder│     │     ├─────┼─────┤Emoji│     │{}   ├─────┴─────┤
  * │AmdCmd     │     │     │     │     │Emoji│Mache│     │     │""         │
  * │           │     │     │     │     │+1   │     │     │     │           │
@@ -188,14 +182,14 @@ static bool yz_activated;
  */
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_QWERTY] = LAYOUT(
-	LSFT_T(KC_TAB),	KC_Q,	KC_W,				KC_E,					KC_R,	KC_T,	MC_Z_Y,	KC_U,	KC_I,				KC_O,		KC_P,		MC_DEL,
+	LSFT_T(KC_TAB),	KC_Q,	KC_W,				KC_E,					KC_R,	KC_T,	KC_Y,	KC_U,	KC_I,				KC_O,		KC_P,		MC_DEL,
 	KC_NO, 			KC_A,	KC_S,				KC_D,					KC_F,	KC_G,	KC_H,	KC_J,	KC_K,				KC_L,		KC_SCLN,  	KC_NO,
-	MC_Y_Z,			KC_NO,	KC_X,				KC_C,					KC_V,	KC_B,	KC_N,	KC_M,	KC_COMMA, 			KC_DOT,		KC_NO,		MC_QUOT,
+	LSFT_T(KC_Z),	KC_NO,	KC_X,				KC_C,					KC_V,	KC_B,	KC_N,	KC_M,	KC_COMMA, 			KC_DOT,		KC_NO,		MC_QUOT,
 	LCTL_T(KC_ESC),	KC_NO,	LALT_T(KC_MINUS),	LT(_LOWER,KC_SPACE),	KC_NO,	KC_NO,	KC_NO,	KC_NO,	LT(_RAISE,KC_ENT),	KC_BSLS,	KC_NO,		LT(_MAGIC,KC_SLSH)),
 [_LOWER] = LAYOUT(
 	LSFT_T(KC_TAB),	KC_1,	KC_2,		KC_3,				KC_4,	KC_5,	KC_6,	KC_7,	KC_8,				KC_9,	KC_0,	KC_DEL,
 	KC_NO,			KC_F1,	KC_F2,		KC_F3,				KC_F4,	KC_F5,	KC_F6,	KC_NO,	KC_NO,				KC_NO,	KC_NO,	KC_NO,
-	MC_F7,			KC_NO,	KC_F8,		KC_F9,				KC_F10,	KC_F11,	KC_F12,	KC_NO,	KC_NO,				KC_NO,	KC_NO,	KC_NO,
+	LSFT_T(KC_F7),			KC_NO,	KC_F8,		KC_F9,				KC_F10,	KC_F11,	KC_F12,	KC_NO,	KC_NO,				KC_NO,	KC_NO,	KC_NO,
 	LCTL_T(KC_ESC),	KC_NO,	KC_LALT,	LT(_LOWER,KC_SPACE),KC_NO,	KC_NO,	KC_NO,	KC_NO,	LT(_RAISE,KC_ENT),	KC_NO,	KC_NO,	KC_NO),
 [_RAISE] = LAYOUT(
 	LSFT_T(KC_TAB),	KC_EXLM,KC_AT,	KC_HASH,			KC_DLR,	KC_PERC,	MC_CARET,	KC_AMPR,KC_ASTR,			KC_LPRN,KC_RPRN,KC_DEL,
@@ -208,10 +202,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	KC_LSFT,			KC_NO,KC_NO,	KC_NO,				KC_NO,KC_NO,LSFT(LCTL(KC_LEFT)),LCTL(KC_LEFT),	KC_NO,				LCTL(KC_RIGHT),	KC_NO,			LSFT(LCTL(KC_RIGHT)),
 	LSFT(LGUI(KC_LEFT)),KC_NO,KC_NO,	LT(_LOWER,KC_SPACE),KC_NO,KC_NO,KC_NO,				KC_NO,			LT(_RAISE,KC_ENT),	KC_NO,			KC_NO,			LSFT(LGUI(KC_RIGHT))),
 [_MAGIC] = LAYOUT(
-	COM_MULTI_COMMENT,	COM_LOCK,			MC_COFFEE,	MC_EXCEPTION,	MC_RENE,	MC_THISFINE,MC_PUZZLED,	MC_THINK,	KC_NO,	COM_BRK,	KC_NO,		LALT(LCTL(KC_DEL)),
-	KC_NO,				MC_AVAILABILITY, 	KC_PSCR,  	MC_SMILED,		MC_SMILEH, 	MC_SMILES,  MC_HOMER,  	MC_SCREAM, 	KC_NO,	COM_SBRK,	COM_COMMENT,KC_NO,
-	COM_ADMIN_CMDER,	KC_NO,				COM_CMDER,	KC_CALC,		KC_NO,		KC_NO,		MC_PLUSONE,	MC_MACHETE,	KC_NO,	COM_CBRK,	KC_NO,		COM_DQUOT,
-	QK_BOOT,			KC_NO,				LALT(KC_F4),KC_NO,			KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,	KC_NO,		KC_NO,		KC_NO)
+	COM_MULTI_COMMENT,	COM_LOCK,			MC_COFFEE,	MC_EXCEPTION,	MC_RENE,	MC_THISFINE,MC_PUZZLED,	MC_THINK,	KC_NO,		COM_BRK,	KC_NO,		LALT(LCTL(KC_DEL)),
+	KC_NO,				MC_AVAILABILITY, 	KC_PSCR,  	MC_SMILED,		MC_SMILEH, 	MC_SMILES,  MC_HOMER,  	MC_SCREAM, 	KC_NO,		COM_SBRK,	COM_COMMENT,KC_NO,
+	COM_ADMIN_CMDER,	KC_NO,				COM_CMDER,	KC_CALC,		KC_NO,		KC_NO,		MC_PLUSONE,	MC_MACHETE,	MC_ARROW, 	COM_CBRK,	KC_NO,		COM_DQUOT,
+	QK_BOOT,			KC_NO,				LALT(KC_F4),KC_NO,			KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO)
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -292,47 +286,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 				}
 			}
 			break;
-		case MC_Y_Z:
-			if (record->event.pressed) {
-				if (mods & MOD_MASK_CTRL) {
-					yz_activated=false;
-					SEND_STRING("z");
-				} else {
-					yz_hold_timer=timer_read();
-					yz_activated=true;
-					add_mods(MOD_MASK_SHIFT);
-				}
-			} else {
-				if (yz_activated)
-					del_mods(MOD_MASK_SHIFT);
-				if (timer_elapsed(yz_hold_timer)<TAPPING_TERM){
-					SEND_STRING("y");
-				}
-			}
-			break;
-		case MC_Z_Y:
-			if (record->event.pressed) {
-				if (mods & MOD_MASK_CTRL) {
-					SEND_STRING("y");
-				} else {
-					SEND_STRING("z");
-				}
-			}
-			break;
 		case COM_LOCK:
 			if (record->event.pressed) {
 				SEND_STRING(SS_LGUI("l"));
-			}
-			break;
-		case MC_F7:
-			if (record->event.pressed) {
-				f7_hold_timer=timer_read();
-				add_mods(MOD_MASK_SHIFT);
-			} else {
-				del_mods(MOD_MASK_SHIFT);
-				if (timer_elapsed(f7_hold_timer)<TAPPING_TERM){
-					SEND_STRING(SS_TAP(X_F7));
-				}
 			}
 			break;
 		case MC_COFFEE: if (record->event.pressed) SEND_STRING(":coffeezombie:"); break;
@@ -355,6 +311,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 		case MC_SCREAM: if (record->event.pressed) SEND_STRING(":homer_scream:"); break;
 		case MC_MACHETE: if (record->event.pressed) SEND_STRING(":machete:"); break;
 		case MC_PLUSONE: if (record->event.pressed) SEND_STRING(":+1:"); break;
+		case MC_ARROW: if (record->event.pressed) SEND_STRING("=>"); break;
 	}
     return true;
 };
