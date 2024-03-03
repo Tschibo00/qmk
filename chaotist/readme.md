@@ -12,10 +12,8 @@ Enter the bootloader in 3 ways:
 * **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available
 
 qmk flash -kb tschibo00/chaotist -km default
-
-## Todos
-- [x] correct keyboard matrix in info.json
-- [x] use correct del line macro
+qmk flash -kb tschibo00/chaotist -km qwertyFullBottom
+qmk flash -kb tschibo00/chaotist -km colemakDhFullBottom
 
 ## have a look
 ![beauty shot](misc/beautyshot.jpg)
@@ -23,3 +21,56 @@ qmk flash -kb tschibo00/chaotist -km default
 more or less up-to-date layout:
 
 ![keyboard layout](misc/layout.png)
+
+## Configurations
+
+```
+ * Regular layout
+ * ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┐
+ * │0/0  │0/1  │0/2  │0/3  │0/4  │0/5  │0/6  │0/7  │0/8  │0/9  │0/10 │0/11 │
+ * │     │     │     │1u   │     │     │     │     │1u   │     │     │     │
+ * │     │     │1.25u├─────┤1.5u │     │     │1.5u ├─────┤1.25u│     │     │
+ * │     │1.75u├─────┤1/3  ├─────┤1.75u│1.75u├─────┤1/8  ├─────┤1.75u│     │
+ * │     ├─────┤1/2  │1u   │1/4  ├─────┼─────┤1/7  │1u   │1/9  ├─────┤     │
+ * │     │1/1  │1u   ├─────┤1u   │1/5  │1/6  │1u   ├─────┤1u   │1/10 │     │
+ * │2.75u│1u   ├─────┤2/3  ├─────┤1u   │1u   ├─────┤2/8  ├─────┤1u   │2.75u│
+ * ├─────┴─────┤2/2  │     │2/4  ├─────┼─────┤2/7  │     │2/9  ├─────┴─────┤
+ * │2/0        │     │     │     │2/5  │2/6  │     │     │     │2/11       │
+ * │2u         │1.5u │1.75u│1.25u│1u   │1u   │1.25u│1.75u│1.5u │2u         │
+ * ├────────┬──┴──┬──┴─────┴─────┴─────┴─────┴─────┴─────┴──┬──┴──┬────────┤
+ * │3/0     │3/2  │3/3                                   3/8│3/9  │3/11    │
+ * │1.5u    │1u   │7u                                       │1u   │1.5u    │
+ * └────────┴─────┴─────────────────────────────────────────┴─────┴────────┘
+ * keymap (. are not used points in matrix)
+ * xxxxxxxxxxxx
+ * .xxxxxxxxxx.
+ * x.xxxxxxxx.x
+ * x.xx....xx.x
+ * Alternative layout if more keys are required
+ * ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┐
+ * │0/0  │0/1  │0/2  │0/3  │0/4  │0/5  │0/6  │0/7  │0/8  │0/9  │0/10 │0/11 │
+ * │     │     │     │     │     │     │     │     │     │     │     │     │
+ * │1.5u │     │1.25u├─────┤1.5u │     │     │1.5u ├─────┤1.25u│     │1.5u │
+ * ├─────┤1.75u├─────┤1/3  ├─────┤1.75u│1.75u├─────┤1/8  ├─────┤1.75u├─────┤
+ * │1/0  ├─────┤1/2  │1u   │1/4  ├─────┼─────┤1/7  │1u   │1/9  ├─────┤1/11 │
+ * │     │1/1  │1u   ├─────┤1u   │1/5  │1/6  │1u   ├─────┤1u   │1/10 │     │
+ * │1.25u│1u   ├─────┤2/3  ├─────┤1u   │1u   ├─────┤2/8  ├─────┤1u   │1.25u│
+ * ├─────┴─────┤2/2  │     │2/4  ├─────┼─────┤2/7  │     │2/9  ├─────┴─────┤
+ * │2/0        │     │     │     │2/5  │2/6  │     │     │     │2/11       │
+ * │2u         │1.5u │1.75u│1.25u│1u   │1u   │1.25u│1.75u│1.5u │2u         │
+ * ├────────┬──┴──┬──┴──┬──┴─────┴──┬──┴──┬──┴─────┴──┬──┴──┬──┴──┬────────┤
+ * │3/0     │3/2  │3/3  │3/4        │3/5  │3/7        │3/8  │3/9  │3/11    │
+ * │1.5u    │1u   │1u   │2u         │1u   │2u         │1u   │1u   │1.5u    │
+ * └────────┴─────┴─────┴───────────┴─────┴───────────┴─────┴─────┴────────┘
+ * keymap (. are not used points in matrix)
+ * xxxxxxxxxxxx
+ * xxxxxxxxxxxx
+ * x.xxxxxxxx.x
+ * x.xxxx.xxx.x
+```
+
+## Todos
+- [x] correct keyboard matrix in info.json
+- [x] use correct del line macro
+- [ ] add macros from other code
+- [ ] add colemak dh
