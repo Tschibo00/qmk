@@ -109,8 +109,7 @@ combo_t key_combos[5]={
  * magic
  * ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┐
  * │CtrlZ│Lock │Emoji│- [ ]│Emoji│Emoji│Emoji│Emoji│Multi│Comnt│Multi│Del  │
- * │     │     │Coffe│     │puzzl│think│fine │shrug│Comnt│     │Line │Line 
- r│
+ * │     │     │Coffe│     │puzzl│think│fine │shrug│Comnt│     │Line │Line │
  * │     │     │     ├─────┤     │     │     │     ├─────┤     │Code │     │
  * │     │     ├─────┤PrtSc├─────┤     │     ├─────┤[]   ├─────┤     │     │
  * │     ├─────┤"René│     │Emoji├─────┼─────┤()   │     │{}   ├─────┤     │
