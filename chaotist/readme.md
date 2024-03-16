@@ -81,7 +81,7 @@ x.xxxx.xxx.x
 - [x] make better use of function layer
 - [x] think about utilizing move layer better
 - [ ] move escape somewhere else to avoid accidental presses
-- [ ] add case file with build instructions
+- [x] add case file with build instructions
 - [x] move more critical commands like boot to a special layer thats not triggered accidentally
 - [ ] try to use space/underscore again
 - [x] add audio layer
