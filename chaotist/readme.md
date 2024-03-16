@@ -4,6 +4,9 @@
 - RPi2040 Pico
 - The current keymaps is designed as either QWERTZ or Colemak DH layout used with US International to have äöüß€ available for combos.
     - however only Colemak is actively developed
+- To build the case with the given 3d file, the following additional material is required:
+    - M2.5 x 10mm screws and bolts
+    - if you want to add the weights, break out the inserts, add 15x2mm metal stripes (e.g. steel) and apply with double-sided tape
 
 ## Flashing
 Enter the bootloader in 3 ways:
