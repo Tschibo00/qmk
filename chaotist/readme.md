@@ -22,7 +22,7 @@ qmk flash -kb tschibo00/chaotist -km colemakDhFullBottom
 ## have a look
 ![beauty shot](misc/beautyshot.jpg)
 
-more or less up-to-date layout:
+more or less up-to-date layout (please see keymap files for up-to-date layout):
 
 ![keyboard layout](misc/layout.png)
 
