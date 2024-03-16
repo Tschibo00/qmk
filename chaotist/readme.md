@@ -2,7 +2,8 @@
 
 ## hardware
 - RPi2040 Pico
-- The current keymap is designed as a QWERTZ layout used with US International to have äöüß€ available for combos.
+- The current keymaps is designed as either QWERTZ or Colemak DH layout used with US International to have äöüß€ available for combos.
+    - however only Colemak is actively developed
 
 ## Flashing
 Enter the bootloader in 3 ways:
@@ -69,10 +70,16 @@ x.xxxxxxxx.x
 x.xxxx.xxx.x
 ```
 
-## Todos
+# Todos
 - [x] correct keyboard matrix in info.json
 - [x] use correct del line macro
-- [ ] add macros from other code
-- [ ] add colemak dh
-- [ ] make better use of function layer
-- [ ] think about utilizing move layer better
+- [x] add macros from other code
+- [x] add colemak dh
+- [x] make better use of function layer
+- [x] think about utilizing move layer better
+- [ ] move escape somewhere else to avoid accidental presses
+- [ ] add case file with build instructions
+- [x] move more critical commands like boot to a special layer thats not triggered accidentally
+- [ ] try to use space/underscore again
+- [x] add audio layer
+- [x] add repeat on delete
