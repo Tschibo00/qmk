@@ -98,12 +98,12 @@ combo_t key_combos[5]={
  * │     │     ├─────┤F8   ├─────┤     │     ├─────┤↓    ├─────┤     │     │
  * │     ├─────┤F7   │     │F9   ├─────┼─────┤←    │     │→    ├─────┤     │
  * │     │F6   │     ├─────┤     │F10  │Home │     ├─────┤     │End  │     │
- * │Shift│     ├─────┤     ├─────┤     │     ├─────┤     ├─────┤     │     │
- * ├─────┴─────┤F12  │     │     ├─────┼─────┤WrdLf│     │WrdRg├─────┴─────┤
- * │      F11  │     │     │     │     │SelWL│     │     │     │SelWR      │
+ * │Shift│     ├─────┤CtrlX├─────┤     │     ├─────┤     ├─────┤     │     │
+ * ├─────┴─────┤F12  │     │CtrlC├─────┼─────┤WrdLf│     │WrdRg├─────┴─────┤
+ * │      F11  │     │     │     │CtrlV│SelWL│     │     │     │SelWR      │
  * │Shift      │     │     │     │     │     │     │     │     │           │
  * ├────────┬──┴──┬──┴──┬──┴─────┴──┬──┴──┬──┴─────┴──┬──┴──┬──┴──┬────────┤
- * │Esc     │     │     │           │magic│           │     │     │        │
+ * │Esc     │     │     │           │magic│           │     │CtrlY│CtrlZ   │
  * │Ctrl    │Alt  │     │           │     │           │     │     │        │
  * └────────┴─────┴─────┴───────────┴─────┴───────────┴─────┴─────┴────────┘
  * magic
@@ -124,19 +124,19 @@ combo_t key_combos[5]={
  * └────────┴─────┴─────┴───────────┴─────┴───────────┴─────┴─────┴────────┘
  * system
  * ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┐
- * │     │     │track│play │track│vol  │mseWh│mseWh│mouse│mseWh│mouse│toggl│
- * │     │     │prev │pause│next │up   │up   │left │up   │right│acc2 │auto │
+ * │power│     │track│play │track│vol  │mseWh│mseWh│mouse│mseWh│mouse│toggl│
+ * │wake │     │prev │pause│next │up   │up   │left │up   │right│acc2 │auto │
  * │     │     │     ├─────┤     │     │     │     ├─────┤     │     │corre│
  * │     │     ├─────┤stop ├─────┤     │     ├─────┤mouse├─────┤     │     │
  * │     ├─────┤     │     │     ├─────┼─────┤mouse│down │mouse├─────┤     │
  * │     │     │     ├─────┤     │vol  │mseWh│left ├─────┤right│mouse│     │
  * │     │     ├─────┤     ├─────┤down │down ├─────┤mouse├─────┤acc1 │     │
  * ├─────┴─────┤     │     │     ├─────┼─────┤mouse│btn3 │mouse├─────┴─────┤
- * │           │     │     │     │mute │     │btn1 │     │btn2 │mouse      │
- * │           │     │     │     │     │     │     │     │     │acc0       │
+ * │power      │     │     │     │mute │     │btn1 │     │btn2 │mouse      │
+ * │sleep      │     │     │     │     │     │     │     │     │acc0       │
  * ├────────┬──┴──┬──┴──┬──┴─────┴──┬──┴──┬──┴─────┴──┬──┴──┬──┴──┬────────┤
- * │        │     │     │           │     │           │     │     │        │
- * │        │     │     │           │     │           │     │     │        │
+ * │power   │     │     │           │     │           │     │     │        │
+ * │off     │     │     │           │     │           │     │     │        │
  * └────────┴─────┴─────┴───────────┴─────┴───────────┴─────┴─────┴────────┘ 
  * combos
  * ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┐
@@ -167,20 +167,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	KC_LSFT,		KC_NO,	KC_DLR,	MC_CARET,   KC_HASH,			KC_AMPR,	KC_UNDS,    KC_RPRN,			    KC_RBRC,KC_RCBR,KC_NO,	    COM_DQUOT,
 	LCTL_T(KC_ESC),	KC_NO,	KC_LALT,KC_NO,	    LT(_LOWER,KC_SPACE),MO(_MAGIC),	KC_NO,	    LT(_FUNCTION,KC_ENT),	KC_NO,	MC_GRV, KC_NO,	    MC_TILD),
 [_FUNCTION] = LAYOUT(
-	LSFT_T(KC_TAB),	KC_F1,  KC_F2,	            KC_F3,	KC_F4,              KC_F5,      LCTL(KC_HOME),		KC_PGUP,		        KC_UP,	KC_PGDN,		LCTL(KC_END),	KC_DEL,
-	KC_NO,			KC_F6,  KC_F7,	            KC_F8,	KC_F9,              KC_F10,     KC_HOME,			KC_LEFT,		        KC_DOWN,KC_RIGHT,		KC_END,			KC_NO,
-	LSFT_T(KC_F11),	KC_F12, KC_NO,	            KC_NO,	KC_NO,              KC_NO,      LSFT(LCTL(KC_LEFT)),LCTL(KC_LEFT),	        KC_NO,	LCTL(KC_RIGHT),	KC_NO,			LSFT(LCTL(KC_RIGHT)),
-	LCTL_T(KC_ESC),	KC_NO,	LALT_T(KC_MINUS),	KC_NO,	LT(_LOWER,KC_SPACE),MO(_MAGIC),	KC_NO,	            LT(_FUNCTION,KC_ENT),	KC_NO,	KC_NO,	        KC_NO,			KC_NO),
+	LSFT_T(KC_TAB),	KC_F1,  KC_F2,	            KC_F3,	    KC_F4,              KC_F5,      LCTL(KC_HOME),		KC_PGUP,		        KC_UP,	KC_PGDN,		LCTL(KC_END),	KC_DEL,
+	KC_NO,			KC_F6,  KC_F7,	            KC_F8,	    KC_F9,              KC_F10,     KC_HOME,			KC_LEFT,		        KC_DOWN,KC_RIGHT,		KC_END,			KC_NO,
+	LSFT_T(KC_F11),	KC_NO,  KC_F12,	            LCTL(KC_X),	LCTL(KC_C),         LCTL(KC_V), LSFT(LCTL(KC_LEFT)),LCTL(KC_LEFT),	        KC_NO,	LCTL(KC_RIGHT),	KC_NO,			LSFT(LCTL(KC_RIGHT)),
+	LCTL_T(KC_ESC),	KC_NO,	LALT_T(KC_MINUS),	KC_NO,	    LT(_LOWER,KC_SPACE),MO(_MAGIC),	KC_NO,	            LT(_FUNCTION,KC_ENT),	KC_NO,	LCTL(KC_Y),	    KC_NO,			LCTL(KC_Z)),
 [_MAGIC] = LAYOUT(
 	LCTL(KC_Z),	        COM_LOCK,			MC_COFFEE,	MC_ENUM,	MC_PUZZLED,	MC_THINK,   MC_THISFINE,MC_SHRUG,	MC_MULTI_COMMENT,	MC_COMMENT,	        COM_MULTI_CODE,	MC_DELLINE,
 	KC_NO,				MC_AVAILABILITY, 	MC_RENE,  	KC_PSCR,	MC_MACHETE, MC_HOMER,   MC_SCREAM,  COM_BRK, 	COM_SBRK,		    COM_CBRK,	        COM_CODE,       KC_NO,
 	COM_DOUBLE_SHIFT,  	KC_NO,				MC_ARROW,	MC_SMILED,	MC_SMILEH,	MC_SMILES,	MC_PLUSONE,	KC_CALC,	COM_CMDER, 	        COM_ADMIN_CMDER,    KC_NO,		    COM_DQUOT,
 	LSFT(LGUI(KC_LEFT)),KC_NO,				LALT(KC_F4),QK_BOOT,	KC_NO,		MO(_MAGIC),	KC_NO,		KC_NO,		KC_NO,		        LALT(LCTL(KC_DEL)),	KC_NO,		    LSFT(LGUI(KC_RIGHT))),
 [_SYSTEM] = LAYOUT(
-	KC_NO,  KC_NO,  KC_MPRV,KC_MPLY,    KC_MNXT,KC_VOLU,KC_MS_WH_UP,    KC_MS_WH_LEFT,  KC_MS_UP,   KC_MS_WH_RIGHT, KC_MS_ACCEL2,   AC_TOGG,
-	KC_NO,  KC_NO,  KC_NO,  KC_MSTP,    KC_NO,  KC_VOLD,KC_MS_WH_DOWN,  KC_MS_LEFT,     KC_MS_DOWN, KC_MS_RIGHT,    KC_MS_ACCEL1,   KC_NO,
-	KC_NO,  KC_NO,  KC_NO,  KC_NO,      KC_NO,  KC_MUTE,KC_NO,          KC_MS_BTN1,     KC_MS_BTN3, KC_MS_BTN2,     KC_NO,          KC_MS_ACCEL0,
-	KC_NO,  KC_NO,  KC_NO,  MO(_SYSTEM),KC_NO,  KC_NO,  KC_NO,          KC_NO,          MO(_SYSTEM),KC_NO,          KC_NO,          KC_NO)
+	KC_SYSTEM_WAKE, KC_NO,  KC_MPRV,KC_MPLY,    KC_MNXT,KC_VOLU,KC_MS_WH_UP,    KC_MS_WH_LEFT,  KC_MS_UP,   KC_MS_WH_RIGHT, KC_MS_ACCEL2,   AC_TOGG,
+	KC_NO,          KC_NO,  KC_NO,  KC_MSTP,    KC_NO,  KC_VOLD,KC_MS_WH_DOWN,  KC_MS_LEFT,     KC_MS_DOWN, KC_MS_RIGHT,    KC_MS_ACCEL1,   KC_NO,
+	KC_SYSTEM_SLEEP,KC_NO,  KC_NO,  KC_NO,      KC_NO,  KC_MUTE,KC_NO,          KC_MS_BTN1,     KC_MS_BTN3, KC_MS_BTN2,     KC_NO,          KC_MS_ACCEL0,
+	KC_SYSTEM_POWER,KC_NO,  KC_NO,  MO(_SYSTEM),KC_NO,  KC_NO,  KC_NO,          KC_NO,          MO(_SYSTEM),KC_NO,          KC_NO,          KC_NO)
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
