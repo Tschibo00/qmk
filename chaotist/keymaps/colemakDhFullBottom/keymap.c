@@ -12,7 +12,10 @@ enum custom_keycodes {
     MC_QUOT,
     MC_CARET,
     MC_TILD,
-    MC_LEAD
+    MC_LEAD,
+    MC_COMMA,
+    MC_DOT,
+    MC_COLON
 };
 
 const uint16_t PROGMEM cmb_auml[]={KC_A, KC_R,COMBO_END}; 
@@ -51,7 +54,7 @@ LeaderOneKey leaderOneKeys[]={
     {KC_L,      ":man-shrugging:"},
     {KC_U,      SS_DOWN(X_LCTL) SS_TAP(X_X) SS_UP(X_LCTL) "/*" SS_TAP(X_ENTER) SS_DOWN(X_LCTL) SS_TAP(X_V) SS_UP(X_LCTL) "*/" SS_TAP(X_ENTER)},
     {KC_Y,      SS_TAP(X_HOME) SS_TAP(X_HOME) "// "},
-    {KC_SCLN,   SS_TAP(X_GRV) SS_TAP(X_GRV) SS_TAP(X_GRV) SS_TAP(X_SPC) SS_DOWN(X_LSFT) SS_TAP(X_ENTER) SS_UP(X_LSFT) SS_DOWN(X_LCTL) SS_TAP(X_V) SS_UP(X_LCTL) SS_DOWN(X_LSFT) SS_TAP(X_ENTER) SS_UP(X_LSFT) SS_TAP(X_GRV) SS_TAP(X_GRV) SS_TAP(X_GRV) SS_TAP(X_SPC)},
+    {MC_COLON,  SS_TAP(X_GRV) SS_TAP(X_GRV) SS_TAP(X_GRV) SS_TAP(X_SPC) SS_DOWN(X_LSFT) SS_TAP(X_ENTER) SS_UP(X_LSFT) SS_DOWN(X_LCTL) SS_TAP(X_V) SS_UP(X_LCTL) SS_DOWN(X_LSFT) SS_TAP(X_ENTER) SS_UP(X_LSFT) SS_TAP(X_GRV) SS_TAP(X_GRV) SS_TAP(X_GRV) SS_TAP(X_SPC)},
     {KC_BSPC,   SS_TAP(X_END) SS_DOWN(X_LSFT) SS_TAP(X_HOME) SS_TAP(X_HOME) SS_UP(X_LSFT) SS_TAP(X_DELETE) SS_TAP(X_DELETE)},
     // A needs special handling
     {KC_S,      SS_TAP(X_PSCR)},
@@ -70,9 +73,9 @@ LeaderOneKey leaderOneKeys[]={
     {KC_V,      ":("},
     {KC_K,      ":+1:"},
     {KC_H,      SS_TAP(X_CALC)},
-    {KC_COMMA,  "r" SS_DELAY(100) "c:\\csp\\cmder\\Cmder.exe" SS_TAP(X_ENTER)},
-    {KC_DOT,    "r" SS_DELAY(100) "c:\\csp\\cmder\\Cmder.exe" SS_DOWN(X_LSFT) SS_DOWN(X_LCTL) SS_TAP(X_ENTER) SS_UP(X_LCTL) SS_UP(X_LSFT)},
-    {KC_QUOT,   "\"\"" SS_TAP(X_LEFT)},
+    {MC_COMMA,  SS_DOWN(X_LGUI) "r" SS_UP(X_LGUI) SS_DELAY(100) "c:\\csp\\cmder\\Cmder.exe" SS_TAP(X_ENTER)},
+    {MC_DOT,    SS_DOWN(X_LGUI) "r" SS_UP(X_LGUI) SS_DELAY(100) "c:\\csp\\cmder\\Cmder.exe" SS_DOWN(X_LSFT) SS_DOWN(X_LCTL) SS_TAP(X_ENTER) SS_UP(X_LCTL) SS_UP(X_LSFT)},
+    {MC_QUOT,   "\"\"" SS_TAP(X_LEFT)},
     
     {KC_LCTL,   SS_DOWN(X_LSFT) SS_DOWN(X_LGUI) SS_TAP(X_LEFT) SS_UP(X_LGUI) SS_UP(X_LSFT)},
     {KC_MINUS,  SS_DOWN(X_LALT) SS_TAP(X_F4) SS_UP(X_LALT)},
@@ -101,18 +104,18 @@ uint16_t MC_LEAD_TIMER = 0;
 /*
  * base
  * ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┐
- * │Tab  │q    │w    │f    │p    │b    │j    │l    │u    │y    │; :  │BkSp │
+ * │Tab  │q    │w    │f    │p    │b    │j    │l    │u    │y    │: ;  │BkSp │
  * │     │     │     │     │     │     │     │     │     │     │     │     │
  * │     │     │     ├─────┤     │     │     │     ├─────┤     │     │     │
  * │     │     ├─────┤s    ├─────┤     │     ├─────┤e    ├─────┤     │     │
  * │     ├─────┤r    │     │t    ├─────┼─────┤n    │     │i    ├─────┤     │
  * │     │a    │     ├─────┤     │g    │m    │     ├─────┤     │o    │     │
- * │     │     ├─────┤c    ├─────┤     │     ├─────┤, <  ├─────┤     │     │
- * ├─────┴─────┤x    │     │d    ├─────┼─────┤h    │     │. >  ├─────┴─────┤
+ * │     │     ├─────┤c    ├─────┤     │     ├─────┤, ?  ├─────┤     │     │
+ * ├─────┴─────┤x    │     │d    ├─────┼─────┤h    │     │. !  ├─────┴─────┤
  * │      z    │     │     │     │v    │k    │     │     │     │' "        │
  * │           │     │     │     │     │     │     │     │     │           │
  * ├────────┬──┴──┬──┴──┬──┴─────┴──┬──┴──┬──┴─────┴──┬──┴──┬──┴──┬────────┤
- * │Esc     │- _  │systm│space      │lead │     return│systm│\ |  │/ ?     │
+ * │        │     │systm│space      │lead │     return│systm│\ |  │/ ?     │
  * │Ctrl    │Alt  │     │lower      │Shift│       move│     │     │        │
  * └────────┴─────┴─────┴───────────┴─────┴───────────┴─────┴─────┴────────┘
  * lower
@@ -122,13 +125,13 @@ uint16_t MC_LEAD_TIMER = 0;
  * │     │     │     ├─────┤     │     │     │     ├─────┤     │     │     │
  * │     │     ├─────┤=    ├─────┤     │     ├─────┤[    ├─────┤     │     │
  * │     ├─────┤@    │     │*    ├─────┼─────┤(    │     │{    ├─────┤     │
- * │     │!    │     ├─────┤     │+    │-    │     ├─────┤     │:    │     │
+ * │     │!    │     ├─────┤     │+    │-    │     ├─────┤     │<    │     │
  * │     │     ├─────┤^    ├─────┤     │     ├─────┤]    ├─────┤     │     │
- * ├─────┴─────┤$    │     │#    ├─────┼─────┤)    │     │}    ├─────┴─────┤
- * │           │     │     │     │&    │_    │     │     │     │"          │
+ * ├─────┴─────┤%    │     │#    ├─────┼─────┤)    │     │}    ├─────┴─────┤
+ * │      $    │     │     │     │&    │_    │     │     │     │>          │
  * │           │     │     │     │     │     │     │     │     │           │
  * ├────────┬──┴──┬──┴──┬──┴─────┴──┬──┴──┬──┴─────┴──┬──┴──┬──┴──┬────────┤
- * │Esc     │     │     │space      │lead │     return│     │`    │~       │
+ * │        │     │     │space      │lead │     return│     │~    │:       │
  * │Ctrl    │Alt  │     │lower      │Shift│       move│     │     │        │
  * └────────┴─────┴─────┴───────────┴─────┴───────────┴─────┴─────┴────────┘
  * function
@@ -144,7 +147,7 @@ uint16_t MC_LEAD_TIMER = 0;
  * │      F11  │     │     │     │CtrlV│SelWL│     │     │     │SelWR      │
  * │           │     │     │     │     │     │     │     │     │           │
  * ├────────┬──┴──┬──┴──┬──┴─────┴──┬──┴──┬──┴─────┴──┬──┴──┬──┴──┬────────┤
- * │Esc     │     │     │           │lead │           │     │CtrlY│CtrlZ   │
+ * │        │     │     │           │lead │           │     │CtrlY│CtrlZ   │
  * │Ctrl    │Alt  │     │           │Shift│           │     │     │        │
  * └────────┴─────┴─────┴───────────┴─────┴───────────┴─────┴─────┴────────┘
  * leader one keys
@@ -153,7 +156,7 @@ uint16_t MC_LEAD_TIMER = 0;
  * │     │     │Coffe│     │puzzl│think│fine │shrug│Comnt│     │Line │Line │
  * │     │     │     ├─────┤     │     │     │     ├─────┤     │Code │     │
  * │     │     ├─────┤PrtSc├─────┤     │     ├─────┤[]   ├─────┤     │     │
- * │     ├─────┤"René│     │Emoji├─────┼─────┤()   │     │{}   ├─────┤     │
+ * │     ├─────┤     │     │Emoji├─────┼─────┤()   │     │{}   ├─────┤     │
  * │     │"avai│     ├─────┤Mache│Emoji│Emoji│     ├─────┤     │´´   │     │
  * │     │labi"├─────┤Emoji├─────┤Homer│screm├─────┤Cmder├─────┤     │     │
  * ├─────┴─────┤=>   │:D   │Emoji├─────┼─────┤Calc │     │Amd  ├─────┴─────┤
@@ -198,20 +201,20 @@ uint16_t MC_LEAD_TIMER = 0;
  */
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_QWERTY] = LAYOUT(
-    KC_TAB, KC_Q, KC_W,            KC_F,       KC_P,               KC_B,   KC_J, KC_L,                KC_U,       KC_Y,   KC_SCLN,KC_BSPC,
-    KC_NO,  KC_A, KC_R,            KC_S,       KC_T,               KC_G,   KC_M, KC_N,                KC_E,       KC_I,   KC_O,   KC_NO,
-    KC_Z,   KC_NO,KC_X,            KC_C,       KC_D,               KC_V,   KC_K, KC_H,                KC_COMMA,   KC_DOT, KC_NO,  MC_QUOT,
-    KC_LCTL,KC_NO,LALT_T(KC_MINUS),MO(_SYSTEM),LT(_LOWER,KC_SPACE),MC_LEAD,KC_NO,LT(_FUNCTION,KC_ENT),MO(_SYSTEM),KC_BSLS,KC_NO,  KC_SLSH),
+    KC_TAB, KC_Q, KC_W,   KC_F,       KC_P,               KC_B,   KC_J, KC_L,                KC_U,       KC_Y,   MC_COLON,KC_BSPC,
+    KC_NO,  KC_A, KC_R,   KC_S,       KC_T,               KC_G,   KC_M, KC_N,                KC_E,       KC_I,   KC_O,    KC_NO,
+    KC_Z,   KC_NO,KC_X,   KC_C,       KC_D,               KC_V,   KC_K, KC_H,                MC_COMMA,   MC_DOT, KC_NO,   MC_QUOT,
+    KC_LCTL,KC_NO,KC_LALT,MO(_SYSTEM),LT(_LOWER,KC_SPACE),MC_LEAD,KC_NO,LT(_FUNCTION,KC_ENT),MO(_SYSTEM),KC_BSLS,KC_NO,   KC_SLSH),
 [_LOWER] = LAYOUT(
-    KC_TAB, KC_6,   KC_7,   KC_8,    KC_9,               KC_0,   KC_1,   KC_2,                KC_3,   KC_4,   KC_5,    KC_DEL,
-    KC_NO,  KC_EXLM,KC_AT,  KC_EQL,  KC_ASTR,            KC_PLUS,KC_MINS,KC_LPRN,             KC_LBRC,KC_LCBR,KC_COLON,KC_NO,
-    KC_NO,  KC_NO,  KC_DLR, MC_CARET,KC_HASH,            KC_AMPR,KC_UNDS,KC_RPRN,             KC_RBRC,KC_RCBR,KC_NO,   MC_QUOT,
-    KC_LCTL,KC_NO,  KC_LALT,KC_NO,   LT(_LOWER,KC_SPACE),MC_LEAD,KC_NO,  LT(_FUNCTION,KC_ENT),KC_NO,  MC_GRV, KC_NO,   MC_TILD),
+    KC_TAB, KC_6,   KC_7,   KC_8,    KC_9,               KC_0,   KC_1,   KC_2,                KC_3,   KC_4,   KC_5, KC_DEL,
+    KC_NO,  KC_EXLM,KC_AT,  KC_EQL,  KC_ASTR,            KC_PLUS,KC_MINS,KC_LPRN,             KC_LBRC,KC_LCBR,KC_LT,KC_NO,
+    KC_DLR, KC_NO,  KC_PERC,MC_CARET,KC_HASH,            KC_AMPR,KC_UNDS,KC_RPRN,             KC_RBRC,KC_RCBR,KC_NO,KC_GT,
+    KC_LCTL,KC_NO,  KC_LALT,KC_NO,   LT(_LOWER,KC_SPACE),MC_LEAD,KC_NO,  LT(_FUNCTION,KC_ENT),KC_NO,  MC_GRV, KC_NO,MC_TILD),
 [_FUNCTION] = LAYOUT(
-    KC_TAB, KC_F1,KC_F2,           KC_F3,     KC_F4,              KC_F5,     LCTL(KC_HOME),      KC_PGUP,             KC_UP,  KC_PGDN,       LCTL(KC_END),KC_DEL,
-    KC_NO,  KC_F6,KC_F7,           KC_F8,     KC_F9,              KC_F10,    KC_HOME,            KC_LEFT,             KC_DOWN,KC_RIGHT,      KC_END,      KC_NO,
-    KC_F11, KC_NO,KC_F12,          LCTL(KC_X),LCTL(KC_C),         LCTL(KC_V),LSFT(LCTL(KC_LEFT)),LCTL(KC_LEFT),       KC_NO,  LCTL(KC_RIGHT),KC_NO,       LSFT(LCTL(KC_RIGHT)),
-    KC_LCTL,KC_NO,LALT_T(KC_MINUS),KC_NO,     LT(_LOWER,KC_SPACE),MC_LEAD,   KC_NO,              LT(_FUNCTION,KC_ENT),KC_NO,  LCTL(KC_Y),    KC_NO,       LCTL(KC_Z)),
+    KC_TAB, KC_F1,KC_F2,  KC_F3,     KC_F4,              KC_F5,     LCTL(KC_HOME),      KC_PGUP,             KC_UP,  KC_PGDN,       LCTL(KC_END),KC_DEL,
+    KC_NO,  KC_F6,KC_F7,  KC_F8,     KC_F9,              KC_F10,    KC_HOME,            KC_LEFT,             KC_DOWN,KC_RIGHT,      KC_END,      KC_NO,
+    KC_F11, KC_NO,KC_F12, LCTL(KC_X),LCTL(KC_C),         LCTL(KC_V),LSFT(LCTL(KC_LEFT)),LCTL(KC_LEFT),       KC_NO,  LCTL(KC_RIGHT),KC_NO,       LSFT(LCTL(KC_RIGHT)),
+    KC_LCTL,KC_NO,KC_LALT,KC_NO,     LT(_LOWER,KC_SPACE),MC_LEAD,   KC_NO,              LT(_FUNCTION,KC_ENT),KC_NO,  LCTL(KC_Y),    KC_NO,       LCTL(KC_Z)),
 [_SYSTEM] = LAYOUT(
     KC_SYSTEM_WAKE, QK_BOOT,KC_MPRV,KC_MPLY,    KC_MNXT,KC_VOLU,KC_MS_WH_UP,  KC_MS_WH_LEFT,KC_MS_UP,   KC_MS_WH_RIGHT,KC_MS_ACCEL2,AC_TOGG,
     KC_NO,          KC_NO,  KC_NO,  KC_MSTP,    KC_NO,  KC_VOLD,KC_MS_WH_DOWN,KC_MS_LEFT,   KC_MS_DOWN, KC_MS_RIGHT,   KC_MS_ACCEL1,KC_NO,
@@ -220,28 +223,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    const uint8_t mods = get_mods();
     if (record->event.pressed) leaderKeyPressed = true;
     switch (keycode) {
-        case MC_QUOT:
-            if (record->event.pressed) {
-                SEND_STRING(SS_TAP(X_QUOT) SS_TAP(X_SPC));
-            }
-            break;
-        case MC_GRV:
-            if (record->event.pressed) {
-                SEND_STRING(SS_TAP(X_GRV) SS_TAP(X_SPC));
-            }
-            break;
-        case MC_TILD:
-            if (record->event.pressed) {
-                SEND_STRING(SS_DOWN(X_LSFT) SS_TAP(X_GRV) SS_TAP(X_SPC) SS_UP(X_LSFT));
-            }
-            break;
-        case MC_CARET:
-            if (record->event.pressed) {
-                SEND_STRING(SS_LSFT("6") SS_TAP(X_SPC));
-            }
-            break;
+        case MC_QUOT:   if (record->event.pressed && !leader_sequence_active()) SEND_STRING(SS_TAP(X_QUOT) SS_TAP(X_SPC));  break;
+        case MC_GRV:    if (record->event.pressed) SEND_STRING(SS_TAP(X_GRV) SS_TAP(X_SPC));                                break;
+        case MC_TILD:   if (record->event.pressed) SEND_STRING(SS_DOWN(X_LSFT) SS_TAP(X_GRV) SS_TAP(X_SPC) SS_UP(X_LSFT));  break;
+        case MC_CARET:  if (record->event.pressed) SEND_STRING(SS_LSFT("6") SS_TAP(X_SPC));                                 break;
         case MC_LEAD:
             if (record->event.pressed) {
                 register_code(KC_LSFT);
@@ -252,6 +240,39 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 if (leaderKeyPressed) break;
                 if (timer_elapsed(MC_LEAD_TIMER) < TAPPING_TERM) leader_start();
             }
+            break;
+        case MC_COMMA:
+            if (record->event.pressed && !leader_sequence_active()) {
+				if (mods & MOD_MASK_SHIFT) {
+                    unregister_code(KC_LSFT);
+                    SEND_STRING("?"); 
+                    register_code(KC_LSFT);
+                } else {
+                    SEND_STRING(",");
+                }
+			}
+            break;
+        case MC_DOT:
+            if (record->event.pressed && !leader_sequence_active()) {
+				if (mods & MOD_MASK_SHIFT) {
+                    unregister_code(KC_LSFT);
+                    SEND_STRING("!"); 
+                    register_code(KC_LSFT);
+                } else {
+                    SEND_STRING(".");
+                }
+			}
+            break;
+        case MC_COLON:
+            if (record->event.pressed && !leader_sequence_active()) {
+				if (mods & MOD_MASK_SHIFT) {
+                    unregister_code(KC_LSFT);
+                    SEND_STRING(";"); 
+                    register_code(KC_LSFT);
+                } else {
+                    SEND_STRING(":");
+                }
+			}
             break;
     }
     return true;
