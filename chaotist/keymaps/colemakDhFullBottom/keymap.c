@@ -2,8 +2,8 @@
 
 enum layers {
   _QWERTY = 0,
-  _LOWER,
-  _FUNCTION,
+  _NUMSYM,
+  _NAVFN,
   _SYSTEM
 };
 
@@ -18,19 +18,19 @@ enum custom_keycodes {
     MC_COLON
 };
 
-const uint16_t PROGMEM cmb_auml[]={KC_A, KC_R,COMBO_END}; 
-const uint16_t PROGMEM cmb_ouml[]={KC_O, KC_I,COMBO_END}; 
-const uint16_t PROGMEM cmb_uuml[]={KC_U, KC_Y,COMBO_END}; 
-const uint16_t PROGMEM cmb_szlig[]={KC_S, KC_T,COMBO_END}; 
-const uint16_t PROGMEM cmb_euro[]={KC_E, KC_O,COMBO_END}; 
-const uint16_t PROGMEM cmb_esc[]={KC_W, KC_F,COMBO_END}; 
+const uint16_t PROGMEM cmb_auml[]=  {KC_A, KC_R,COMBO_END}; 
+const uint16_t PROGMEM cmb_ouml[]=  {KC_O, KC_I,COMBO_END}; 
+const uint16_t PROGMEM cmb_uuml[]=  {KC_U, KC_Y,COMBO_END}; 
+const uint16_t PROGMEM cmb_szlig[]= {KC_S, KC_T,COMBO_END}; 
+const uint16_t PROGMEM cmb_euro[]=  {KC_E, KC_O,COMBO_END}; 
+const uint16_t PROGMEM cmb_esc[]=   {KC_W, KC_F,COMBO_END}; 
 combo_t key_combos[]={
-     COMBO(cmb_auml, RALT(KC_Q)),
-     COMBO(cmb_ouml, RALT(KC_P)),
-     COMBO(cmb_uuml, RALT(KC_Y)),
-     COMBO(cmb_szlig, RALT(KC_S)),
-     COMBO(cmb_euro, LALT(LCTL(KC_5))),
-     COMBO(cmb_esc, KC_ESC)
+     COMBO(cmb_auml,    RALT(KC_Q)),
+     COMBO(cmb_ouml,    RALT(KC_P)),
+     COMBO(cmb_uuml,    RALT(KC_Y)),
+     COMBO(cmb_szlig,   RALT(KC_S)),
+     COMBO(cmb_euro,    LALT(LCTL(KC_5))),
+     COMBO(cmb_esc,     KC_ESC)
 };
 
 typedef struct {
@@ -85,17 +85,17 @@ LeaderOneKey leaderOneKeys[]={
 
 // these are defined in lk_words.h
 LeaderTwoKey leaderTwoKeys[]={
-    {KC_E,KC_W, LK_EW},
-    {KC_E,KC_P, LK_EP},
+    {KC_E, KC_W, LK_EW},
+    {KC_E, KC_P, LK_EP},
     
-    {KC_N,KC_A, LK_NA},
-    {KC_N,KC_T, LK_NT},
-    {KC_N,KC_R, LK_NR},
-    {KC_N,KC_S, LK_NS},
-    {KC_N,KC_J, LK_NJ},
-    {KC_N,KC_B, LK_NB},
-    {KC_N,KC_K, LK_NK},
-    {KC_N,KC_C, LK_NC}
+    {KC_N, KC_A, LK_NA},
+    {KC_N, KC_T, LK_NT},
+    {KC_N, KC_R, LK_NR},
+    {KC_N, KC_S, LK_NS},
+    {KC_N, KC_J, LK_NJ},
+    {KC_N, KC_B, LK_NB},
+    {KC_N, KC_K, LK_NK},
+    {KC_N, KC_C, LK_NC}
 };
 
 bool leaderKeyPressed=false;
@@ -116,7 +116,7 @@ uint16_t MC_LEAD_TIMER = 0;
  * │           │     │     │     │     │     │     │     │     │           │
  * ├────────┬──┴──┬──┴──┬──┴─────┴──┬──┴──┬──┴─────┴──┬──┴──┬──┴──┬────────┤
  * │        │     │systm│space      │lead │     return│systm│\ |  │/ ?     │
- * │Ctrl    │Alt  │     │lower      │Shift│       move│     │     │        │
+ * │Ctrl    │Alt  │     │numsym     │Shift│     nav fn│     │     │        │
  * └────────┴─────┴─────┴───────────┴─────┴───────────┴─────┴─────┴────────┘
  * lower
  * ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┐
@@ -132,7 +132,7 @@ uint16_t MC_LEAD_TIMER = 0;
  * │           │     │     │     │     │     │     │     │     │           │
  * ├────────┬──┴──┬──┴──┬──┴─────┴──┬──┴──┬──┴─────┴──┬──┴──┬──┴──┬────────┤
  * │        │     │     │space      │lead │     return│     │~    │:       │
- * │Ctrl    │Alt  │     │lower      │Shift│       move│     │     │        │
+ * │Ctrl    │Alt  │     │numsym     │Shift│     nav fn│     │     │        │
  * └────────┴─────┴─────┴───────────┴─────┴───────────┴─────┴─────┴────────┘
  * function
  * ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┐
@@ -147,8 +147,8 @@ uint16_t MC_LEAD_TIMER = 0;
  * │      F11  │     │     │     │CtrlV│SelWL│     │     │     │SelWR      │
  * │           │     │     │     │     │     │     │     │     │           │
  * ├────────┬──┴──┬──┴──┬──┴─────┴──┬──┴──┬──┴─────┴──┬──┴──┬──┴──┬────────┤
- * │        │     │     │           │lead │           │     │CtrlY│CtrlZ   │
- * │Ctrl    │Alt  │     │           │Shift│           │     │     │        │
+ * │        │     │     │space      │lead │     return│     │CtrlY│CtrlZ   │
+ * │Ctrl    │Alt  │     │numsym     │Shift│     nav fn│     │     │        │
  * └────────┴─────┴─────┴───────────┴─────┴───────────┴─────┴─────┴────────┘
  * leader one keys
  * ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┐
@@ -201,20 +201,20 @@ uint16_t MC_LEAD_TIMER = 0;
  */
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_QWERTY] = LAYOUT(
-    KC_TAB, KC_Q, KC_W,   KC_F,       KC_P,               KC_B,   KC_J, KC_L,                KC_U,       KC_Y,   MC_COLON,KC_BSPC,
-    KC_NO,  KC_A, KC_R,   KC_S,       KC_T,               KC_G,   KC_M, KC_N,                KC_E,       KC_I,   KC_O,    KC_NO,
-    KC_Z,   KC_NO,KC_X,   KC_C,       KC_D,               KC_V,   KC_K, KC_H,                MC_COMMA,   MC_DOT, KC_NO,   MC_QUOT,
-    KC_LCTL,KC_NO,KC_LALT,MO(_SYSTEM),LT(_LOWER,KC_SPACE),MC_LEAD,KC_NO,LT(_FUNCTION,KC_ENT),MO(_SYSTEM),KC_BSLS,KC_NO,   KC_SLSH),
-[_LOWER] = LAYOUT(
-    KC_TAB, KC_6,   KC_7,   KC_8,    KC_9,               KC_0,   KC_1,   KC_2,                KC_3,   KC_4,   KC_5, KC_DEL,
-    KC_NO,  KC_EXLM,KC_AT,  KC_EQL,  KC_ASTR,            KC_PLUS,KC_MINS,KC_LPRN,             KC_LBRC,KC_LCBR,KC_LT,KC_NO,
-    KC_DLR, KC_NO,  KC_PERC,MC_CARET,KC_HASH,            KC_AMPR,KC_UNDS,KC_RPRN,             KC_RBRC,KC_RCBR,KC_NO,KC_GT,
-    KC_LCTL,KC_NO,  KC_LALT,KC_NO,   LT(_LOWER,KC_SPACE),MC_LEAD,KC_NO,  LT(_FUNCTION,KC_ENT),KC_NO,  MC_TILD,KC_NO,KC_COLON),
-[_FUNCTION] = LAYOUT(
-    KC_TAB, KC_F1,KC_F2,  KC_F3,     KC_F4,              KC_F5,     LCTL(KC_HOME),      KC_PGUP,             KC_UP,  KC_PGDN,       LCTL(KC_END),KC_DEL,
-    KC_NO,  KC_F6,KC_F7,  KC_F8,     KC_F9,              KC_F10,    KC_HOME,            KC_LEFT,             KC_DOWN,KC_RIGHT,      KC_END,      KC_NO,
-    KC_F11, KC_NO,KC_F12, LCTL(KC_X),LCTL(KC_C),         LCTL(KC_V),LSFT(LCTL(KC_LEFT)),LCTL(KC_LEFT),       KC_NO,  LCTL(KC_RIGHT),KC_NO,       LSFT(LCTL(KC_RIGHT)),
-    KC_LCTL,KC_NO,KC_LALT,KC_NO,     LT(_LOWER,KC_SPACE),MC_LEAD,   KC_NO,              LT(_FUNCTION,KC_ENT),KC_NO,  LCTL(KC_Y),    KC_NO,       LCTL(KC_Z)),
+    KC_TAB, KC_Q, KC_W,   KC_F,       KC_P,                KC_B,   KC_J, KC_L,             KC_U,       KC_Y,   MC_COLON,KC_BSPC,
+    KC_NO,  KC_A, KC_R,   KC_S,       KC_T,                KC_G,   KC_M, KC_N,             KC_E,       KC_I,   KC_O,    KC_NO,
+    KC_Z,   KC_NO,KC_X,   KC_C,       KC_D,                KC_V,   KC_K, KC_H,             MC_COMMA,   MC_DOT, KC_NO,   MC_QUOT,
+    KC_LCTL,KC_NO,KC_LALT,MO(_SYSTEM),LT(_NUMSYM,KC_SPACE),MC_LEAD,KC_NO,LT(_NAVFN,KC_ENT),MO(_SYSTEM),KC_BSLS,KC_NO,   KC_SLSH),
+[_NUMSYM] = LAYOUT(
+    KC_TAB, KC_6,   KC_7,   KC_8,    KC_9,                KC_0,   KC_1,   KC_2,             KC_3,   KC_4,   KC_5, KC_DEL,
+    KC_NO,  KC_EXLM,KC_AT,  KC_EQL,  KC_ASTR,             KC_PLUS,KC_MINS,KC_LPRN,          KC_LBRC,KC_LCBR,KC_LT,KC_NO,
+    KC_DLR, KC_NO,  KC_PERC,MC_CARET,KC_HASH,             KC_AMPR,KC_UNDS,KC_RPRN,          KC_RBRC,KC_RCBR,KC_NO,KC_GT,
+    KC_LCTL,KC_NO,  KC_LALT,KC_NO,   LT(_NUMSYM,KC_SPACE),MC_LEAD,KC_NO,  LT(_NAVFN,KC_ENT),KC_NO,  MC_TILD,KC_NO,KC_COLON),
+[_NAVFN] = LAYOUT(
+    KC_TAB, KC_F1,KC_F2,  KC_F3,     KC_F4,               KC_F5,     LCTL(KC_HOME),      KC_PGUP,          KC_UP,  KC_PGDN,       LCTL(KC_END),KC_DEL,
+    KC_NO,  KC_F6,KC_F7,  KC_F8,     KC_F9,               KC_F10,    KC_HOME,            KC_LEFT,          KC_DOWN,KC_RIGHT,      KC_END,      KC_NO,
+    KC_F11, KC_NO,KC_F12, LCTL(KC_X),LCTL(KC_C),          LCTL(KC_V),LSFT(LCTL(KC_LEFT)),LCTL(KC_LEFT),    KC_NO,  LCTL(KC_RIGHT),KC_NO,       LSFT(LCTL(KC_RIGHT)),
+    KC_LCTL,KC_NO,KC_LALT,KC_NO,     LT(_NUMSYM,KC_SPACE),MC_LEAD,   KC_NO,              LT(_NAVFN,KC_ENT),KC_NO,  LCTL(KC_Y),    KC_NO,       LCTL(KC_Z)),
 [_SYSTEM] = LAYOUT(
     KC_SYSTEM_WAKE, QK_BOOT,KC_MPRV,KC_MPLY,    KC_MNXT,KC_VOLU,KC_MS_WH_UP,  KC_MS_WH_LEFT,KC_MS_UP,   KC_MS_WH_RIGHT,KC_MS_ACCEL2,AC_TOGG,
     KC_NO,          KC_NO,  KC_NO,  KC_MSTP,    KC_NO,  KC_VOLD,KC_MS_WH_DOWN,KC_MS_LEFT,   KC_MS_DOWN, KC_MS_RIGHT,   KC_MS_ACCEL1,KC_NO,
@@ -226,7 +226,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     const uint8_t mods = get_mods();
     if (record->event.pressed) leaderKeyPressed = true;
     switch (keycode) {
-        case MC_QUOT:   if (record->event.pressed && !leader_sequence_active()) SEND_STRING(SS_TAP(X_QUOT) SS_TAP(X_SPC));  break;
         case MC_GRV:    if (record->event.pressed) SEND_STRING(SS_TAP(X_GRV) SS_TAP(X_SPC));                                break;
         case MC_TILD:   if (record->event.pressed) SEND_STRING(SS_DOWN(X_LSFT) SS_TAP(X_GRV) SS_TAP(X_SPC) SS_UP(X_LSFT));  break;
         case MC_CARET:  if (record->event.pressed) SEND_STRING(SS_LSFT("6") SS_TAP(X_SPC));                                 break;
@@ -241,6 +240,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 if (timer_elapsed(MC_LEAD_TIMER) < TAPPING_TERM) leader_start();
             }
             break;
+        case MC_QUOT:   if (record->event.pressed && !leader_sequence_active()) SEND_STRING(SS_TAP(X_QUOT) SS_TAP(X_SPC));  break;
         case MC_COMMA:
             if (record->event.pressed && !leader_sequence_active()) {
 				if (mods & MOD_MASK_SHIFT) {
@@ -280,16 +280,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 void leader_end_user(void) {
     int i;
-    for(i=0;i<sizeof(leaderOneKeys)/sizeof(leaderOneKeys[0]);i++)
-        if(leader_sequence_one_key(leaderOneKeys[i].key)) {SEND_STRING(leaderOneKeys[i].out);return;}
-    for(i=0;i<sizeof(leaderTwoKeys)/sizeof(leaderTwoKeys[0]);i++)
-        if(leader_sequence_two_keys(leaderTwoKeys[i].key1,leaderTwoKeys[i].key2)) {SEND_STRING(leaderTwoKeys[i].out);return;}
+    for (i=0; i<sizeof(leaderOneKeys)/sizeof(leaderOneKeys[0]); i++)
+        if (leader_sequence_one_key(leaderOneKeys[i].key)) {SEND_STRING(leaderOneKeys[i].out); return;}
+    for (i=0; i<sizeof(leaderTwoKeys)/sizeof(leaderTwoKeys[0]); i++)
+        if (leader_sequence_two_keys(leaderTwoKeys[i].key1, leaderTwoKeys[i].key2)) {SEND_STRING(leaderTwoKeys[i].out); return;}
     // everything not handled falls through and can be special-handled here
-    if(leader_sequence_one_key(KC_A)) {
-        if (get_mods() & MOD_MASK_SHIFT)
-            SEND_STRING("Availability");
-        else
-            SEND_STRING("availability");
+    if (leader_sequence_one_key(KC_A)) {
+        if (get_mods() & MOD_MASK_SHIFT) SEND_STRING("Availability"); else SEND_STRING("availability");
         return;
     }
 }
