@@ -22,10 +22,6 @@ qmk flash -kb tschibo00/chaotist -km colemakDhFullBottom
 ## have a look
 ![beauty shot](misc/beautyshot.jpg)
 
-more or less up-to-date layout (please see keymap files for up-to-date layout):
-
-![keyboard layout](misc/layout.png)
-
 ## Configurations
 
 ```
@@ -80,7 +76,7 @@ x.xxxx.xxx.x
 - [x] add colemak dh
 - [x] make better use of function layer
 - [x] think about utilizing move layer better
-- [ ] move escape somewhere else to avoid accidental presses
+- [x] move escape somewhere else to avoid accidental presses
 - [x] add case file with build instructions
 - [x] move more critical commands like boot to a special layer thats not triggered accidentally
 - [ ] try to use space/underscore again
@@ -88,3 +84,4 @@ x.xxxx.xxx.x
 - [x] add repeat on delete
 - [ ] add missing symbols like percent, angled brackets
 - [x] use magic key as leader key and hold for shift
+- [ ] switch ; and : in base layer (or think of a better way to use the key :D)
