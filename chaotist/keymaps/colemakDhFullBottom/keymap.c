@@ -1,47 +1,19 @@
 #include QMK_KEYBOARD_H
+#include "../credentials.h"
 
 enum layers {
   _QWERTY = 0,
   _LOWER,
   _FUNCTION,
-  _MAGIC,
   _SYSTEM
 };
 
 enum custom_keycodes {
     MC_GRV = SAFE_RANGE,
-	MC_QUOT,
-	COM_MULTI_CODE,
-	COM_CODE,
-	COM_BRK,
-	COM_SBRK,
-	COM_CBRK,
-	COM_DQUOT,
-	COM_LOCK,
-	COM_CMDER,
-	COM_ADMIN_CMDER,
-    COM_DOUBLE_SHIFT,
-	MC_CARET,
-	MC_DELLINE,
-	MC_TILD,
-	MC_COFFEE,
-	MC_ENUM,
-	MC_RENE,
-	MC_THISFINE,
-	MC_PUZZLED,
-	MC_THINK,
-	MC_AVAILABILITY,
-	MC_SMILED,
-	MC_SMILEH,
-	MC_SMILES,
-	MC_HOMER,
-	MC_SCREAM,
-	MC_MACHETE,
-	MC_PLUSONE,
-	MC_ARROW,
-    MC_COMMENT,
-    MC_MULTI_COMMENT,
-    MC_SHRUG
+    MC_QUOT,
+    MC_CARET,
+    MC_TILD,
+    MC_LEAD
 };
 
 const uint16_t PROGMEM cmb_auml[]={KC_A, KC_R,COMBO_END}; 
@@ -57,6 +29,65 @@ combo_t key_combos[5]={
      COMBO(cmb_euro, LALT(LCTL(KC_5)))
 };
 
+typedef struct {
+    uint16_t key;
+    const char *out;
+} LeaderOneKey;
+typedef struct {
+    uint16_t key1;
+    uint16_t key2;
+    const char *out;
+} LeaderTwoKey;
+
+LeaderOneKey leaderOneKeys[35]={
+    {KC_TAB, SS_DOWN(X_LCTL) SS_TAP(X_Z) SS_UP(X_LCTL)},
+    {KC_Q, SS_DOWN(X_LGUI) SS_TAP(X_L) SS_UP(X_LGUI)},
+    {KC_W, ":coffeezombie:"},
+    {KC_F, "- [ ] "},
+    {KC_P, ":puzzled:"},
+    {KC_B, ":think:"},
+    {KC_J, ":this-is-fine-fire:"},
+    {KC_L, ":man-shrugging:"},
+    {KC_U, SS_DOWN(X_LCTL) SS_TAP(X_X) SS_UP(X_LCTL) "/*" SS_TAP(X_ENTER) SS_DOWN(X_LCTL) SS_TAP(X_V) SS_UP(X_LCTL) "*/" SS_TAP(X_ENTER)},
+    {KC_Y, SS_TAP(X_HOME) SS_TAP(X_HOME) "// "},
+    {KC_SCLN, SS_TAP(X_GRV) SS_TAP(X_GRV) SS_TAP(X_GRV) SS_TAP(X_SPC) SS_DOWN(X_LSFT) SS_TAP(X_ENTER) SS_UP(X_LSFT) SS_DOWN(X_LCTL) SS_TAP(X_V) SS_UP(X_LCTL) SS_DOWN(X_LSFT) SS_TAP(X_ENTER) SS_UP(X_LSFT) SS_TAP(X_GRV) SS_TAP(X_GRV) SS_TAP(X_GRV) SS_TAP(X_SPC)},
+    {KC_BSPC, SS_TAP(X_END) SS_DOWN(X_LSFT) SS_TAP(X_HOME) SS_TAP(X_HOME) SS_UP(X_LSFT) SS_TAP(X_DELETE) SS_TAP(X_DELETE)},
+    // a needs special handling
+    {KC_R, "Ren" SS_TAP(X_QUOTE) "e"},
+    {KC_S, SS_TAP(X_PSCR)},
+    {KC_T, ":machete:"},
+    {KC_G, ":homerdisappear:"},
+    {KC_M, ":homer_scream:"},
+    {KC_N, "()" SS_TAP(X_LEFT)},
+    {KC_E, "[]" SS_TAP(X_LEFT)},
+    {KC_I, "{}" SS_TAP(X_LEFT)},
+    {KC_O, "``" SS_TAP(X_LEFT)},
+    
+    {KC_Z, SS_TAP(X_LSFT) SS_TAP(X_LSFT)},
+    {KC_X, "=>"},
+    {KC_C, ":D"},
+    {KC_D, ":)"},
+    {KC_V, ":("},
+    {KC_K, ":+1:"},
+    {KC_H, SS_TAP(X_CALC)},
+    {KC_COMMA, "r" SS_DELAY(100) "c:\\csp\\cmder\\Cmder.exe" SS_TAP(X_ENTER)},
+    {KC_DOT, "r" SS_DELAY(100) "c:\\csp\\cmder\\Cmder.exe" SS_DOWN(X_LSFT) SS_DOWN(X_LCTL) SS_TAP(X_ENTER) SS_UP(X_LCTL) SS_UP(X_LSFT)},
+    {KC_QUOT, "\"\"" SS_TAP(X_LEFT)},
+    
+    {KC_ESC, SS_DOWN(X_LSFT) SS_DOWN(X_LGUI) SS_TAP(X_LEFT) SS_UP(X_LGUI) SS_UP(X_LSFT)},
+    {KC_MINUS, SS_DOWN(X_LALT) SS_TAP(X_F4) SS_UP(X_LALT)},
+    {KC_BSLS, SS_DOWN(X_LALT) SS_DOWN(X_LCTL) SS_TAP(X_DEL) SS_UP(X_LCTL) SS_UP(X_LALT)},
+    {KC_SLSH, SS_DOWN(X_LSFT) SS_DOWN(X_LGUI) SS_TAP(X_RIGHT) SS_UP(X_LGUI) SS_UP(X_LSFT)},
+};
+
+LeaderTwoKey leaderTwoKeys[2]={
+    {KC_E,KC_W, LK_EW},
+    {KC_E,KC_P, LK_EP}
+};
+
+bool leaderKeyPressed=false;
+uint16_t MC_LEAD_TIMER = 0;
+
 /*
  * base
  * ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┐
@@ -71,8 +102,8 @@ combo_t key_combos[5]={
  * │      z    │     │     │     │v    │k    │     │     │     │' "        │
  * │Shift      │     │     │     │     │     │     │     │     │           │
  * ├────────┬──┴──┬──┴──┬──┴─────┴──┬──┴──┬──┴─────┴──┬──┴──┬──┴──┬────────┤
- * │Esc     │- _  │systm│space      │magic│     return│systm│\ |  │/ ?     │
- * │Ctrl    │Alt  │     │lower      │     │       move│     │     │        │
+ * │Esc     │- _  │systm│space      │lead │     return│systm│\ |  │/ ?     │
+ * │Ctrl    │Alt  │     │lower      │Shift│       move│     │     │        │
  * └────────┴─────┴─────┴───────────┴─────┴───────────┴─────┴─────┴────────┘
  * lower
  * ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┐
@@ -87,8 +118,8 @@ combo_t key_combos[5]={
  * │           │     │     │     │&    │_    │     │     │     │"          │
  * │Shift      │     │     │     │     │     │     │     │     │           │
  * ├────────┬──┴──┬──┴──┬──┴─────┴──┬──┴──┬──┴─────┴──┬──┴──┬──┴──┬────────┤
- * │Esc     │     │     │space      │magic│     return│     │`    │~       │
- * │Ctrl    │Alt  │     │lower      │     │       move│     │     │        │
+ * │Esc     │     │     │space      │lead │     return│     │`    │~       │
+ * │Ctrl    │Alt  │     │lower      │Shift│       move│     │     │        │
  * └────────┴─────┴─────┴───────────┴─────┴───────────┴─────┴─────┴────────┘
  * function
  * ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┐
@@ -103,10 +134,10 @@ combo_t key_combos[5]={
  * │      F11  │     │     │     │CtrlV│SelWL│     │     │     │SelWR      │
  * │Shift      │     │     │     │     │     │     │     │     │           │
  * ├────────┬──┴──┬──┴──┬──┴─────┴──┬──┴──┬──┴─────┴──┬──┴──┬──┴──┬────────┤
- * │Esc     │     │     │           │magic│           │     │CtrlY│CtrlZ   │
- * │Ctrl    │Alt  │     │           │     │           │     │     │        │
+ * │Esc     │     │     │           │lead │           │     │CtrlY│CtrlZ   │
+ * │Ctrl    │Alt  │     │           │Shift│           │     │     │        │
  * └────────┴─────┴─────┴───────────┴─────┴───────────┴─────┴─────┴────────┘
- * magic
+ * leader one keys
  * ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┐
  * │CtrlZ│Lock │Emoji│- [ ]│Emoji│Emoji│Emoji│Emoji│Multi│Comnt│Multi│Del  │
  * │     │     │Coffe│     │puzzl│think│fine │shrug│Comnt│     │Line │Line │
@@ -119,12 +150,12 @@ combo_t key_combos[5]={
  * │Double     │     │     │:)   │Emoji│Emoji│     │     │Cmd  │""         │
  * │Shift      │     │     │     │:(   │+1   │     │     │     │           │
  * ├────────┬──┴──┬──┴──┬──┴─────┴──┬──┴──┬──┴─────┴──┬──┴──┬──┴──┬────────┤
- * │WinLf   │AltF4│Boot │           │magic│           │     │CtlAl│WinRg   │
- * │        │     │     │           │     │           │     │Del  │        │
+ * │WinLf   │AltF4│     │           │lead │           │     │CtlAl│WinRg   │
+ * │        │     │     │           │Shift│           │     │Del  │        │
  * └────────┴─────┴─────┴───────────┴─────┴───────────┴─────┴─────┴────────┘
  * system
  * ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┐
- * │power│     │track│play │track│vol  │mseWh│mseWh│mouse│mseWh│mouse│toggl│
+ * │power│Boot │track│play │track│vol  │mseWh│mseWh│mouse│mseWh│mouse│toggl│
  * │wake │     │prev │pause│next │up   │up   │left │up   │right│acc2 │auto │
  * │     │     │     ├─────┤     │     │     │     ├─────┤     │     │corre│
  * │     │     ├─────┤stop ├─────┤     │     ├─────┤mouse├─────┤     │     │
@@ -157,132 +188,82 @@ combo_t key_combos[5]={
  */
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_QWERTY] = LAYOUT(
-	LSFT_T(KC_TAB),	KC_Q,	KC_W,				KC_F,	    KC_P,				KC_B,		KC_J,	KC_L,			    	KC_U,		KC_Y,	KC_SCLN,KC_BSPC,
-	KC_NO, 			KC_A,	KC_R,				KC_S,	    KC_T,				KC_G,		KC_M,	KC_N,			    	KC_E,		KC_I,	KC_O,   KC_NO,
-	LSFT_T(KC_Z),	KC_NO,	KC_X,				KC_C,	    KC_D,				KC_V,		KC_K,	KC_H,				    KC_COMMA, 	KC_DOT,	KC_NO,	MC_QUOT,
-	LCTL_T(KC_ESC),	KC_NO,	LALT_T(KC_MINUS),	MO(_SYSTEM),LT(_LOWER,KC_SPACE),MO(_MAGIC),	KC_NO,	LT(_FUNCTION,KC_ENT),	MO(_SYSTEM),KC_BSLS,KC_NO,	KC_SLSH),
+    KC_TAB,            KC_Q,    KC_W,                KC_F,        KC_P,                KC_B,    KC_J,    KC_L,                    KC_U,        KC_Y,    KC_SCLN,KC_BSPC,
+    KC_NO,             KC_A,    KC_R,                KC_S,        KC_T,                KC_G,    KC_M,    KC_N,                    KC_E,        KC_I,    KC_O,   KC_NO,
+    KC_Z,            KC_NO,    KC_X,                KC_C,        KC_D,                KC_V,    KC_K,    KC_H,                    KC_COMMA,     KC_DOT,    KC_NO,    MC_QUOT,
+    LCTL_T(KC_ESC),    KC_NO,    LALT_T(KC_MINUS),    MO(_SYSTEM),LT(_LOWER,KC_SPACE),MC_LEAD,KC_NO,    LT(_FUNCTION,KC_ENT),    MO(_SYSTEM),KC_BSLS,KC_NO,    KC_SLSH),
 [_LOWER] = LAYOUT(
-	LSFT_T(KC_TAB),	KC_6,	KC_7,	KC_8,	    KC_9,				KC_0,		KC_1,	    KC_2,				    KC_3,	KC_4,	KC_5,	    KC_DEL,
-	KC_NO,			KC_EXLM,KC_AT,	KC_EQL,     KC_ASTR,			KC_PLUS,	KC_MINS,	KC_LPRN,		        KC_LBRC,KC_LCBR,KC_COLON,   KC_NO,
-	KC_LSFT,		KC_NO,	KC_DLR,	MC_CARET,   KC_HASH,			KC_AMPR,	KC_UNDS,    KC_RPRN,			    KC_RBRC,KC_RCBR,KC_NO,	    COM_DQUOT,
-	LCTL_T(KC_ESC),	KC_NO,	KC_LALT,KC_NO,	    LT(_LOWER,KC_SPACE),MO(_MAGIC),	KC_NO,	    LT(_FUNCTION,KC_ENT),	KC_NO,	MC_GRV, KC_NO,	    MC_TILD),
+    KC_TAB,            KC_6,    KC_7,    KC_8,        KC_9,                KC_0,    KC_1,        KC_2,                    KC_3,    KC_4,    KC_5,        KC_DEL,
+    KC_NO,            KC_EXLM,KC_AT,    KC_EQL,     KC_ASTR,            KC_PLUS,KC_MINS,    KC_LPRN,                KC_LBRC,KC_LCBR,KC_COLON,   KC_NO,
+    KC_NO,            KC_NO,    KC_DLR,    MC_CARET,   KC_HASH,            KC_AMPR,KC_UNDS,    KC_RPRN,                KC_RBRC,KC_RCBR,KC_NO,        MC_QUOT,
+    LCTL_T(KC_ESC),    KC_NO,    KC_LALT,KC_NO,        LT(_LOWER,KC_SPACE),MC_LEAD,KC_NO,        LT(_FUNCTION,KC_ENT),    KC_NO,    MC_GRV, KC_NO,        MC_TILD),
 [_FUNCTION] = LAYOUT(
-	LSFT_T(KC_TAB),	KC_F1,  KC_F2,	            KC_F3,	    KC_F4,              KC_F5,      LCTL(KC_HOME),		KC_PGUP,		        KC_UP,	KC_PGDN,		LCTL(KC_END),	KC_DEL,
-	KC_NO,			KC_F6,  KC_F7,	            KC_F8,	    KC_F9,              KC_F10,     KC_HOME,			KC_LEFT,		        KC_DOWN,KC_RIGHT,		KC_END,			KC_NO,
-	LSFT_T(KC_F11),	KC_NO,  KC_F12,	            LCTL(KC_X),	LCTL(KC_C),         LCTL(KC_V), LSFT(LCTL(KC_LEFT)),LCTL(KC_LEFT),	        KC_NO,	LCTL(KC_RIGHT),	KC_NO,			LSFT(LCTL(KC_RIGHT)),
-	LCTL_T(KC_ESC),	KC_NO,	LALT_T(KC_MINUS),	KC_NO,	    LT(_LOWER,KC_SPACE),MO(_MAGIC),	KC_NO,	            LT(_FUNCTION,KC_ENT),	KC_NO,	LCTL(KC_Y),	    KC_NO,			LCTL(KC_Z)),
-[_MAGIC] = LAYOUT(
-	LCTL(KC_Z),	        COM_LOCK,			MC_COFFEE,	MC_ENUM,	MC_PUZZLED,	MC_THINK,   MC_THISFINE,MC_SHRUG,	MC_MULTI_COMMENT,	MC_COMMENT,	        COM_MULTI_CODE,	MC_DELLINE,
-	KC_NO,				MC_AVAILABILITY, 	MC_RENE,  	KC_PSCR,	MC_MACHETE, MC_HOMER,   MC_SCREAM,  COM_BRK, 	COM_SBRK,		    COM_CBRK,	        COM_CODE,       KC_NO,
-	COM_DOUBLE_SHIFT,  	KC_NO,				MC_ARROW,	MC_SMILED,	MC_SMILEH,	MC_SMILES,	MC_PLUSONE,	KC_CALC,	COM_CMDER, 	        COM_ADMIN_CMDER,    KC_NO,		    COM_DQUOT,
-	LSFT(LGUI(KC_LEFT)),KC_NO,				LALT(KC_F4),QK_BOOT,	KC_NO,		MO(_MAGIC),	KC_NO,		KC_NO,		KC_NO,		        LALT(LCTL(KC_DEL)),	KC_NO,		    LSFT(LGUI(KC_RIGHT))),
+    KC_TAB,            KC_F1,  KC_F2,                KC_F3,        KC_F4,              KC_F5,      LCTL(KC_HOME),        KC_PGUP,                KC_UP,    KC_PGDN,        LCTL(KC_END),    KC_DEL,
+    KC_NO,            KC_F6,  KC_F7,                KC_F8,        KC_F9,              KC_F10,     KC_HOME,            KC_LEFT,                KC_DOWN,KC_RIGHT,        KC_END,            KC_NO,
+    KC_F11,            KC_NO,  KC_F12,                LCTL(KC_X),    LCTL(KC_C),         LCTL(KC_V), LSFT(LCTL(KC_LEFT)),LCTL(KC_LEFT),            KC_NO,    LCTL(KC_RIGHT),    KC_NO,            LSFT(LCTL(KC_RIGHT)),
+    LCTL_T(KC_ESC),    KC_NO,    LALT_T(KC_MINUS),    KC_NO,        LT(_LOWER,KC_SPACE),MC_LEAD,    KC_NO,                LT(_FUNCTION,KC_ENT),    KC_NO,    LCTL(KC_Y),        KC_NO,            LCTL(KC_Z)),
 [_SYSTEM] = LAYOUT(
-	KC_SYSTEM_WAKE, KC_NO,  KC_MPRV,KC_MPLY,    KC_MNXT,KC_VOLU,KC_MS_WH_UP,    KC_MS_WH_LEFT,  KC_MS_UP,   KC_MS_WH_RIGHT, KC_MS_ACCEL2,   AC_TOGG,
-	KC_NO,          KC_NO,  KC_NO,  KC_MSTP,    KC_NO,  KC_VOLD,KC_MS_WH_DOWN,  KC_MS_LEFT,     KC_MS_DOWN, KC_MS_RIGHT,    KC_MS_ACCEL1,   KC_NO,
-	KC_SYSTEM_SLEEP,KC_NO,  KC_NO,  KC_NO,      KC_NO,  KC_MUTE,KC_NO,          KC_MS_BTN1,     KC_MS_BTN3, KC_MS_BTN2,     KC_NO,          KC_MS_ACCEL0,
-	KC_SYSTEM_POWER,KC_NO,  KC_NO,  MO(_SYSTEM),KC_NO,  KC_NO,  KC_NO,          KC_NO,          MO(_SYSTEM),KC_NO,          KC_NO,          KC_NO)
+    KC_SYSTEM_WAKE, QK_BOOT,KC_MPRV,KC_MPLY,    KC_MNXT,KC_VOLU,KC_MS_WH_UP,    KC_MS_WH_LEFT,  KC_MS_UP,   KC_MS_WH_RIGHT, KC_MS_ACCEL2,   AC_TOGG,
+    KC_NO,          KC_NO,  KC_NO,  KC_MSTP,    KC_NO,  KC_VOLD,KC_MS_WH_DOWN,  KC_MS_LEFT,     KC_MS_DOWN, KC_MS_RIGHT,    KC_MS_ACCEL1,   KC_NO,
+    KC_SYSTEM_SLEEP,KC_NO,  KC_NO,  KC_NO,      KC_NO,  KC_MUTE,KC_NO,          KC_MS_BTN1,     KC_MS_BTN3, KC_MS_BTN2,     KC_NO,          KC_MS_ACCEL0,
+    KC_SYSTEM_POWER,KC_NO,  KC_NO,  MO(_SYSTEM),KC_NO,  KC_NO,  KC_NO,          KC_NO,          MO(_SYSTEM),KC_NO,          KC_NO,          KC_NO)
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    const uint8_t mods = get_mods();
+    if (record->event.pressed) leaderKeyPressed = true;
     switch (keycode) {
-		case MC_QUOT:
-			if (record->event.pressed) {
-				SEND_STRING(SS_TAP(X_QUOT) SS_TAP(X_SPC));
-			}
-			break;
-		case MC_GRV:
-			if (record->event.pressed) {
-				SEND_STRING(SS_TAP(X_GRV) SS_TAP(X_SPC));
-			}
-			break;
-		case MC_TILD:
-			if (record->event.pressed) {
-				SEND_STRING(SS_DOWN(X_LSFT) SS_TAP(X_GRV) SS_TAP(X_SPC) SS_UP(X_LSFT));
-			}
-			break;
-		case COM_MULTI_CODE:
-			if (record->event.pressed) {
-				SEND_STRING(SS_TAP(X_GRV) SS_TAP(X_GRV) SS_TAP(X_GRV) SS_TAP(X_SPC) SS_DOWN(X_LSFT) SS_TAP(X_ENTER) SS_UP(X_LSFT) SS_DOWN(X_LCTL) SS_TAP(X_V) SS_UP(X_LCTL) SS_DOWN(X_LSFT) SS_TAP(X_ENTER) SS_UP(X_LSFT) SS_TAP(X_GRV) SS_TAP(X_GRV) SS_TAP(X_GRV) SS_TAP(X_SPC));
-			}
-			break;
-		case COM_CODE:
-			if (record->event.pressed) {
-				SEND_STRING("``" SS_TAP(X_LEFT));
-			}
-			break;
-		case COM_CMDER:
-			if (record->event.pressed) {
-				SEND_STRING(SS_LGUI("r"));
-				wait_ms(100);
-				SEND_STRING("c:\\csp\\cmder\\Cmder.exe" SS_TAP(X_ENTER));
-			}
-			break;
-		case COM_ADMIN_CMDER:
-			if (record->event.pressed) {
-				SEND_STRING(SS_LGUI("r"));
-				wait_ms(100);
-				SEND_STRING("c:\\csp\\cmder\\Cmder.exe" SS_DOWN(X_LSFT) SS_DOWN(X_LCTL) SS_TAP(X_ENTER) SS_UP(X_LCTL) SS_UP(X_LSFT));
-			}
-			break;
-		case COM_BRK:
-			if (record->event.pressed) {
-				SEND_STRING("()" SS_TAP(X_LEFT));
-			}
-			break;
-		case COM_SBRK:
-			if (record->event.pressed) {
-				SEND_STRING("[]" SS_TAP(X_LEFT));
-			}
-			break;
-		case COM_CBRK:
-			if (record->event.pressed) {
-				SEND_STRING("{}" SS_TAP(X_LEFT));
-			}
-			break;
-		case COM_DQUOT:
-			if (record->event.pressed) {
-				SEND_STRING("\"\"" SS_TAP(X_LEFT));
-			}
-			break;
-		case MC_CARET:
-			if (record->event.pressed) {
-				SEND_STRING(SS_LSFT("6") SS_TAP(X_SPC));
-			}
-			break;
-		case MC_DELLINE:
-			if (record->event.pressed) SEND_STRING(SS_TAP(X_END) SS_DOWN(X_LSFT) SS_TAP(X_HOME) SS_TAP(X_HOME) SS_UP(X_LSFT) SS_TAP(X_DELETE) SS_TAP(X_DELETE)); break;
-		case COM_LOCK:
-			if (record->event.pressed) {
-				SEND_STRING(SS_LGUI("l"));
-			}
-			break;
-        case COM_DOUBLE_SHIFT: if (record->event.pressed) SEND_STRING(SS_TAP(X_LSFT) SS_TAP(X_LSFT)); break;
-		case MC_COFFEE: if (record->event.pressed) SEND_STRING(":coffeezombie:"); break;
-		case MC_RENE: if (record->event.pressed) SEND_STRING("Ren" SS_TAP(X_QUOTE) "e"); break;
-		case MC_THISFINE: if (record->event.pressed) SEND_STRING(":this-is-fine-fire:"); break;
-		case MC_PUZZLED: if (record->event.pressed) SEND_STRING(":puzzled:"); break;
-		case MC_THINK: if (record->event.pressed) SEND_STRING(":think:"); break;
-		case MC_AVAILABILITY: if (record->event.pressed) {
-				if (mods & MOD_MASK_SHIFT)
-					SEND_STRING("Availability");
-				else
-					SEND_STRING("availability");
-			}
-			break;
-		case MC_SMILED: if (record->event.pressed) SEND_STRING(":D"); break;
-		case MC_SMILEH: if (record->event.pressed) SEND_STRING(":)"); break;
-		case MC_SMILES: if (record->event.pressed) SEND_STRING(":("); break;
-		case MC_HOMER: if (record->event.pressed) SEND_STRING(":homerdisappear:"); break;
-		case MC_SCREAM: if (record->event.pressed) SEND_STRING(":homer_scream:"); break;
-		case MC_MACHETE: if (record->event.pressed) SEND_STRING(":machete:"); break;
-		case MC_PLUSONE: if (record->event.pressed) SEND_STRING(":+1:"); break;
-		case MC_ARROW: if (record->event.pressed) SEND_STRING("=>"); break;
-		case MC_COMMENT: if (record->event.pressed) SEND_STRING(SS_TAP(X_HOME) SS_TAP(X_HOME) "// "); break;
-		case MC_MULTI_COMMENT: if (record->event.pressed) SEND_STRING(SS_DOWN(X_LCTL) SS_TAP(X_X) SS_UP(X_LCTL) "/*" SS_TAP(X_ENTER) SS_DOWN(X_LCTL) SS_TAP(X_V) SS_UP(X_LCTL) "*/" SS_TAP(X_ENTER)); break;
-		case MC_SHRUG: if (record->event.pressed) SEND_STRING(":man-shrugging:"); break;
-        case MC_ENUM: if (record->event.pressed) SEND_STRING("- [ ] "); break;
-
-	}
+        case MC_QUOT:
+            if (record->event.pressed) {
+                SEND_STRING(SS_TAP(X_QUOT) SS_TAP(X_SPC));
+            }
+            break;
+        case MC_GRV:
+            if (record->event.pressed) {
+                SEND_STRING(SS_TAP(X_GRV) SS_TAP(X_SPC));
+            }
+            break;
+        case MC_TILD:
+            if (record->event.pressed) {
+                SEND_STRING(SS_DOWN(X_LSFT) SS_TAP(X_GRV) SS_TAP(X_SPC) SS_UP(X_LSFT));
+            }
+            break;
+        case MC_CARET:
+            if (record->event.pressed) {
+                SEND_STRING(SS_LSFT("6") SS_TAP(X_SPC));
+            }
+            break;
+        case MC_LEAD:
+            if (record->event.pressed) {
+                register_code(KC_LSFT);
+                leaderKeyPressed = false; 
+                MC_LEAD_TIMER = timer_read();
+            } else {
+                unregister_code(KC_LSFT);
+                if (leaderKeyPressed) break;
+                
+                if (timer_elapsed(MC_LEAD_TIMER) < TAPPING_TERM) {
+                    leader_start();
+                }
+            }
+            break;
+    }
     return true;
 };
+
+void leader_end_user(void) {
+    int i;
+    for(i=0;i<sizeof(leaderOneKeys)/sizeof(leaderOneKeys[0]);i++){
+        if(leader_sequence_one_key(leaderOneKeys[i].key)) {SEND_STRING(leaderOneKeys[i].out);return;}
+    }
+    for(i=0;i<sizeof(leaderTwoKeys)/sizeof(leaderTwoKeys[0]);i++){
+        if(leader_sequence_two_keys(leaderTwoKeys[i].key1,leaderTwoKeys[i].key2)) {SEND_STRING(leaderTwoKeys[i].out);return;}
+    }
+    // everything not handled falls through and can be special-handled here
+    if(leader_sequence_one_key(KC_A)) {
+        if (get_mods() & MOD_MASK_SHIFT)
+            SEND_STRING("Availability");
+        else
+            SEND_STRING("availability");
+        return;
+    }
+}
