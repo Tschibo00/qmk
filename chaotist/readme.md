@@ -84,4 +84,4 @@ x.xxxx.xxx.x
 - [x] add repeat on delete
 - [ ] add missing symbols like percent, angled brackets
 - [x] use magic key as leader key and hold for shift
-- [ ] switch ; and : in base layer (or think of a better way to use the key :D)
+- [x] switch ; and : in base layer (or think of a better way to use the key :D)
