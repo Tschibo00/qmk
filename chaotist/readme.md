@@ -86,3 +86,5 @@ x.xxxx.xxx.x
 - [ ] try to use space/underscore again
 - [x] add audio layer
 - [x] add repeat on delete
+- [ ] add missing symbols like percent, angled brackets
+- [x] use magic key as leader key and hold for shift
