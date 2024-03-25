@@ -79,9 +79,10 @@ x.xxxx.xxx.x
 - [x] move escape somewhere else to avoid accidental presses
 - [x] add case file with build instructions
 - [x] move more critical commands like boot to a special layer thats not triggered accidentally
-- [ ] try to use space/underscore again
+- [-] try to use space/underscore again
 - [x] add audio layer
 - [x] add repeat on delete
-- [ ] add missing symbols like percent, angled brackets
+- [x] add missing symbols like percent, angled brackets
 - [x] use magic key as leader key and hold for shift
 - [x] switch ; and : in base layer (or think of a better way to use the key :D)
+- [ ] make layer switch permanent, when combined with leader key. switch back to base layer on next leader key press
