@@ -9,7 +9,8 @@
         "console": false,
         "extrakey": true,
         "mousekey": true,
-        "nkro": true,
+        "rgblight": true,
+        "nkro": true
     },
     "matrix_pins": {
         "cols": ["GP27","GP28","GP29","GP26","GP15","GP7","GP6","GP3","GP4","GP5"],
@@ -22,6 +23,10 @@
         "vid": "0x239A",
         "pid": "0x0108",
         "device_version": "0.0.1"
+    },
+    "ws2812": {
+        "driver": "vendor",
+        "pin": "GP16"
     },
     "layouts": {
         "LAYOUT": {
