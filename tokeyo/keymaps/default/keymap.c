@@ -19,25 +19,29 @@ enum custom_keycodes {
     MC_DOT,
     MC_EQL_BKSL,
     MC_ASTR_PIP,
-    MC_PLUS_SLSH
+    MC_PLUS_SLSH,
+    MC_SBR_COMMA,
+    MC_CBR_DOT
 };
 
 // This is the magic leader keycode (which does Alt on hold)
 #define UNICORN LALT_T(KC_CAPS)
 #define DELLINE KC_OUT
+#define DELWORD KC_OPER
 
-const uint16_t PROGMEM cmb_auml[]=  	{KC_A, KC_R,COMBO_END}; 
-const uint16_t PROGMEM cmb_ouml[]=  	{KC_O, KC_I,COMBO_END}; 
-const uint16_t PROGMEM cmb_uuml[]=  	{KC_U, KC_Y,COMBO_END}; 
-const uint16_t PROGMEM cmb_szlig[]= 	{KC_R, KC_S,COMBO_END}; 
-const uint16_t PROGMEM cmb_euro[]=  	{KC_E, KC_O,COMBO_END}; 
-const uint16_t PROGMEM cmb_esc[]=   	{KC_W, KC_F,COMBO_END}; 
-const uint16_t PROGMEM cmb_caps[]=  	{KC_B, KC_J,COMBO_END}; 
-const uint16_t PROGMEM cmb_tap[]=  		{KC_S, KC_T,COMBO_END}; 
-const uint16_t PROGMEM cmb_sfttab[]=	{KC_F, KC_P,COMBO_END}; 
-const uint16_t PROGMEM cmb_bksp[]=  	{KC_N, KC_E,COMBO_END}; 
-const uint16_t PROGMEM cmb_del[]=  		{KC_L, KC_U,COMBO_END}; 
-const uint16_t PROGMEM cmb_delline[]=  	{KC_H, MC_COMMA,COMBO_END}; 
+const uint16_t PROGMEM cmb_auml[]=  	{KC_A, 	   KC_R,	COMBO_END}; 
+const uint16_t PROGMEM cmb_ouml[]=  	{KC_O, 	   KC_I,	COMBO_END}; 
+const uint16_t PROGMEM cmb_uuml[]=  	{KC_U, 	   KC_Y,	COMBO_END}; 
+const uint16_t PROGMEM cmb_szlig[]= 	{KC_R, 	   KC_S,	COMBO_END}; 
+const uint16_t PROGMEM cmb_euro[]=  	{KC_E, 	   KC_O,	COMBO_END}; 
+const uint16_t PROGMEM cmb_esc[]=   	{KC_W, 	   KC_F,	COMBO_END}; 
+const uint16_t PROGMEM cmb_caps[]=  	{KC_B, 	   KC_J,	COMBO_END}; 
+const uint16_t PROGMEM cmb_tap[]=  		{KC_S, 	   KC_T,	COMBO_END}; 
+const uint16_t PROGMEM cmb_sfttab[]=	{KC_F, 	   KC_P,	COMBO_END}; 
+const uint16_t PROGMEM cmb_bksp[]=  	{KC_N, 	   KC_E,	COMBO_END}; 
+const uint16_t PROGMEM cmb_del[]=  		{KC_L, 	   KC_U,	COMBO_END}; 
+const uint16_t PROGMEM cmb_delline[]=  	{KC_H, 	   MC_COMMA,COMBO_END};
+const uint16_t PROGMEM cmb_delword[]=  	{MC_COMMA, KC_DOT, 	COMBO_END};
 combo_t key_combos[]={
      COMBO(cmb_auml,    RALT(KC_Q)),
      COMBO(cmb_ouml,    RALT(KC_P)),
@@ -50,16 +54,18 @@ combo_t key_combos[]={
      COMBO(cmb_sfttab,  LSFT(KC_TAB)),
      COMBO(cmb_bksp,    KC_BSPC),
      COMBO(cmb_del,     KC_DEL),
-     COMBO(cmb_delline, DELLINE)					// workaround because qmk doesn't allow complex output for combos
+     COMBO(cmb_delline, DELLINE),					// workaround because qmk doesn't allow complex output for combos
+	 COMBO(cmb_delword, DELWORD)
 };
 
 LeaderOneKey leaderOneKeys[]={
     {KC_Q,      SS_DOWN(X_LGUI) SS_TAP(X_L) SS_UP(X_LGUI)},
     {KC_M,      "- [ ] "},
-    {KC_J,      SS_DOWN(X_LCTL) SS_TAP(X_X) SS_UP(X_LCTL) "/*" SS_TAP(X_ENTER) SS_DOWN(X_LCTL) SS_TAP(X_V) SS_UP(X_LCTL) "*/" SS_TAP(X_ENTER)},
-    {KC_B,      SS_TAP(X_HOME) SS_TAP(X_HOME) "// "},
+    {KC_J,      SS_DOWN(X_LSFT) SS_DOWN(X_LCTL) SS_TAP(X_PSLS) SS_UP(X_LCTL) SS_UP(X_LSFT)},
+    {KC_B,      SS_DOWN(X_LCTL) SS_TAP(X_X) SS_UP(X_LCTL) "/*" SS_TAP(X_ENTER) SS_DOWN(X_LCTL) SS_TAP(X_V) SS_UP(X_LCTL) "*/" SS_TAP(X_ENTER)},
+    {KC_P,      SS_TAP(X_HOME) SS_TAP(X_HOME) "// "},
     {KC_L,      SS_TAP(X_GRV) SS_TAP(X_GRV) SS_TAP(X_GRV) SS_TAP(X_SPC) SS_DOWN(X_LSFT) SS_TAP(X_ENTER) SS_UP(X_LSFT) SS_DOWN(X_LCTL) SS_TAP(X_V) SS_UP(X_LCTL) SS_DOWN(X_LSFT) SS_TAP(X_ENTER) SS_UP(X_LSFT) SS_TAP(X_GRV) SS_TAP(X_GRV) SS_TAP(X_GRV) SS_TAP(X_SPC)},
-    {KC_P,      SS_TAP(X_END) SS_DOWN(X_LSFT) SS_TAP(X_HOME) SS_TAP(X_HOME) SS_UP(X_LSFT) SS_TAP(X_DELETE) SS_TAP(X_DELETE)},
+    {KC_R,      SS_DOWN(X_LGUI) SS_TAP(X_R) SS_UP(X_LGUI)},
     {KC_S,      SS_TAP(X_PSCR)},
     {KC_N,      "()" SS_TAP(X_LEFT)},
     {KC_E,      "[]" SS_TAP(X_LEFT)},
@@ -79,7 +85,8 @@ LeaderOneKey leaderOneKeys[]={
 	{KC_BSPC,   SS_TAP(X_END) SS_DOWN(X_LSFT) SS_TAP(X_HOME) SS_TAP(X_HOME) SS_UP(X_LSFT) SS_TAP(X_DELETE) SS_TAP(X_DELETE)},
     {KC_F,      SS_TAP(X_LSFT) SS_TAP(X_LSFT)},
     {KC_TAB,    SS_DOWN(X_LALT) SS_TAP(X_TAB) SS_UP(X_LALT)},
-    {KC_ENT,    SS_DOWN(X_LSFT) SS_DOWN(X_LALT) SS_TAP(X_TAB) SS_UP(X_LALT) SS_UP(X_LSFT)}
+    {KC_ENT,    SS_DOWN(X_LSFT) SS_DOWN(X_LALT) SS_TAP(X_TAB) SS_UP(X_LALT) SS_UP(X_LSFT)},
+    {KC_U,      SS_TAP(X_END) SS_DOWN(X_LSFT) SS_TAP(X_HOME) SS_TAP(X_HOME) SS_UP(X_LSFT) SS_DOWN(X_LCTL) SS_TAP(X_C) SS_UP(X_LCTL) SS_DELAY(100) SS_TAP(X_END) SS_TAP(X_ENTER) SS_TAP(X_HOME) SS_TAP(X_SLSH) SS_TAP(X_SLSH) SS_TAP(X_SPC) SS_DOWN(X_LCTL) SS_TAP(X_V) SS_UP(X_LCTL) SS_TAP(X_HOME) SS_TAP(X_UP)}
 };
 
 // these are defined in lk_words.h, example:
@@ -106,7 +113,7 @@ LeaderTwoKey leaderTwoKeys[]={
  * │     ├─────┘     │     │     │     │     │     │     └─────┤     │
  * └─────┘           └─────┴─────┘     └─────┴─────┘           └─────┘
  *                   ┌─────┬─────┐     ┌─────┬─────┐
- *                   │space│tab  ├─────┤del  │retrn│
+ *                   │space│     ├─────┤     │retrn│
  *                   │shift│ctrl │lead │numsy│navfn│
  *                   └─────┴─────┤alt  ├─────┴─────┘
  *                               └─────┘
@@ -118,13 +125,13 @@ LeaderTwoKey leaderTwoKeys[]={
  * │     ├─────┤= \  │     │     │     │     │     │[    ├─────┤     │
  * ├─────┤@    │     ├─────┼─────┤     ├─────┼─────┤     │{    ├─────┤
  * │~    │     ├─────┤* |  │+ /  │     │:    │(    ├─────┤     │<    │
- * │     ├─────┤^    │     │     │     │     │     │]    ├─────┤     │
- * ├─────┤%    │     ├─────┼─────┤     ├─────┼─────┤     │}    ├─────┤
+ * │     ├─────┤^    │     │     │     │     │     │] ,  ├─────┤     │
+ * ├─────┤%    │     ├─────┼─────┤     ├─────┼─────┤     │} .  ├─────┤
  * │$    │     ├─────┤#    │&    │     │;    │)    ├─────┤     │>    │
  * │     ├─────┘     │     │     │     │     │     │     └─────┤     │
  * └─────┘           └─────┴─────┘     └─────┴─────┘           └─────┘
  *                   ┌─────┬─────┐     ┌─────┬─────┐
- *                   │space│tab  ├─────┤     │retrn│
+ *                   │space│     ├─────┤     │retrn│
  *                   │shift│ctrl │lead │numsy│navfn│
  *                   └─────┴─────┤alt  ├─────┴─────┘
  *                               └─────┘
@@ -142,17 +149,17 @@ LeaderTwoKey leaderTwoKeys[]={
  * │     ├─────┘     │     │     │     │     │     │     └─────┤     │
  * └─────┘           └─────┴─────┘     └─────┴─────┘           └─────┘
  *                   ┌─────┬─────┐     ┌─────┬─────┐
- *                   │space│tab  ├─────┤     │retrn│
+ *                   │space│     ├─────┤     │retrn│
  *                   │shift│ctrl │lead │numsy│navfn│
  *                   └─────┴─────┤alt  ├─────┴─────┘
  *                               └─────┘
  * leader one keys (for two-or-more leader key combos see lk_words.h)
  *             ┌─────┐                             ┌─────┐
- *       ┌─────┤Doubl│                             │     ├─────┐
- * ┌─────┤     │Shift├─────┬─────┐     ┌─────┬─────┤     │     ├─────┐
- * │Lock │     ├─────┤     │Comnt│     │Multi│Multi├─────┤     │     │
- * │     ├─────┤PrtSc│     │     │     │Comnt│Code │[]   ├─────┤     │
- * ├─────┤     │     ├─────┼─────┤     ├─────┼─────┤     │{}   ├─────┤
+ *       ┌─────┤Doubl│                             │Dupli├─────┐
+ * ┌─────┤     │Shift├─────┬─────┐     ┌─────┬─────┤Line │     ├─────┐
+ * │Lock │     ├─────┤Comnt│Multi│     │MltCm│Multi├─────┤     │     │
+ * │     ├─────┤PrtSc│     │Comnt│     │InteJ│Code │[]   ├─────┤     │
+ * ├─────┤WinR │     ├─────┼─────┤     ├─────┼─────┤     │{}   ├─────┤
  * │->   │     ├─────┤     │     │     │- [ ]│()   ├─────┤     │´´   │
  * │     ├─────┤CtrlC│     │     │     │     │     │     ├─────┤     │
  * ├─────┤     │     ├─────┼─────┤     ├─────┼─────┤     │     ├─────┤
@@ -170,15 +177,15 @@ LeaderTwoKey leaderTwoKeys[]={
  * ┌─────┤track│pause├─────┬─────┐     ┌─────┬─────┤up   │msWhl├─────┐
  * │Boot │prev ├─────┤track│vol  │     │msWhl│msWhl├─────┤right│mouse│
  * │     ├─────┤stop │next │up   │     │up   │left │mouse├─────┤acc2 │
- * ├─────┤     │     ├─────┼─────┤     ├─────┼─────┤down │mouse├─────┤
- * │power│     ├─────┤     │vol  │     │msWhl│mouse├─────┤right│mouse│
- * │sleep├─────┤     │     │down │     │down │left │mouse├─────┤acc1 │
- * ├─────┤     │     ├─────┼─────┤     ├─────┼─────┤btn3 │mouse├─────┤
- * │power│     ├─────┤     │vol  │     │     │mouse├─────┤btn2 │mouse│
- * │off  ├─────┘     │     │mute │     │     │btn1 │     └─────┤acc0 │
+ * ├─────┤RGB  │     ├─────┼─────┤     ├─────┼─────┤down │mouse├─────┤
+ * │RGB  │Lum+ ├─────┤RGB  │vol  │     │msWhl│mouse├─────┤right│mouse│
+ * │Sat+ ├─────┤RGB  │Hue+ │down │     │down │left │mouse├─────┤acc1 │
+ * ├─────┤RGB  │Mode ├─────┼─────┤     ├─────┼─────┤btn3 │mouse├─────┤
+ * │RGB  │Lum- ├─────┤RGB  │vol  │     │RGB  │mouse├─────┤btn2 │mouse│
+ * │Sat- ├─────┘     │Hue- │mute │     │OnOff│btn1 │     └─────┤acc0 │
  * └─────┘           └─────┴─────┘     └─────┴─────┘           └─────┘
  *                   ┌─────┬─────┐     ┌─────┬─────┐
- *                   │space│tab  ├─────┤     │retrn│
+ *                   │space│     ├─────┤     │retrn│
  *                   │shift│ctrl │lead │numsy│navfn│
  *                   └─────┴─────┤alt  ├─────┴─────┘
  *                               └─────┘
@@ -191,37 +198,37 @@ LeaderTwoKey leaderTwoKeys[]={
  * ├─────┤ +==ä==+=ß\├─────┼─────┤     ├─────┼─────┤  +=====€==\─────┤
  * │     │     ├─────\==+=Tab=+  │     │     │     ├─────┤  +=ö│\=+  │
  * │     ├─────┤     │     │     │     │  +=BkSp=+ │     ├─────\==+  │
- * ├─────┤     │     ├─────┼─────┤     ├─────┼─────┤     │     ├─────┤
- * │     │     ├─────┤     │     │     │     │     ├─────┤     │     │
+ * ├─────┤     │     ├─────┼─────┤     ├─────┼─────┤/Wrd+│     ├─────┤
+ * │     │     ├─────┤     │     │     │     │+=Del/─────┤     │     │
  * │     ├─────┘     │     │     │     │+=DelLine=+│     └─────┤     │
  * └─────┘           └─────┴─────┘     └─────┴─────┘           └─────┘
  *                   ┌─────┬─────┐     ┌─────┬─────┐
  *                   │     │     ├─────┤     │     │
- *                   │     │     │     │     │     │
+ *                   │     │     │     │+=system==+│
  *                   └─────┴─────┤     ├─────┴─────┘
  *                               └─────┘
  */
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_BASE] = LAYOUT(
-    KC_Q, KC_W, KC_F,            KC_P,          KC_B,   KC_J,       KC_L,             KC_U,    KC_Y,  KC_MINUS,
-    KC_A, KC_R, KC_S,            KC_T,          KC_G,   KC_M,       KC_N,             KC_E,    KC_I,  KC_O,
-    KC_Z, KC_X, KC_C,            KC_D,          KC_V,   KC_K,       KC_H,             MC_COMMA,MC_DOT,MC_QUOT,
-    KC_NO,KC_NO,LSFT_T(KC_SPACE),LCTL_T(KC_TAB),UNICORN,MO(_NUMSYM),LT(_NAVFN,KC_ENT),KC_NO,   KC_NO, KC_NO),
+    KC_Q,   KC_W,   KC_F,            KC_P,       KC_B,        KC_J,               KC_L,             KC_U,        KC_Y,          KC_MINUS,
+    KC_A,   KC_R,   KC_S,            KC_T,       KC_G,        KC_M,               KC_N,             KC_E,        KC_I,          KC_O,
+    KC_Z,   KC_X,   KC_C,            KC_D,       KC_V,        KC_K,               KC_H,             MC_COMMA,    MC_DOT,        MC_QUOT,
+    KC_NO,  KC_NO,  LSFT_T(KC_SPACE),KC_LCTL,    UNICORN,     MO(_NUMSYM),        LT(_NAVFN,KC_ENT),KC_NO,       KC_NO,         KC_NO),
 [_NUMSYM] = LAYOUT(
-    KC_6,   KC_7,   KC_8,            KC_9,          KC_0,        KC_1,       KC_2,             KC_3,   KC_4,   KC_5,
-    MC_TILD,KC_AT,  MC_EQL_BKSL,     MC_ASTR_PIP,   MC_PLUS_SLSH,KC_COLON,   KC_LPRN,          KC_LBRC,KC_LCBR,KC_LT,
-    KC_DLR, KC_PERC,MC_CARET,        KC_HASH,       KC_AMPR,     KC_SCLN,    KC_RPRN,          KC_RBRC,KC_RCBR,KC_GT,
-    KC_NO,  KC_NO,  LSFT_T(KC_SPACE),LCTL_T(KC_TAB),UNICORN,     MO(_NUMSYM),LT(_NAVFN,KC_ENT),KC_NO,  KC_NO,  KC_NO),
+    KC_6,   KC_7,   KC_8,            KC_9,       KC_0,        KC_1,               KC_2,             KC_3,        KC_4,          KC_5,
+    MC_TILD,KC_AT,  MC_EQL_BKSL,     MC_ASTR_PIP,MC_PLUS_SLSH,KC_COLON,           KC_LPRN,          KC_LBRC,     KC_LCBR,       KC_LT,
+    KC_DLR, KC_PERC,MC_CARET,        KC_HASH,    KC_AMPR,     KC_SCLN,            KC_RPRN,          MC_SBR_COMMA,MC_CBR_DOT,    KC_GT,
+    KC_NO,  KC_NO,  LSFT_T(KC_SPACE),KC_LCTL,    UNICORN,     MO(_NUMSYM),        LT(_NAVFN,KC_ENT),KC_NO,       KC_NO,         KC_NO),
 [_NAVFN] = LAYOUT(
-    KC_F1, KC_F2, KC_F3,           KC_F4,         KC_F5,      LCTL(KC_HOME),      KC_PGUP,          KC_UP,  KC_PGDN,       LCTL(KC_END),
-    KC_F6, KC_F7, KC_F8,           KC_F9,         KC_F10,     KC_HOME,            KC_LEFT,          KC_DOWN,KC_RIGHT,      KC_END,
-    KC_F11,KC_F12,LCTL(KC_C),      LCTL(KC_X),    LCTL(KC_V), LSFT(LCTL(KC_LEFT)),LCTL(KC_LEFT),    KC_NO,  LCTL(KC_RIGHT),LSFT(LCTL(KC_RIGHT)),
-    KC_NO, KC_NO, LSFT_T(KC_SPACE),LCTL_T(KC_TAB),UNICORN,    MO(_NUMSYM),        LT(_NAVFN,KC_ENT),KC_NO,  KC_NO,         KC_NO),
+    KC_F1,  KC_F2,  KC_F3,           KC_F4,      KC_F5,       LCTL(KC_HOME),      KC_PGUP,          KC_UP,       KC_PGDN,       LCTL(KC_END),
+    KC_F6,  KC_F7,  KC_F8,           KC_F9,      KC_F10,      KC_HOME,            KC_LEFT,          KC_DOWN,     KC_RIGHT,      KC_END,
+    KC_F11, KC_F12, LCTL(KC_C),      LCTL(KC_X), LCTL(KC_V),  LSFT(LCTL(KC_LEFT)),LCTL(KC_LEFT),    KC_NO,       LCTL(KC_RIGHT),LSFT(LCTL(KC_RIGHT)),
+    KC_NO,  KC_NO,  LSFT_T(KC_SPACE),KC_LCTL,    UNICORN,     MO(_NUMSYM),        LT(_NAVFN,KC_ENT),KC_NO,       KC_NO,         KC_NO),
 [_SYSTEM] = LAYOUT(
-    QK_BOOT,        KC_MPRV,KC_MPLY,         KC_MNXT,       KC_VOLU,KC_MS_WH_UP,  KC_MS_WH_LEFT,    KC_MS_UP,   KC_MS_WH_RIGHT,KC_MS_ACCEL2,
-    KC_NO,          KC_NO,  KC_MSTP,         KC_NO,         KC_VOLD,KC_MS_WH_DOWN,KC_MS_LEFT,       KC_MS_DOWN, KC_MS_RIGHT,   KC_MS_ACCEL1,
-    KC_SYSTEM_SLEEP,KC_NO,  KC_NO,           KC_NO,         KC_MUTE,KC_NO,        KC_MS_BTN1,       KC_MS_BTN3, KC_MS_BTN2,    KC_MS_ACCEL0,
-    KC_NO,          KC_NO,  LSFT_T(KC_SPACE),LCTL_T(KC_TAB),UNICORN,MO(_NUMSYM),  LT(_NAVFN,KC_ENT),KC_NO,      KC_NO,         KC_NO),
+    QK_BOOT,KC_MPRV,KC_MPLY,         KC_MNXT,    KC_VOLU,     KC_MS_WH_UP,        KC_MS_WH_LEFT,    KC_MS_UP,    KC_MS_WH_RIGHT,KC_MS_ACCEL2,
+    RGB_SAI,RGB_VAI,KC_MSTP,         RGB_HUI,    KC_VOLD,     KC_MS_WH_DOWN,      KC_MS_LEFT,       KC_MS_DOWN,  KC_MS_RIGHT,   KC_MS_ACCEL1,
+    RGB_SAD,RGB_VAD,RGB_MOD,         RGB_HUD,    KC_MUTE,     RGB_TOG,            KC_MS_BTN1,       KC_MS_BTN3,  KC_MS_BTN2,    KC_MS_ACCEL0,
+    KC_NO,  KC_NO,  LSFT_T(KC_SPACE),KC_LCTL,    UNICORN,     MO(_NUMSYM),        LT(_NAVFN,KC_ENT),KC_NO,       KC_NO,         KC_NO)
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -288,6 +295,28 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
 			}
             break;
+        case MC_SBR_COMMA:
+            if (record->event.pressed && !leader_sequence_active()) {
+				if (mods & MOD_MASK_SHIFT) {
+                    unregister_code(KC_LSFT);
+                    SEND_STRING(","); 
+                    register_code(KC_LSFT);
+                } else {
+                    SEND_STRING("]");
+                }
+			}
+            break;
+        case MC_CBR_DOT:
+            if (record->event.pressed && !leader_sequence_active()) {
+				if (mods & MOD_MASK_SHIFT) {
+                    unregister_code(KC_LSFT);
+                    SEND_STRING("."); 
+                    register_code(KC_LSFT);
+                } else {
+					SEND_STRING("}");
+                }
+			}
+            break;
 		case UNICORN:
 			if (record->event.pressed && !leader_sequence_active()) {
 				if (record->tap.count){
@@ -302,6 +331,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 		case DELLINE:
 			if (record->event.pressed && !leader_sequence_active()) {
 				SEND_STRING(SS_TAP(X_END) SS_DOWN(X_LSFT) SS_TAP(X_HOME) SS_TAP(X_HOME) SS_UP(X_LSFT) SS_TAP(X_DELETE) SS_TAP(X_DELETE));
+				return false;
+			}
+			break;
+		case DELWORD:
+			if (record->event.pressed && !leader_sequence_active()) {
+				SEND_STRING(SS_DOWN(X_LSFT) SS_DOWN(X_LCTL) SS_TAP(X_LEFT) SS_UP(X_LCTL) SS_UP(X_LSFT) SS_TAP(X_DELETE));
 				return false;
 			}
 			break;
