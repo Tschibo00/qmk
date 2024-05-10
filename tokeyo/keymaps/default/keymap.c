@@ -40,7 +40,7 @@ const uint16_t PROGMEM cmb_tab[]=       {KC_S, 	   KC_T,	COMBO_END};
 const uint16_t PROGMEM cmb_sfttab[]=	{KC_F, 	   KC_P,	COMBO_END}; 
 const uint16_t PROGMEM cmb_bksp[]=  	{KC_N, 	   KC_E,	COMBO_END}; 
 const uint16_t PROGMEM cmb_del[]=       {KC_L, 	   KC_U,	COMBO_END}; 
-const uint16_t PROGMEM cmb_delline[]=  	{KC_H, 	   MC_COMMA,    COMBO_END};
+const uint16_t PROGMEM cmb_delline[]=  	{KC_H, 	   MC_COMMA,COMBO_END};
 const uint16_t PROGMEM cmb_delword[]=  	{MC_COMMA, MC_DOT, 	COMBO_END};
 combo_t key_combos[]={
      COMBO(cmb_auml,    RALT(KC_Q)),
