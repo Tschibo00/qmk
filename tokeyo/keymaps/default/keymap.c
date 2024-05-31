@@ -36,10 +36,10 @@ const uint16_t PROGMEM cmb_szlig[]= 	{KC_R, 	   KC_S,	COMBO_END};
 const uint16_t PROGMEM cmb_euro[]=  	{KC_E, 	   KC_O,	COMBO_END}; 
 const uint16_t PROGMEM cmb_esc[]=   	{KC_W, 	   KC_F,	COMBO_END}; 
 const uint16_t PROGMEM cmb_caps[]=  	{KC_B, 	   KC_J,	COMBO_END}; 
-const uint16_t PROGMEM cmb_tab[]=       {KC_S, 	   KC_T,	COMBO_END}; 
+const uint16_t PROGMEM cmb_tap[]=  		{KC_S, 	   KC_T,	COMBO_END}; 
 const uint16_t PROGMEM cmb_sfttab[]=	{KC_F, 	   KC_P,	COMBO_END}; 
 const uint16_t PROGMEM cmb_bksp[]=  	{KC_N, 	   KC_E,	COMBO_END}; 
-const uint16_t PROGMEM cmb_del[]=       {KC_L, 	   KC_U,	COMBO_END}; 
+const uint16_t PROGMEM cmb_del[]=  		{KC_L, 	   KC_U,	COMBO_END}; 
 const uint16_t PROGMEM cmb_delline[]=  	{KC_H, 	   MC_COMMA,COMBO_END};
 const uint16_t PROGMEM cmb_delword[]=  	{MC_COMMA, MC_DOT, 	COMBO_END};
 combo_t key_combos[]={
@@ -55,7 +55,7 @@ combo_t key_combos[]={
      COMBO(cmb_bksp,    KC_BSPC),
      COMBO(cmb_del,     KC_DEL),
      COMBO(cmb_delline, DELLINE),					// workaround because qmk doesn't allow complex output for combos
-     COMBO(cmb_delword, DELWORD)
+	 COMBO(cmb_delword, DELWORD)
 };
 
 LeaderOneKey leaderOneKeys[]={
@@ -334,12 +334,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 				return false;
 			}
 			break;
-		case DELWORD:
-			if (record->event.pressed && !leader_sequence_active()) {
-				SEND_STRING(SS_DOWN(X_LSFT) SS_DOWN(X_LCTL) SS_TAP(X_LEFT) SS_UP(X_LCTL) SS_UP(X_LSFT) SS_TAP(X_DELETE));
-				return false;
-			}
-			break;
+        case DELWORD:
+            if (record->event.pressed && !leader_sequence_active()) {
+                SEND_STRING(SS_DOWN(X_LSFT) SS_DOWN(X_LCTL) SS_TAP(X_LEFT) SS_UP(X_LCTL) SS_UP(X_LSFT) SS_TAP(X_DELETE));
+                return false;
+            }
+            break;
     }
     return true;
 };
