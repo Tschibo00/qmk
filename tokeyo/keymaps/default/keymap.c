@@ -15,7 +15,6 @@ enum custom_keycodes {
     MC_QUOT,
     MC_CARET,
     MC_TILD,
-    MC_LEAD,
     MC_COMMA,
     MC_DOT,
     MC_EQL_BKSL,
@@ -30,6 +29,14 @@ enum custom_keycodes {
 #define DELLINE     KC_OUT
 #define DELWORD     KC_OPER
 #define MC_NAV_CMD  LT(_NAVFN, KC_NO)
+#define MC_A        MT(MOD_LGUI,KC_A)
+#define MC_R        MT(MOD_LALT,KC_R)
+#define MC_S        MT(MOD_LCTL,KC_S)
+#define MC_T        MT(MOD_LSFT,KC_T)
+#define MC_N        MT(MOD_LSFT,KC_N)
+#define MC_E        MT(MOD_LCTL,KC_E)
+#define MC_I        MT(MOD_LALT,KC_I)
+#define MC_O        MT(MOD_LGUI,KC_O) 
 
 /*
 const uint16_t PROGMEM cmb_auml[]=      {KC_A,     KC_R,    COMBO_END}; 
@@ -63,11 +70,11 @@ combo_t key_combos[]={
      COMBO(cmb_return,  KC_ENT)
 };
 */
-const uint16_t PROGMEM cmb_caps[]=      {KC_B,     KC_J,    COMBO_END}; 
-const uint16_t PROGMEM cmb_tap[]=       {KC_S,     KC_T,    COMBO_END}; 
-const uint16_t PROGMEM cmb_sfttab[]=    {KC_F,     KC_P,    COMBO_END}; 
-const uint16_t PROGMEM cmb_bksp[]=      {KC_E,     KC_I,    COMBO_END}; 
-const uint16_t PROGMEM cmb_del[]=       {KC_U,     KC_Y,    COMBO_END}; 
+const uint16_t PROGMEM cmb_caps[]=      {KC_B,             KC_J,             COMBO_END}; 
+const uint16_t PROGMEM cmb_tap[]=       {MT(MOD_LCTL,KC_S),MT(MOD_LSFT,KC_T),COMBO_END}; 
+const uint16_t PROGMEM cmb_sfttab[]=    {KC_F,             KC_P,             COMBO_END}; 
+const uint16_t PROGMEM cmb_bksp[]=      {MT(MOD_LCTL,KC_E),MT(MOD_LALT,KC_I),COMBO_END}; 
+const uint16_t PROGMEM cmb_del[]=       {KC_U,             KC_Y,             COMBO_END}; 
 combo_t key_combos[]={
      COMBO(cmb_caps,    QK_CAPS_WORD_TOGGLE),
      COMBO(cmb_tap,     KC_TAB),
@@ -75,7 +82,6 @@ combo_t key_combos[]={
      COMBO(cmb_bksp,    KC_BSPC),
      COMBO(cmb_del,     KC_DEL),
 };
-
 
 LeaderOneKey leaderOneKeys[]={
     {KC_Q,      SS_DOWN(X_LGUI) SS_TAP(X_L) SS_UP(X_LGUI)},
@@ -249,7 +255,7 @@ LeaderTwoKey leaderTwoKeys[]={
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_BASE] = LAYOUT(
     KC_Q,      KC_W,   KC_F,            KC_P,        KC_B,              KC_J,               KC_L,         KC_U,            KC_Y,          KC_MINUS,
-    KC_A,      KC_R,   KC_S,            KC_T,        KC_G,              KC_M,               KC_N,         KC_E,            KC_I,          KC_O,
+    MC_A,      MC_R,   MC_S,            MC_T,        KC_G,              KC_M,               MC_N,         MC_E,            MC_I,          MC_O,
     KC_Z,      KC_X,   KC_C,            KC_D,        KC_V,              KC_K,               KC_H,         MC_COMMA,        MC_DOT,        MC_QUOT,
     KC_NO,     KC_NO,  LSFT_T(KC_SPACE),KC_LCTL,     UNICORN,           MO(_NUMSYM),        MC_NAV_CMD,   KC_NO,           KC_NO,         KC_NO),
 [_NUMSYM] = LAYOUT(
@@ -283,7 +289,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case MC_TILD:   if (record->event.pressed && !leader_sequence_active()) SEND_STRING(SS_DOWN(X_LSFT) SS_TAP(X_GRV) SS_TAP(X_SPC) SS_UP(X_LSFT));  break;
         case MC_CARET:  if (record->event.pressed && !leader_sequence_active()) SEND_STRING(SS_LSFT("6") SS_TAP(X_SPC));                                 break;
         case MC_QUOT:   if (record->event.pressed && !leader_sequence_active()) SEND_STRING(SS_TAP(X_QUOT) SS_TAP(X_SPC));  break;
-        case MC_LEAD:
         // keys with changed shifted character
         case MC_COMMA:
             if (record->event.pressed && !leader_sequence_active()) {
@@ -431,6 +436,14 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case MC_NAV_CMD:
+		case MC_A:
+		case MC_R:
+		case MC_S:
+		case MC_T:
+		case MC_N:
+		case MC_E:
+		case MC_I:
+		case MC_O:
             return false;
         default:
             return true;
