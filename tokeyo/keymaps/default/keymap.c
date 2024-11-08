@@ -25,18 +25,21 @@ enum custom_keycodes {
 };
 
 // This is the magic leader keycode (which does Alt on hold)
-#define UNICORN     LALT_T(KC_CAPS)
+#define UNICORN     LT(_NUMSYM,KC_CAPS)
 #define DELLINE     KC_OUT
 #define DELWORD     KC_OPER
-#define MC_NAV_CMD  LT(_NAVFN, KC_NO)
-#define MC_A        MT(MOD_LGUI,KC_A)
-#define MC_R        MT(MOD_LALT,KC_R)
-#define MC_S        MT(MOD_LCTL,KC_S)
-#define MC_T        MT(MOD_LSFT,KC_T)
-#define MC_N        MT(MOD_LSFT,KC_N)
-#define MC_E        MT(MOD_LCTL,KC_E)
-#define MC_I        MT(MOD_LALT,KC_I)
-#define MC_O        MT(MOD_LGUI,KC_O) 
+#define MC_COMMA    KC_CLAG
+#define MC_DOT      KC_CRSL
+#define MC_QUOT     KC_EXSL
+#define MC_NAV_CMD  LT(_NAVFN, KC_PRIR)
+#define MC_Z        MT(MOD_LGUI,KC_Z)
+#define MC_X        MT(MOD_LALT,KC_X)
+#define MC_C        MT(MOD_LCTL,KC_C)
+#define MC_D        MT(MOD_LSFT,KC_D)
+#define MC_H        MT(MOD_LSFT,KC_H)
+#define MMC_COMMA   MT(MOD_LCTL,MC_COMMA)
+#define MMC_DOT     MT(MOD_LALT,MC_DOT)
+#define MMC_QUOT    MT(MOD_LGUI,MC_QUOT) 
 
 /*
 const uint16_t PROGMEM cmb_auml[]=      {KC_A,     KC_R,    COMBO_END}; 
@@ -46,7 +49,7 @@ const uint16_t PROGMEM cmb_szlig[]=     {KC_R,     KC_S,    COMBO_END};
 const uint16_t PROGMEM cmb_euro[]=      {KC_E,     KC_O,    COMBO_END}; 
 const uint16_t PROGMEM cmb_esc[]=       {KC_W,     KC_F,    COMBO_END}; 
 const uint16_t PROGMEM cmb_caps[]=      {KC_B,     KC_J,    COMBO_END}; 
-const uint16_t PROGMEM cmb_tap[]=       {KC_S,     KC_T,    COMBO_END}; 
+const uint16_t PROGMEM cmb_tab[]=       {KC_S,     KC_T,    COMBO_END}; 
 const uint16_t PROGMEM cmb_sfttab[]=    {KC_F,     KC_P,    COMBO_END}; 
 const uint16_t PROGMEM cmb_bksp[]=      {KC_N,     KC_E,    COMBO_END}; 
 const uint16_t PROGMEM cmb_del[]=       {KC_L,     KC_U,    COMBO_END}; 
@@ -61,7 +64,7 @@ combo_t key_combos[]={
      COMBO(cmb_euro,    LALT(LCTL(KC_5))),
      COMBO(cmb_esc,     KC_ESC),
      COMBO(cmb_caps,    QK_CAPS_WORD_TOGGLE),
-     COMBO(cmb_tap,     KC_TAB),
+     COMBO(cmb_tab,     KC_TAB),
      COMBO(cmb_sfttab,  LSFT(KC_TAB)),
      COMBO(cmb_bksp,    KC_BSPC),
      COMBO(cmb_del,     KC_DEL),
@@ -70,17 +73,19 @@ combo_t key_combos[]={
      COMBO(cmb_return,  KC_ENT)
 };
 */
-const uint16_t PROGMEM cmb_caps[]=      {KC_B,             KC_J,             COMBO_END}; 
-const uint16_t PROGMEM cmb_tap[]=       {MT(MOD_LCTL,KC_S),MT(MOD_LSFT,KC_T),COMBO_END}; 
-const uint16_t PROGMEM cmb_sfttab[]=    {KC_F,             KC_P,             COMBO_END}; 
-const uint16_t PROGMEM cmb_bksp[]=      {MT(MOD_LCTL,KC_E),MT(MOD_LALT,KC_I),COMBO_END}; 
-const uint16_t PROGMEM cmb_del[]=       {KC_U,             KC_Y,             COMBO_END}; 
+const uint16_t PROGMEM cmb_caps[]=      {KC_B, KC_J, COMBO_END}; 
+const uint16_t PROGMEM cmb_tab[]=       {KC_S, KC_T, COMBO_END}; 
+const uint16_t PROGMEM cmb_sfttab[]=    {KC_F, KC_P, COMBO_END}; 
+const uint16_t PROGMEM cmb_bksp[]=      {KC_E, KC_I, COMBO_END}; 
+const uint16_t PROGMEM cmb_del[]=       {KC_U, KC_Y, COMBO_END}; 
+const uint16_t PROGMEM cmb_delword[]=   {KC_I, KC_O, COMBO_END};
 combo_t key_combos[]={
      COMBO(cmb_caps,    QK_CAPS_WORD_TOGGLE),
-     COMBO(cmb_tap,     KC_TAB),
+     COMBO(cmb_tab,     KC_TAB),
      COMBO(cmb_sfttab,  LSFT(KC_TAB)),
      COMBO(cmb_bksp,    KC_BSPC),
      COMBO(cmb_del,     KC_DEL),
+     COMBO(cmb_delword, DELWORD),
 };
 
 LeaderOneKey leaderOneKeys[]={
@@ -99,7 +104,7 @@ LeaderOneKey leaderOneKeys[]={
     {KC_A,      "->"},
     {MC_QUOT,   "\"\"" SS_TAP(X_LEFT)},
     {KC_SPACE,  SS_DOWN(X_LSFT) SS_DOWN(X_LGUI) SS_TAP(X_LEFT) SS_UP(X_LGUI) SS_UP(X_LSFT)},
-    {MC_NAV_CMD,SS_DOWN(X_LSFT) SS_DOWN(X_LGUI) SS_TAP(X_RIGHT) SS_UP(X_LGUI) SS_UP(X_LSFT)},
+    {KC_PRIR,   SS_DOWN(X_LSFT) SS_DOWN(X_LGUI) SS_TAP(X_RIGHT) SS_UP(X_LGUI) SS_UP(X_LSFT)},
     {KC_MINUS,  SS_DOWN(X_LALT) SS_TAP(X_F4) SS_UP(X_LALT)},
     {KC_BSLS,   SS_DOWN(X_LALT) SS_DOWN(X_LCTL) SS_TAP(X_DEL) SS_UP(X_LCTL) SS_UP(X_LALT)},
     {KC_C,      SS_DOWN(X_LCTL) SS_TAP(X_C) SS_UP(X_LCTL)},
@@ -139,9 +144,9 @@ LeaderTwoKey leaderTwoKeys[]={
  * │     ├─────┘     │     │     │     │     │     │     └─────┤     │
  * └─────┘           └─────┴─────┘     └─────┴─────┘           └─────┘
  *                   ┌─────┬─────┐     ┌─────┬─────┐
- *                   │space│     ├─────┤     │retrn│
- *                   │shift│ctrl │lead │numsy│navfn│
- *                   └─────┴─────┤alt  ├─────┴─────┘
+ *                   │space│lead ├─────┤lead │cmd  │
+ *                   │shift│numsy│lead │numsy│navfn│
+ *                   └─────┴─────┤numsy├─────┴─────┘
  *                               └─────┘
  * number/symbol
  *             ┌─────┐                             ┌─────┐
@@ -157,9 +162,9 @@ LeaderTwoKey leaderTwoKeys[]={
  * │     ├─────┘     │     │     │     │     │     │     └─────┤     │
  * └─────┘           └─────┴─────┘     └─────┴─────┘           └─────┘
  *                   ┌─────┬─────┐     ┌─────┬─────┐
- *                   │space│     ├─────┤     │retrn│
- *                   │shift│ctrl │lead │numsy│navfn│
- *                   └─────┴─────┤alt  ├─────┴─────┘
+ *                   │space│lead ├─────┤lead │cmd  │
+ *                   │shift│numsy│lead │numsy│navfn│
+ *                   └─────┴─────┤numsy├─────┴─────┘
  *                               └─────┘
  * navigation/function
  *             ┌─────┐                             ┌─────┐
@@ -175,9 +180,9 @@ LeaderTwoKey leaderTwoKeys[]={
  * │     ├─────┘     │     │     │     │     │     │     └─────┤     │
  * └─────┘           └─────┴─────┘     └─────┴─────┘           └─────┘
  *                   ┌─────┬─────┐     ┌─────┬─────┐
- *                   │space│     ├─────┤     │retrn│
- *                   │shift│ctrl │lead │numsy│navfn│
- *                   └─────┴─────┤alt  ├─────┴─────┘
+ *                   │space│lead ├─────┤lead │cmd  │
+ *                   │shift│numsy│lead │numsy│navfn│
+ *                   └─────┴─────┤numsy├─────┴─────┘
  *                               └─────┘
  * leader one keys (for two-or-more leader key combos see lk_words.h)
  *             ┌─────┐                             ┌─────┐
@@ -211,18 +216,18 @@ LeaderTwoKey leaderTwoKeys[]={
  * │Sat- ├─────┘     │Hue- │mute │     │OnOff│btn1 │     └─────┤acc0 │
  * └─────┘           └─────┴─────┘     └─────┴─────┘           └─────┘
  *                   ┌─────┬─────┐     ┌─────┬─────┐
- *                   │space│     ├─────┤     │retrn│
- *                   │shift│ctrl │lead │numsy│navfn│
- *                   └─────┴─────┤alt  ├─────┴─────┘
+ *                   │space│lead ├─────┤lead │cmd  │
+ *                   │shift│numsy│lead │numsy│navfn│
+ *                   └─────┴─────┤numsy├─────┴─────┘
  *                               └─────┘
  * combos
  *             ┌─────┐                             ┌─────┐
  *       ┌─────┤     │                             │     ├─────┐
- * ┌─────┤     │     ├─────┬─────┐     ┌─────┬─────┤  +=Del=+  ├─────┐
- * │     │     ├─────┤     │   +===Caps===+  │     ├─────┤     │     │
- * │     ├─────┤     │  +SftTab+ │     │     │     │     ├─────┤     │
- * ├─────┤     │     ├─────┼─────┤     ├─────┼─────┤  +=BkSp=+ ├─────┤
- * │     │     ├─────\==+=Tab=+  │     │     │     ├─────┤     │     │
+ * ┌─────┤     │ +   ├─────┬─────┐     ┌─────┬─────┤  +=Del=+  ├─────┐
+ * │     │     ├──\+SftTab+│   +===Caps===+  │     ├─────┤     │     │
+ * │     ├─────┤     │     │     │     │     │     │     ├─────┤     │
+ * ├─────┤     │ +   ├─────┼─────┤     ├─────┼─────┤  +=BkSp=+ ├─────┤
+ * │     │     ├──\=+=Tab=+│     │     │     │     ├─────┤+=DelWord=+│
  * │     ├─────┤     │     │     │     │     │     │     ├─────┤     │
  * ├─────┤     │     ├─────┼─────┤     ├─────┼─────┤     │     ├─────┤
  * │     │     ├─────┤     │     │     │     │     ├─────┤     │     │
@@ -233,7 +238,7 @@ LeaderTwoKey leaderTwoKeys[]={
  *                   │     │     │     │+=system==+│
  *                   └─────┴─────┤     ├─────┴─────┘
  *                               └─────┘
- * one-shots
+ * one-shots cmd
  *             ┌─────┐                             ┌─────┐
  *       ┌─────┤     │                             │ü    ├─────┐
  * ┌─────┤Esc  │     ├─────┬─────┐     ┌─────┬─────┤     │Del  ├─────┐
@@ -255,24 +260,24 @@ LeaderTwoKey leaderTwoKeys[]={
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_BASE] = LAYOUT(
     KC_Q,      KC_W,   KC_F,            KC_P,        KC_B,              KC_J,               KC_L,         KC_U,            KC_Y,          KC_MINUS,
-    MC_A,      MC_R,   MC_S,            MC_T,        KC_G,              KC_M,               MC_N,         MC_E,            MC_I,          MC_O,
-    KC_Z,      KC_X,   KC_C,            KC_D,        KC_V,              KC_K,               KC_H,         MC_COMMA,        MC_DOT,        MC_QUOT,
-    KC_NO,     KC_NO,  LSFT_T(KC_SPACE),KC_LCTL,     UNICORN,           MO(_NUMSYM),        MC_NAV_CMD,   KC_NO,           KC_NO,         KC_NO),
+    KC_A,      KC_R,   KC_S,            KC_T,        KC_G,              KC_M,               KC_N,         KC_E,            KC_I,          KC_O,
+    MC_Z,      MC_X,   MC_C,            MC_D,        KC_V,              KC_K,               MC_H,         MMC_COMMA,       MMC_DOT,       MMC_QUOT,
+    KC_NO,     KC_NO,  LSFT_T(KC_SPACE),UNICORN,     UNICORN,           UNICORN,            MC_NAV_CMD,   KC_NO,           KC_NO,         KC_NO),
 [_NUMSYM] = LAYOUT(
     KC_6,      KC_7,   KC_8,            KC_9,        KC_0,              KC_1,               KC_2,         KC_3,            KC_4,          KC_5,
     MC_TILD,   KC_AT,  MC_EQL_BKSL,     MC_ASTR_PIP, MC_PLUS_SLSH,      KC_COLON,           KC_LPRN,      KC_LBRC,         KC_LCBR,       KC_LT,
     KC_DLR,    KC_PERC,MC_CARET,        KC_HASH,     KC_AMPR,           KC_SCLN,            KC_RPRN,      MC_SBR_COMMA,    MC_CBR_DOT,    KC_GT,
-    KC_NO,     KC_NO,  LSFT_T(KC_SPACE),KC_LCTL,     UNICORN,           MO(_NUMSYM),        MC_NAV_CMD,   KC_NO,           KC_NO,         KC_NO),
+    KC_NO,     KC_NO,  LSFT_T(KC_SPACE),UNICORN,     UNICORN,           UNICORN,            MC_NAV_CMD,   KC_NO,           KC_NO,         KC_NO),
 [_NAVFN] = LAYOUT(
     KC_F1,     KC_F2,  KC_F3,           KC_F4,       KC_F5,             LCTL(KC_HOME),      KC_PGUP,      KC_UP,           KC_PGDN,       LCTL(KC_END),
     KC_F6,     KC_F7,  KC_F8,           KC_F9,       KC_F10,            KC_HOME,            KC_LEFT,      KC_DOWN,         KC_RIGHT,      KC_END,
     KC_F11,    KC_F12, LCTL(KC_C),      LCTL(KC_X),  LCTL(KC_V),        LSFT(LCTL(KC_LEFT)),LCTL(KC_LEFT),LSFT(KC_DOWN),   LCTL(KC_RIGHT),LSFT(LCTL(KC_RIGHT)),
-    KC_NO,     KC_NO,  LSFT_T(KC_SPACE),KC_LCTL,     UNICORN,           MO(_NUMSYM),        MC_NAV_CMD,   KC_NO,           KC_NO,         KC_NO),
+    KC_NO,     KC_NO,  LSFT_T(KC_SPACE),UNICORN,     UNICORN,           UNICORN,            MC_NAV_CMD,   KC_NO,           KC_NO,         KC_NO),
 [_SYSTEM] = LAYOUT(
     QK_BOOT,   KC_MPRV,KC_MPLY,         KC_MNXT,     KC_VOLU,           KC_MS_WH_UP,        KC_MS_WH_LEFT,KC_MS_UP,        KC_MS_WH_RIGHT,KC_MS_ACCEL2,
     RGB_SAI,   RGB_VAI,KC_MSTP,         RGB_HUI,     KC_VOLD,           KC_MS_WH_DOWN,      KC_MS_LEFT,   KC_MS_DOWN,      KC_MS_RIGHT,   KC_MS_ACCEL1,
     RGB_SAD,   RGB_VAD,RGB_MOD,         RGB_HUD,     KC_MUTE,           RGB_TOG,            KC_MS_BTN1,   KC_MS_BTN3,      KC_MS_BTN2,    KC_MS_ACCEL0,
-    KC_NO,     KC_NO,  LSFT_T(KC_SPACE),KC_LCTL,     UNICORN,           MO(_NUMSYM),        MC_NAV_CMD,   KC_NO,           KC_NO,         KC_NO),
+    KC_NO,     KC_NO,  LSFT_T(KC_SPACE),UNICORN,     UNICORN,           UNICORN,            MC_NAV_CMD,   KC_NO,           KC_NO,         KC_NO),
 [_CMD] = LAYOUT(
     KC_NO,     KC_ESC, KC_NO,           LSFT(KC_TAB),KC_NO,             KC_NO,              LSFT(KC_ENT), RALT(KC_Y),      KC_DEL,        KC_NO,
     RALT(KC_Q),KC_NO,  RALT(KC_S),      KC_TAB,      KC_NO,             KC_NO,              KC_ENT,       LALT(LCTL(KC_5)),KC_BSPC,       RALT(KC_P),
@@ -288,10 +293,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case MC_GRV:    if (record->event.pressed && !leader_sequence_active()) SEND_STRING(SS_TAP(X_GRV) SS_TAP(X_SPC));                                break;
         case MC_TILD:   if (record->event.pressed && !leader_sequence_active()) SEND_STRING(SS_DOWN(X_LSFT) SS_TAP(X_GRV) SS_TAP(X_SPC) SS_UP(X_LSFT));  break;
         case MC_CARET:  if (record->event.pressed && !leader_sequence_active()) SEND_STRING(SS_LSFT("6") SS_TAP(X_SPC));                                 break;
-        case MC_QUOT:   if (record->event.pressed && !leader_sequence_active()) SEND_STRING(SS_TAP(X_QUOT) SS_TAP(X_SPC));  break;
+        case MMC_QUOT:   if (record->event.pressed && !leader_sequence_active() && record->tap.count) SEND_STRING(SS_TAP(X_QUOT) SS_TAP(X_SPC));  break;
         // keys with changed shifted character
-        case MC_COMMA:
-            if (record->event.pressed && !leader_sequence_active()) {
+        case MMC_COMMA:
+            if (record->event.pressed && !leader_sequence_active() && record->tap.count) {
                 if (mods & MOD_MASK_SHIFT) {
                     unregister_code(KC_LSFT);
                     SEND_STRING("?"); 
@@ -301,8 +306,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
             }
             break;
-        case MC_DOT:
-            if (record->event.pressed && !leader_sequence_active()) {
+        case MMC_DOT:
+            if (record->event.pressed && !leader_sequence_active() && record->tap.count) {
                 if (mods & MOD_MASK_SHIFT) {
                     unregister_code(KC_LSFT);
                     SEND_STRING("!"); 
@@ -373,7 +378,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     leader_start();
                     return false;
                 } else {
-                    register_code(KC_LALT);
+                    layer_on(_NUMSYM);
                     return false;
                 }
             }
@@ -435,15 +440,15 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 
 bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case MC_NAV_CMD:
-		case MC_A:
-		case MC_R:
-		case MC_S:
-		case MC_T:
-		case MC_N:
-		case MC_E:
-		case MC_I:
-		case MC_O:
+        case MC_NAV_CMD:		// the nav/cmd key shouldn't have permissive hold
+		case MC_Z:              // HRMs (better: BRMs) shouldn't have permissive hold to avoid misfires when rolling
+		case MC_X:
+		case MC_C:
+		case MC_D:
+		case MC_H:
+		case MMC_COMMA:
+		case MMC_DOT:
+		case MMC_QUOT:
             return false;
         default:
             return true;
