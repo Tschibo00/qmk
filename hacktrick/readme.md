@@ -41,6 +41,7 @@ The keyboard is gasket mounted with a special sound guidance feature to have a m
 - mount USB extension cable and fix it inside the case
 - add the sealing tape to the gaskets from all sides
 - mount switches and plate
+- push encoder through plate hole and tighten screw
 - insert PCB sandwich into case top (this has the gasket mount)
 - attach USB extension
 - carefully close the case (upside down is easier)
