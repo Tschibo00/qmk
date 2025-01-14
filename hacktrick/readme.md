@@ -14,11 +14,12 @@ The keyboard is gasket mounted with a special sound guidance feature to have a m
 - RPi2040 Zero
 - 34 diodes, e.g. 1N4148
 - 33 Kailh hot-swap sockets
-- 33 key switches of your liking
+- 33 key switches of your liking (need simple stem, not box style or round)
 - 33 key caps (I use converted Selectric I keycaps)
 - Encoder, e.g. Bourns EC11 (I'm using dentless with 24ppr and push)
 - 4 heat inserts M2.5 5.7x4.6mm
-- 4 screws M2.5x20
+- 2 screws M2.5x20 (back)
+- 2 screws M2.5x16 (front)
 - 6 rubber pads 9.5mm diameter
 - USB port extension (I used this for looks: https://www.aliexpress.us/item/3256804440339698.html)
 - 5x3mm self-adhesive sealing tape for the gasket mount
