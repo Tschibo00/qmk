@@ -47,22 +47,26 @@ const uint16_t PROGMEM cmb_tab[]=       {KC_S, KC_T, COMBO_END};
 const uint16_t PROGMEM cmb_sfttab[]=    {KC_F, KC_P, COMBO_END}; 
 const uint16_t PROGMEM cmb_bksp[]=      {KC_E, KC_I, COMBO_END}; 
 const uint16_t PROGMEM cmb_del[]=       {KC_U, KC_Y, COMBO_END}; 
+const uint16_t PROGMEM cmb_bksp_left[]= {KC_R, KC_S, COMBO_END}; 
+const uint16_t PROGMEM cmb_del_left[]=  {KC_W, KC_F, COMBO_END}; 
 const uint16_t PROGMEM cmb_delword[]=   {MMC_COMMA, MMC_DOT, COMBO_END};
 const uint16_t PROGMEM cmb_delline[]=   {MMC_DOT, MMC_QUOT, COMBO_END};
 const uint16_t PROGMEM cmb_ctlx[]=      {MC_Z, MC_X, COMBO_END};
 const uint16_t PROGMEM cmb_ctlc[]=      {MC_X, MC_C, COMBO_END};
 const uint16_t PROGMEM cmb_ctlv[]=      {MC_C, MC_D, COMBO_END};
 combo_t key_combos[]={
-     COMBO(cmb_caps,    QK_CAPS_WORD_TOGGLE),
-     COMBO(cmb_tab,     KC_TAB),
-     COMBO(cmb_sfttab,  LSFT(KC_TAB)),
-     COMBO(cmb_bksp,    KC_BSPC),
-     COMBO(cmb_del,     KC_DEL),
-     COMBO(cmb_delword, DELWORD),
-     COMBO(cmb_delline, DELLINE),
-     COMBO(cmb_ctlx,    LCTL(KC_X)),
-     COMBO(cmb_ctlc,    LCTL(KC_C)),
-     COMBO(cmb_ctlv,    LCTL(KC_V)),
+     COMBO(cmb_caps,     QK_CAPS_WORD_TOGGLE),
+     COMBO(cmb_tab,      KC_TAB),
+     COMBO(cmb_sfttab,   LSFT(KC_TAB)),
+     COMBO(cmb_bksp,     KC_BSPC),
+     COMBO(cmb_del,      KC_DEL),
+     COMBO(cmb_bksp_left,KC_BSPC),
+     COMBO(cmb_del_left, KC_DEL),
+     COMBO(cmb_delword,  DELWORD),
+     COMBO(cmb_delline,  DELLINE),
+     COMBO(cmb_ctlx,     LCTL(KC_X)),
+     COMBO(cmb_ctlc,     LCTL(KC_C)),
+     COMBO(cmb_ctlv,     LCTL(KC_V)),
 };
 
 LeaderOneKey leaderOneKeys[]={
@@ -184,10 +188,10 @@ LeaderTwoKey leaderTwoKeys[]={
  *                       └─────────┴─────┴─────────┘
  * combos
  *   ┌─────┬─────┬─────┬─────┬─────┐     ┌─────┬─────┬─────┬─────┬─────┐
- *   │     │     │ +=SftTab+ │   +===Caps===+  │     │  +=Del=+  │     │
+ *   │     │ +=Del=+=SftTab+ │   +===Caps===+  │     │  +=Del=+  │     │
  *   │     │     │     │     │     │     │     │     │     │     │     │
  *  ┌┴────┬┴────┬┴────┬┴────┬┴────┬┘     └┬────┴┬────┴┬────┴┬────┴┬────┴┐
- *  │     │     │  +=Tab=+  │     │       │     │     │ +=BkSp=+  │     │
+ *  │     │ +=BkSp=+=Tab=+  │     │       │     │     │ +=BkSp=+  │     │
  *  │     │     │     │     │     │ _____ │     │     │     │     │     │
  * ┌┴────┬┴────┬┴────┬┴────┬┴────┬┘/WhlUD\└┬────┴┬────┴┬────┴┬────┴┬────┴┐
  * │+=CtrlX+=CtrlC+CtrlV=+ │     │ │WhlLR│ │     │     │+=DelWord=+│     │
