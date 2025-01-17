@@ -78,14 +78,26 @@ const uint16_t PROGMEM cmb_tab[]=       {KC_S, KC_T, COMBO_END};
 const uint16_t PROGMEM cmb_sfttab[]=    {KC_F, KC_P, COMBO_END}; 
 const uint16_t PROGMEM cmb_bksp[]=      {KC_E, KC_I, COMBO_END}; 
 const uint16_t PROGMEM cmb_del[]=       {KC_U, KC_Y, COMBO_END}; 
-const uint16_t PROGMEM cmb_delword[]=   {KC_I, KC_O, COMBO_END};
+const uint16_t PROGMEM cmb_bksp_left[]= {KC_R, KC_S, COMBO_END}; 
+const uint16_t PROGMEM cmb_del_left[]=  {KC_W, KC_F, COMBO_END}; 
+const uint16_t PROGMEM cmb_delword[]=   {MMC_COMMA, MMC_DOT, COMBO_END};
+const uint16_t PROGMEM cmb_delline[]=   {MMC_DOT, MMC_QUOT, COMBO_END};
+const uint16_t PROGMEM cmb_ctlx[]=      {MC_Z, MC_X, COMBO_END};
+const uint16_t PROGMEM cmb_ctlc[]=      {MC_X, MC_C, COMBO_END};
+const uint16_t PROGMEM cmb_ctlv[]=      {MC_C, MC_D, COMBO_END};
 combo_t key_combos[]={
-     COMBO(cmb_caps,    QK_CAPS_WORD_TOGGLE),
-     COMBO(cmb_tab,     KC_TAB),
-     COMBO(cmb_sfttab,  LSFT(KC_TAB)),
-     COMBO(cmb_bksp,    KC_BSPC),
-     COMBO(cmb_del,     KC_DEL),
-     COMBO(cmb_delword, DELWORD),
+     COMBO(cmb_caps,     QK_CAPS_WORD_TOGGLE),
+     COMBO(cmb_tab,      KC_TAB),
+     COMBO(cmb_sfttab,   LSFT(KC_TAB)),
+     COMBO(cmb_bksp,     KC_BSPC),
+     COMBO(cmb_del,      KC_DEL),
+     COMBO(cmb_bksp_left,KC_BSPC),
+     COMBO(cmb_del_left, KC_DEL),
+     COMBO(cmb_delword,  DELWORD),
+     COMBO(cmb_delline,  DELLINE),
+     COMBO(cmb_ctlx,     LCTL(KC_X)),
+     COMBO(cmb_ctlc,     LCTL(KC_C)),
+     COMBO(cmb_ctlv,     LCTL(KC_V)),
 };
 
 LeaderOneKey leaderOneKeys[]={
@@ -193,8 +205,8 @@ LeaderTwoKey leaderTwoKeys[]={
  * ├─────┤WinR │     ├─────┼─────┤     ├─────┼─────┤     │{}   ├─────┤
  * │->   │     ├─────┤Mute/│     │     │- [ ]│()   ├─────┤     │´´   │
  * │     ├─────┤CtrlC│Unmte│     │     │     │     │     ├─────┤     │
- * ├─────┤     │     ├─────┼─────┤     ├─────┼─────┤     │     ├─────┤
- * │     │     ├─────┤CtrlX│CtrlV│     │Alt  │Shift├─────┤     │""   │
+ * ├─────┤CtrlY│     ├─────┼─────┤     ├─────┼─────┤     │     ├─────┤
+ * │CtrlZ│     ├─────┤CtrlX│CtrlV│     │Alt  │Shift├─────┤     │""   │
  * │     ├─────┘     │     │     │     │CtrlV│CtrlV│     └─────┤     │
  * └─────┘           └─────┴─────┘     └─────┴─────┘           └─────┘
  *                   ┌─────┬─────┐     ┌─────┬─────┐
@@ -223,14 +235,14 @@ LeaderTwoKey leaderTwoKeys[]={
  * combos
  *             ┌─────┐                             ┌─────┐
  *       ┌─────┤     │                             │     ├─────┐
- * ┌─────┤     │ +   ├─────┬─────┐     ┌─────┬─────┤  +=Del=+  ├─────┐
+ * ┌─────┤ +=Del=+   ├─────┬─────┐     ┌─────┬─────┤  +=Del=+  ├─────┐
  * │     │     ├──\+SftTab+│   +===Caps===+  │     ├─────┤     │     │
  * │     ├─────┤     │     │     │     │     │     │     ├─────┤     │
- * ├─────┤     │ +   ├─────┼─────┤     ├─────┼─────┤  +=BkSp=+ ├─────┤
- * │     │     ├──\=+=Tab=+│     │     │     │     ├─────┤+=DelWord=+│
+ * ├─────┤+=BkSp=+   ├─────┼─────┤     ├─────┼─────┤  +=BkSp=+ ├─────┤
+ * │     │     ├──\=+=Tab=+│     │     │     │     ├─────┤     │     │
  * │     ├─────┤     │     │     │     │     │     │     ├─────┤     │
- * ├─────┤     │     ├─────┼─────┤     ├─────┼─────┤     │     ├─────┤
- * │     │     ├─────┤     │     │     │     │     ├─────┤     │     │
+ * ├─────┤ +=CtrlC=+ ├─────┼─────┤     ├─────┼─────┤+=DelWord=+├─────┤
+ * │ +=CtrlX=+ ├──\=CtrlV=+│     │     │     │     ├─────┤+=DelLine=+│
  * │     ├─────┘     │     │     │     │     │     │     └─────┤     │
  * └─────┘           └─────┴─────┘     └─────┴─────┘           └─────┘
  *                   ┌─────┬─────┐     ┌─────┬─────┐
@@ -240,8 +252,8 @@ LeaderTwoKey leaderTwoKeys[]={
  *                               └─────┘
  * one-shots cmd
  *             ┌─────┐                             ┌─────┐
- *       ┌─────┤     │                             │ü    ├─────┐
- * ┌─────┤Esc  │     ├─────┬─────┐     ┌─────┬─────┤     │Del  ├─────┐
+ *       ┌─────┤Ctrl │                             │ü    ├─────┐
+ * ┌─────┤Esc  │Sft F├─────┬─────┐     ┌─────┬─────┤     │Del  ├─────┐
  * │     │     ├─────┤Sft+ │     │     │     │Sft+ ├─────┤     │     │
  * │     ├─────┤ß    │Tab  │     │     │     │Retrn│€    ├─────┤     │
  * ├─────┤     │     ├─────┼─────┤     ├─────┼─────┤     │BkSp ├─────┤
@@ -279,7 +291,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     RGB_SAD,   RGB_VAD,RGB_MOD,         RGB_HUD,     KC_MUTE,           RGB_TOG,            KC_MS_BTN1,   KC_MS_BTN3,      KC_MS_BTN2,    KC_MS_ACCEL0,
     KC_NO,     KC_NO,  LSFT_T(KC_SPACE),UNICORN,     UNICORN,           UNICORN,            MC_NAV_CMD,   KC_NO,           KC_NO,         KC_NO),
 [_CMD] = LAYOUT(
-    KC_NO,     KC_ESC, KC_NO,           LSFT(KC_TAB),KC_NO,             KC_NO,              LSFT(KC_ENT), RALT(KC_Y),      KC_DEL,        KC_NO,
+    KC_NO,     KC_ESC, LSFT(LCTL(KC_F)),LSFT(KC_TAB),KC_NO,             KC_NO,              LSFT(KC_ENT), RALT(KC_Y),      KC_DEL,        KC_NO,
     RALT(KC_Q),KC_NO,  RALT(KC_S),      KC_TAB,      KC_NO,             KC_NO,              KC_ENT,       LALT(LCTL(KC_5)),KC_BSPC,       RALT(KC_P),
     KC_NO,     KC_NO,  KC_NO,           KC_NO,       KC_NO,             KC_NO,              KC_NO,        KC_NO,           DELWORD,       DELLINE,
     KC_NO,     KC_NO,  KC_NO,           KC_NO,       KC_NO,             KC_NO,              KC_NO,        KC_NO,           KC_NO,         KC_NO)
@@ -441,6 +453,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case MC_NAV_CMD:		// the nav/cmd key shouldn't have permissive hold
+//		case UNICORN:
 		case MC_Z:              // HRMs (better: BRMs) shouldn't have permissive hold to avoid misfires when rolling
 		case MC_X:
 		case MC_C:
