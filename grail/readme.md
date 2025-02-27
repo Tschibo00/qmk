@@ -3,6 +3,9 @@
 Weird qaz like layout with ISO Enter.
 The keyboard is gasket mounted.
 
+See pcb for PCB files.
+See 3db for two different cases (friction mount, no screws) and a special AI-design artisan keycap.
+
 ## hardware
 - RPi2040 Zero
 
