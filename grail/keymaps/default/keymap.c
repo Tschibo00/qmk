@@ -21,7 +21,8 @@ enum custom_keycodes {
     MC_ASTR_PIP,
     MC_PLUS_SLSH,
     MC_SBR_COMMA,
-    MC_CBR_DOT
+    MC_CBR_DOT,
+    MC_LT
 };
 
 #define ___ KC_NO
@@ -33,7 +34,6 @@ enum custom_keycodes {
 #define MC_COMMA    KC_CLAG
 #define MC_DOT      KC_CRSL
 #define MC_QUOT     KC_EXSL
-#define MC_ENC_SW   KC_SEPR
 #define MC_NAV_CMD  LT(_NAVFN, KC_PRIR)
 #define MC_Z        MT(MOD_LGUI,KC_Z)
 #define MC_X        MT(MOD_LALT,KC_X)
@@ -42,7 +42,7 @@ enum custom_keycodes {
 #define MC_M        MT(MOD_LSFT,KC_M)
 #define MMC_COMMA   MT(MOD_LCTL,MC_COMMA)
 #define MMC_DOT     MT(MOD_LALT,MC_DOT)
-#define MMC_QUOT    MT(MOD_LGUI,MC_QUOT) 
+#define MMC_QUOT    MT(MOD_LGUI,MC_QUOT)
 
 const uint16_t PROGMEM cmb_caps[]=      {KC_T, KC_Y, COMBO_END}; 
 const uint16_t PROGMEM cmb_tab[]=       {KC_D, KC_F, COMBO_END}; 
@@ -225,11 +225,11 @@ LeaderTwoKey leaderTwoKeys[]={
 /*
  * one-shots cmd
  * ┌───────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬───────┐
- * │       │Esc  │€    │Sft+ │     │     │Sft+ │ü    │ö    │       │
- * │       │     │     │Tab  │     │     │Retrn│     │     │       │
+ * │       │Esc  │€    │     │     │     │Sft+ │ü    │ö    │- _    │
+ * │       │     │     │     │     │     │Retrn│     │     │       │
  * ├───────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┐      │
- * │ä       │ß    │Ctrl │Tab  │     │     │Retrn│     │     │      │
- * │        │     │Sft F│     │     │     │     │     │     │      │
+ * │ä       │ß    │     │Ctrl │     │     │Retrn│     │     │      │
+ * │        │     │     │Sft F│     │     │     │     │     │      │
  * ├────────┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴──────┤
  * │          │     │     │     │     │     │     │     │          │
  * │          │     │     │     │     │     │     │     │          │
@@ -240,30 +240,30 @@ LeaderTwoKey leaderTwoKeys[]={
  */
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_BASE] = LAYOUT(
-    KC_Q,      KC_W,      KC_E,            KC_R,        KC_T,              KC_Y,               KC_U,         KC_I,            KC_O,          ___,
-    KC_A,      KC_S,      KC_D,            KC_F,        KC_G,              KC_H,               KC_J,         KC_K,            KC_L,          ___,
-    MC_Z,      MC_X,      MC_C,            MC_V,        KC_B,              KC_N,               MC_M,         MMC_COMMA,       MMC_DOT,       ___,
-    ___,       ___,       LSFT_T(KC_SPACE),UNICORN,     MC_NAV_CMD,        MMC_QUOT,           ___,          ___,             KC_P,          ___),
+    KC_Q,      KC_W,      KC_E,            KC_R,            KC_T,              KC_Y,               KC_U,         KC_I,            KC_O,          ___,
+    KC_A,      KC_S,      KC_D,            KC_F,            KC_G,              KC_H,               KC_J,         KC_K,            KC_L,          ___,
+    MC_Z,      MC_X,      MC_C,            MC_V,            KC_B,              KC_N,               MC_M,         MMC_COMMA,       MMC_DOT,       ___,
+    ___,       ___,       LSFT_T(KC_SPACE),UNICORN,         MC_NAV_CMD,        MMC_QUOT,           ___,          ___,             KC_P,          ___),
 [_NUMSYM] = LAYOUT(
-    KC_6,      KC_7,      KC_8,            KC_9,        KC_0,              KC_1,               KC_2,         KC_3,            KC_4,          ___,
-    MC_TILD,   KC_AT,     MC_EQL_BKSL,     MC_ASTR_PIP, MC_PLUS_SLSH,      KC_COLON,           KC_LPRN,      KC_LBRC,         KC_LCBR,       ___,
-    KC_DLR,    KC_PERC,   MC_CARET,        KC_HASH,     KC_AMPR,           KC_SCLN,            KC_RPRN,      MC_SBR_COMMA,    MC_CBR_DOT,    ___,
-    ___,       ___,       LSFT_T(KC_SPACE),UNICORN,     MC_NAV_CMD,        KC_GT,              ___,          ___,             KC_5,          ___),
+    KC_6,      KC_7,      KC_8,            KC_9,            KC_0,              KC_1,               KC_2,         KC_3,            KC_4,          ___,
+    MC_TILD,   KC_AT,     MC_EQL_BKSL,     MC_ASTR_PIP,     MC_PLUS_SLSH,      KC_COLON,           KC_LPRN,      KC_LBRC,         KC_LCBR,       ___,
+    KC_DLR,    KC_PERC,   MC_CARET,        KC_HASH,         KC_AMPR,           KC_SCLN,            KC_RPRN,      MC_SBR_COMMA,    MC_CBR_DOT,    ___,
+    ___,       ___,       LSFT_T(KC_SPACE),UNICORN,         MC_NAV_CMD,        MC_LT,              ___,          ___,             KC_5,          ___),
 [_NAVFN] = LAYOUT(
-    KC_F1,     KC_F2,     KC_F3,           KC_F4,       KC_F5,             LCTL(KC_HOME),      KC_PGUP,      KC_UP,           KC_PGDN,       ___,
-    KC_F6,     KC_F7,     KC_F8,           KC_F9,       KC_F10,            KC_HOME,            KC_LEFT,      KC_DOWN,         KC_RIGHT,      ___,
-    KC_F11,    KC_F12,    LCTL(KC_C),      LCTL(KC_X),  LCTL(KC_V),        LSFT(LCTL(KC_LEFT)),LCTL(KC_LEFT),LSFT(KC_DOWN),   LCTL(KC_RIGHT),___,
-    ___,       ___,       LSFT_T(KC_SPACE),UNICORN,     MC_NAV_CMD,        LSFT(LCTL(KC_RIGHT)),___,         ___,             KC_END,        ___),
+    KC_F1,     KC_F2,     KC_F3,           KC_F4,           KC_F5,             LCTL(KC_HOME),      KC_PGUP,      KC_UP,           KC_PGDN,       ___,
+    KC_F6,     KC_F7,     KC_F8,           KC_F9,           KC_F10,            KC_HOME,            KC_LEFT,      KC_DOWN,         KC_RIGHT,      ___,
+    KC_F11,    KC_F12,    LCTL(KC_C),      LCTL(KC_X),      LCTL(KC_V),        LSFT(LCTL(KC_LEFT)),LCTL(KC_LEFT),LSFT(KC_DOWN),   LCTL(KC_RIGHT),___,
+    ___,       ___,       LSFT_T(KC_SPACE),UNICORN,         MC_NAV_CMD,        LSFT(LCTL(KC_RIGHT)),___,         ___,             KC_END,        ___),
 [_SYSTEM] = LAYOUT(
-    QK_BOOT,   KC_MPRV,   KC_MPLY,         KC_MNXT,     KC_VOLU,           KC_MS_WH_UP,        KC_MS_WH_LEFT,KC_MS_UP,        KC_MS_WH_RIGHT,___,
-    RGB_SAI,   RGB_VAI,   KC_MSTP,         RGB_HUI,     KC_VOLD,           KC_MS_WH_DOWN,      KC_MS_LEFT,   KC_MS_DOWN,      KC_MS_RIGHT,   ___,
-    RGB_SAD,   RGB_VAD,   RGB_MOD,         RGB_HUD,     KC_MUTE,           RGB_TOG,            KC_MS_BTN1,   KC_MS_BTN3,      KC_MS_BTN2,    ___,
-    ___,       ___,       LSFT_T(KC_SPACE),UNICORN,     MC_NAV_CMD,        KC_MS_ACCEL0,       ___,          ___,             KC_MS_ACCEL2,  ___),
+    QK_BOOT,   KC_MPRV,   KC_MPLY,         KC_MNXT,         KC_VOLU,           KC_MS_WH_UP,        KC_MS_WH_LEFT,KC_MS_UP,        KC_MS_WH_RIGHT,___,
+    RGB_SAI,   RGB_VAI,   KC_MSTP,         RGB_HUI,         KC_VOLD,           KC_MS_WH_DOWN,      KC_MS_LEFT,   KC_MS_DOWN,      KC_MS_RIGHT,   ___,
+    RGB_SAD,   RGB_VAD,   RGB_MOD,         RGB_HUD,         KC_MUTE,           RGB_TOG,            KC_MS_BTN1,   KC_MS_BTN3,      KC_MS_BTN2,    ___,
+    ___,       ___,       LSFT_T(KC_SPACE),UNICORN,         MC_NAV_CMD,        KC_MS_ACCEL0,       ___,          ___,             KC_MS_ACCEL2,  ___),
 [_CMD] = LAYOUT(
-    ___,       KC_ESC,    LALT(LCTL(KC_5)),LSFT(KC_TAB),___,               ___,                LSFT(KC_ENT), RALT(KC_Y),      RALT(KC_P),    ___,
-    RALT(KC_Q),RALT(KC_S),LSFT(LCTL(KC_F)),KC_TAB,      ___,               ___,                KC_ENT,       LALT(LCTL(KC_5)),___,           ___,
-    ___,       ___,       ___,             ___,         ___,               ___,                ___,          ___,             ___,           ___,
-    ___,       ___,       ___,             ___,         ___,               ___,                ___,          ___,             ___,           ___),
+    ___,       KC_ESC,    LALT(LCTL(KC_5)),___,             ___,               ___,                LSFT(KC_ENT), RALT(KC_Y),      RALT(KC_P),    ___,
+    RALT(KC_Q),RALT(KC_S),___,             LSFT(LCTL(KC_F)),___,               ___,                KC_ENT,       LALT(LCTL(KC_5)),___,           ___,
+    ___,       ___,       ___,             ___,             ___,               ___,                ___,          ___,             ___,           ___,
+    ___,       ___,       ___,             ___,             ___,               ___,                ___,          ___,             KC_MINUS,      ___),
 };
 
 static uint8_t navOslState = 0;
@@ -354,11 +354,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
             }
             break;
-		case MC_ENC_SW:
-           if (record->event.pressed && !leader_sequence_active()) {
-               encoder_side = !encoder_side;
-		   }
-           break;
+        case MC_LT:
+            if (record->event.pressed && !leader_sequence_active()) {
+                if (mods & MOD_MASK_SHIFT) {
+                    unregister_code(KC_LSFT);
+                    SEND_STRING(">"); 
+                    register_code(KC_LSFT);
+                } else {
+                    SEND_STRING("<");
+                }
+            }
+            break;
         case UNICORN:
             if (record->event.pressed && !leader_sequence_active()) {
                 if (record->tap.count){
