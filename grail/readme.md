@@ -31,6 +31,3 @@ See 3db for two different cases (friction mount, no screws) and a special AI-des
 - add the sealing tape to the gaskets from all sides
 - insert PCB into case bottom
 - attach USB extension
-
-## Todos
-- [ ] fix lt/gt
