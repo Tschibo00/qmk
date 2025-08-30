@@ -6,3 +6,6 @@ Also the placement of the thumb keys is a little bit modified. The left and righ
 Biggest change is the addition of an encoder for scrolling (or whatever you want to use it for).
 
 The footprint supports MX, ChocV1 and Alps.
+
+![Front](front.jpg)
+![Back](back.jpg)
