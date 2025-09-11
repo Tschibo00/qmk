@@ -444,3 +444,13 @@ bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
             return true;
     }
 }
+
+bool encoder_update_user(uint8_t index, bool clockwise) {
+	if (index == 0) {
+		if (encoder_side)
+			clockwise ? SEND_STRING(SS_TAP(X_WH_L) SS_TAP(X_WH_L) SS_TAP(X_WH_L)) : SEND_STRING(SS_TAP(X_WH_R) SS_TAP(X_WH_R) SS_TAP(X_WH_R));
+		else
+			clockwise ? tap_code(KC_WH_U) : tap_code(KC_WH_D);
+	}
+    return false;
+}
