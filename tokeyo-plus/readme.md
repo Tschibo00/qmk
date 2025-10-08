@@ -9,3 +9,4 @@ The footprint supports MX, ChocV1 and Alps.
 
 ![Front](front.jpg)
 ![Back](back.jpg)
+![Case](case/tokeyo_plus_case.png)
