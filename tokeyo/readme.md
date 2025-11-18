@@ -1,5 +1,12 @@
 # tschibo00/tokeyo
 
+## WARNING
+This project is a personal project, i just built one prototype. It's not considered complete, nor tested or error-free.
+
+I won't develop this much, just releasing it as-is for anybody knowledgable picking up and maybe building upon it.
+
+It is NOT ready to take the files and produce a working keyboard!
+
 ## hardware
 - RPi2040 Zero
 - The current keymaps is designed as Colemak DH layout used with US International to have äöüß€ available for combos.
@@ -51,4 +58,5 @@ qmk flash -kb tschibo00/tokeyo -km default
 - [x] alt+win+k mute/unmute
 - [x] add del word as combo again
 - [x] add mongo snippets
+
 - [ ] make BRMs work with F-keys
