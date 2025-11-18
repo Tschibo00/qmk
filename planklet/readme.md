@@ -1,4 +1,14 @@
 # tschibo00/planklet
+
+## WARNING
+This project is a personal project, i just built one prototype. It's not considered complete, nor tested or error-free.
+
+I won't develop this much, just releasing it as-is for anybody knowledgable picking up and maybe building upon it.
+
+It is NOT ready to take the files and produce a working keyboard!
+
+## What is it?
+
 Ortho 3x13 layout with 2u in the middle column. Tailored to my very specific needs like having a bit more space and a super-special gaming layer which fits my hand positioning.
 
 Added one backlight/sidelight WS2812 and a 5-digit 7-segment display from and old HP calculator for funsies.
@@ -62,3 +72,4 @@ qmk flash -kb tschibo00/planklet -km default
 more or less up-to-date layout:
 
 ![keyboard layout](misc/layout.png)
+
