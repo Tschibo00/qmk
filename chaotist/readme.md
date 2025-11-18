@@ -1,5 +1,12 @@
 # tschibo00/chaotist
 
+## WARNING
+This project is a personal project, i just built one prototype. It's not considered complete, nor tested or error-free.
+
+I won't develop this much, just releasing it as-is for anybody knowledgable picking up and maybe building upon it.
+
+It is NOT ready to take the files and produce a working keyboard!
+
 ## hardware
 - RPi2040 Pico
 - The current keymaps is designed as either QWERTZ or Colemak DH layout used with US International to have äöüß€ available for combos.
@@ -86,3 +93,4 @@ x.xxxx.xxx.x
 - [x] use magic key as leader key and hold for shift
 - [x] switch ; and : in base layer (or think of a better way to use the key :D)
 - [ ] make layer switch permanent, when combined with leader key. switch back to base layer on next leader key press
+
