@@ -1,5 +1,14 @@
 # tschibo00/hacktrick
 
+## WARNING
+This project is a personal project, i just built one prototype. It's not considered complete, nor tested or error-free.
+
+I won't develop this much, just releasing it as-is for anybody knowledgable picking up and maybe building upon it.
+
+It is NOT ready to take the files and produce a working keyboard!
+
+## What is it?
+
 This was a special project to bring Selectric I keycaps back to life in a MX keyboard.
 It required conversion of the keycaps and rotated MX switches (i.e. "sideways").
 The keyboard is gasket mounted with a special sound guidance feature to have a more bassy sound.
@@ -47,3 +56,4 @@ The keyboard is gasket mounted with a special sound guidance feature to have a m
 - attach USB extension
 - carefully close the case (upside down is easier)
 - put in and gently tighten the screws
+
