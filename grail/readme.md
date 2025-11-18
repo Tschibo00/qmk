@@ -1,5 +1,14 @@
 # tschibo00/grAIl
 
+## WARNING
+This project is a personal project, i just built one prototype. It's not considered complete, nor tested or error-free.
+
+I won't develop this much, just releasing it as-is for anybody knowledgable picking up and maybe building upon it.
+
+It is NOT ready to take the files and produce a working keyboard!
+
+## What is it?
+
 Weird qaz like layout with ISO Enter.
 The keyboard is gasket mounted.
 
@@ -31,3 +40,4 @@ See 3db for two different cases (friction mount, no screws) and a special AI-des
 - add the sealing tape to the gaskets from all sides
 - insert PCB into case bottom
 - attach USB extension
+
