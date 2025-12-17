@@ -12,6 +12,8 @@ It is NOT ready to take the files and produce a working keyboard!
 Slightly wider weird qaz like layout with ISO Enter.
 The keyboard is gasket mounted.
 
+![beautyshot](misc/beautyshot.jpg)
+
 ## hardware
 - RPi2040 Zero
 
@@ -41,4 +43,5 @@ The keyboard is gasket mounted.
     - attach USB extension
 
 ## Todos
+
 
