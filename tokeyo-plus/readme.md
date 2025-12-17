@@ -19,6 +19,6 @@ The footprint supports MX, ChocV1 and Alps.
 
 The case is a friction-mounted case which allows for dampening below the PCB and has a cutout for 19mm knobs.
 
+![beautyshot](misc/beautyshot.jpg)
 ![Front](front.jpg)
 ![Back](back.jpg)
-![Case](case/tokeyo_plus_case.png)
