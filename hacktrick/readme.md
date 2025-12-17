@@ -13,6 +13,8 @@ This was a special project to bring Selectric I keycaps back to life in a MX key
 It required conversion of the keycaps and rotated MX switches (i.e. "sideways").
 The keyboard is gasket mounted with a special sound guidance feature to have a more bassy sound.
 
+![beautyshot](misc/beautyshot.jpg)
+
 ## hardware
 - RPi2040 Zero
 - Specifically designed for converted Selectric keycaps
@@ -56,4 +58,5 @@ The keyboard is gasket mounted with a special sound guidance feature to have a m
 - attach USB extension
 - carefully close the case (upside down is easier)
 - put in and gently tighten the screws
+
 
