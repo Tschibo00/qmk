@@ -15,6 +15,10 @@ The keyboard is gasket mounted.
 See pcb for PCB files.
 See 3db for two different cases (friction mount, no screws) and a special AI-design artisan keycap.
 
+![beauty_top](photos/2025_0301_16250800.jpg)
+
+![beauty_bottom](photos/2025_0301_16252600.jpg)
+
 ## hardware
 - RPi2040 Zero
 
@@ -40,4 +44,5 @@ See 3db for two different cases (friction mount, no screws) and a special AI-des
 - add the sealing tape to the gaskets from all sides
 - insert PCB into case bottom
 - attach USB extension
+
 
